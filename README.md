@@ -22,14 +22,16 @@ Check [docs/ebnf.ebnf](docs/ebnf.ebnf) for specific details of the supported fea
 
 ## Install
 
-> [!WARNING]
-> Until this library is considered battle ready, it won't be uploaded to any package repository. Also, no releases will be created until that point. Use it at your discretion and remember that it's an unfinished piece of software shared without any warrant.
-
 ```bash
 git clone https://github.com/estudio-hawara/bakus-pakus
 cd bakus-pakus
 pnpm install
 ```
+
+---
+
+> [!WARNING]
+> Until this library is considered battle ready, it won't be uploaded to any package repository. Also, no releases will be created until that point. Use it at your discretion and remember that it's an unfinished piece of software shared without any warrant.
 
 ## Tests
 
