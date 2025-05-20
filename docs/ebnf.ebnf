@@ -8,11 +8,11 @@
   See: https://github.com/matthijsgroen/ebnf2railroad
 *)
 
-grammar = { rule };
+grammar = { rule } ;
 
-rule = lhs , "=" , rhs , ";";
+rule = lhs , "=" , rhs , ";" ;
 
-lhs = identifier;
+lhs = identifier ;
 
 rhs = terminal
   | identifier
@@ -20,25 +20,39 @@ rhs = terminal
   | ( "{" , rhs , "}" ) (* repetition *)
   | ( "[" , rhs , "]" ) (* optional *)
   | ( rhs , "|" , rhs ) (* choice *)
-  | ( rhs , "," , rhs ) (* sequence *);
+  | ( rhs , "," , rhs ) (* sequence *)
+  ;
 
-identifier = letter , { letter | digit | " " }, { letter | digit };
+identifier = letter , { letter | digit | " " }, { letter | digit } ;
 
-terminal = '"' , character , { character } , '"';
+terminal = terminal with single quote | terminal with double quote ;
 
-character = letter | digit | symbol | " " ;
+terminal with single quote = '"' , character with single quote , { character with single quote } , '"' ;
 
-letter =
+terminal with double quote = "'" , character with double quote , { character with double quote } , "'" ;
+
+character with single quote = letter | digit | symbol with single quote | " " ;
+
+character with double quote = letter | digit | symbol with double quote | " " ;
+
+letter = uppercase letter | lowercase letter ;
+
+uppercase letter =
     "A" | "B" | "C" | "D" | "E" | "F" | "G"
   | "H" | "I" | "J" | "K" | "L" | "M" | "N"
   | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
-  | "V" | "W" | "X" | "Y" | "Z" | "a" | "b"
-  | "c" | "d" | "e" | "f" | "g" | "h" | "i"
-  | "j" | "k" | "l" | "m" | "n" | "o" | "p"
-  | "q" | "r" | "s" | "t" | "u" | "v" | "w"
-  | "x" | "y" | "z" ;
+  | "V" | "W" | "X" | "Y" | "Z";
+
+lowercase letter =
+    "a" | "b" | "c" | "d" | "e" | "f" | "g"
+  | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+  | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+  | "v" | "w" | "x" | "y" | "z" ;
 
 digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
 
-symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
-  | "\'" | '\"' | "=" | "|" | "." | "," | ";" ;
+symbol with single quote = symbol | "'" ;
+
+symbol with double quote = symbol | '"' ;
+
+symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">" | "=" | "|" | "." | "," | ";" ;

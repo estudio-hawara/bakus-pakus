@@ -43,5 +43,18 @@ export class Specification
 
 export const ebnfSpecification = new Specification;
 
+// Whitespace
 ebnfSpecification.add(/^\s+/, null);
+
+// Assignment operator
+ebnfSpecification.add(/^=/, '=');
+
+// Rule terminator operator
+ebnfSpecification.add(/^;/, ';');
+
+// Identifier
 ebnfSpecification.add(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');
+
+// Single and double quoted terminals
+ebnfSpecification.add(/^"[A-Za-z0-9\[\]\{\}\(\)<>=\|\.,';\s]+"/, 'terminal');
+ebnfSpecification.add(/^'[A-Za-z0-9\[\]\{\}\(\)<>=\|\.,";\s]+'/, 'terminal');

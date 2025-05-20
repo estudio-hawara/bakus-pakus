@@ -8,7 +8,7 @@ describe('Factory', () => {
 
     test('can generate terminal nodes', () => {
         const factory = new Factory;
-        const terminal = factory.terminal('0');
+        const terminal = factory.Terminal('0');
 
         expect(terminal.type).toBe('Terminal');
         expect(terminal.value).toBe('0');

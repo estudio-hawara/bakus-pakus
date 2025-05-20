@@ -82,11 +82,11 @@ export class Tokenizer
             if (value == null)
                 continue;
 
+            this.#reader.skipCharacters(value.length);
+
             // Skip ignorable tokens (like white spaces)
-            if (rule.type == null) {
-                this.#reader.skipCharacters(value.length);
+            if (rule.type == null)
                 return this.getNextToken();
-            }
 
             return new Token(rule.type, value);
         }
