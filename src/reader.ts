@@ -3,7 +3,7 @@ export class Reader
     #position: number = 0;
     #line: number = 1;
     #column: number = 1;
-    #finished: boolean = false;
+    #finished: boolean = true;
     #source: string = '';
 
     reset(): void
@@ -11,7 +11,7 @@ export class Reader
         this.#position = 0;
         this.#line = 1;
         this.#column = 1;
-        this.#finished = false;
+        this.#finished = this.#position >= this.#source.length;
     }
 
     read(source: string): void

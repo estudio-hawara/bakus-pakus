@@ -29,7 +29,7 @@ export class Specification
 {
     #rules: Rule[] = [];
 
-    add(pattern: RegExp, type: string)
+    add(pattern: RegExp, type: string|null)
     {
         const rule = new Rule(pattern, type);
         this.#rules.push(rule);
@@ -43,4 +43,5 @@ export class Specification
 
 export const ebnfSpecification = new Specification;
 
+ebnfSpecification.add(/^\s+/, null);
 ebnfSpecification.add(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');

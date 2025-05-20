@@ -34,6 +34,7 @@ export class Tokenizer
         reader: Reader = new Reader,
         specification: Specification = ebnfSpecification,
     ) {
+        reader.reset();
         this.#reader = reader;
         this.#specification = specification;
     }
@@ -58,6 +59,11 @@ export class Tokenizer
         return this.#reader.finished;
     }
 
+    get source(): string
+    {
+        return this.#reader.source;
+    }
+
     read(source: string)
     {
         this.#reader.read(source);
@@ -77,8 +83,10 @@ export class Tokenizer
                 continue;
 
             // Skip ignorable tokens (like white spaces)
-            if (rule.type == null)
+            if (rule.type == null) {
+                this.#reader.skipCharacters(value.length);
                 return this.getNextToken();
+            }
 
             return new Token(rule.type, value);
         }
