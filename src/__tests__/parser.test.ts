@@ -40,7 +40,7 @@ describe('Parser', () => {
     test('throws an error when trying to eat a token different than the lookahead', () => {
         const parser = new Parser;
         const source = 'zero = "0";';
-        parser.parse(source);
+        parser.read(source);
         parser.reset();
 
         expect(() => { parser.eat('terminal'); }).toThrow(SyntaxError);
@@ -66,6 +66,16 @@ describe('Parser', () => {
         const parsed = parser.parse(source);
 
         expect(parsed.rules).toHaveLength(2);
+    });
+
+    test('throws an error when trying to read a right hand side where there isn\'t one', () => {
+        const parser = new Parser;
+        const source = 'zero = "0";';
+        parser.read(source);
+        parser.reset();
+        parser.eat('identifier');
+
+        expect(() => { parser.Rhs(); }).toThrow(SyntaxError);
     });
 
 });

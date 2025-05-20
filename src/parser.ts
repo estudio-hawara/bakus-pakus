@@ -15,10 +15,15 @@ export class Parser
         this.#factory = factory;
     }
 
-    parse(value: string)
+    read(value: string)
     {
         this.#tokenizer.read(value);
-        this.#lookahead = this.#tokenizer.getNextToken();
+        this.reset();
+    }
+
+    parse(value: string)
+    {
+        this.read(value);
 
         return this.Grammar();
     }
@@ -99,11 +104,10 @@ export class Parser
         return this.#factory.Identifier(token.value);
     }
 
-
     /**
      * Rhs
-     *   = Identifier
-     *   | Terminal
+     *   = Terminal
+     *   | Identifier
      *   ;
      */
     Rhs(): RhsNode
@@ -111,9 +115,11 @@ export class Parser
         switch(this.#lookahead!.type) {
             case 'terminal':
                 return this.Terminal();
-            default:
+            case 'identifier':
                 return this.Identifier();
         }
+
+        throw new SyntaxError(`Unexpected ${this.#lookahead!.type} found in a right hind side value`);
     }
 
     /**
