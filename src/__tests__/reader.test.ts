@@ -10,66 +10,74 @@ describe('Reader', () => {
         const reader = new Reader;
         reader.read('');
 
-        expect(reader.getPosition()).toBe(0);
-        expect(reader.getLine()).toBe(1);
-        expect(reader.getColumn()).toBe(1);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(0);
+        expect(reader.line).toBe(1);
+        expect(reader.column).toBe(1);
+        expect(reader.finished).toBe(false);
     });
 
     test('steps around a string', () => {
         const reader = new Reader;
         reader.read('22\n1');
 
-        expect(reader.getPosition()).toBe(0);
-        expect(reader.getLine()).toBe(1);
-        expect(reader.getColumn()).toBe(1);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(0);
+        expect(reader.line).toBe(1);
+        expect(reader.column).toBe(1);
+        expect(reader.finished).toBe(false);
 
         reader.step();
-        expect(reader.getPosition()).toBe(1);
-        expect(reader.getLine()).toBe(1);
-        expect(reader.getColumn()).toBe(2);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(1);
+        expect(reader.line).toBe(1);
+        expect(reader.column).toBe(2);
+        expect(reader.finished).toBe(false);
 
         reader.step();
-        expect(reader.getPosition()).toBe(2);
-        expect(reader.getLine()).toBe(2);
-        expect(reader.getColumn()).toBe(1);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(2);
+        expect(reader.line).toBe(2);
+        expect(reader.column).toBe(1);
+        expect(reader.finished).toBe(false);
 
         reader.step();
-        expect(reader.getPosition()).toBe(3);
-        expect(reader.getLine()).toBe(2);
-        expect(reader.getColumn()).toBe(2);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(3);
+        expect(reader.line).toBe(2);
+        expect(reader.column).toBe(2);
+        expect(reader.finished).toBe(false);
 
         reader.step();
-        expect(reader.getPosition()).toBe(3);
-        expect(reader.getLine()).toBe(2);
-        expect(reader.getColumn()).toBe(2);
-        expect(reader.getFinished()).toBe(true);
+        expect(reader.position).toBe(3);
+        expect(reader.line).toBe(2);
+        expect(reader.column).toBe(2);
+        expect(reader.finished).toBe(true);
     });
 
     test('can be reseted', () => {
         const reader = new Reader;
         reader.read('22\n1');
 
-        expect(reader.getPosition()).toBe(0);
-        expect(reader.getLine()).toBe(1);
-        expect(reader.getColumn()).toBe(1);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(0);
+        expect(reader.line).toBe(1);
+        expect(reader.column).toBe(1);
+        expect(reader.finished).toBe(false);
 
         reader.step();
-        expect(reader.getPosition()).toBe(1);
-        expect(reader.getLine()).toBe(1);
-        expect(reader.getColumn()).toBe(2);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(1);
+        expect(reader.line).toBe(1);
+        expect(reader.column).toBe(2);
+        expect(reader.finished).toBe(false);
 
         reader.reset();
-        expect(reader.getPosition()).toBe(0);
-        expect(reader.getLine()).toBe(1);
-        expect(reader.getColumn()).toBe(1);
-        expect(reader.getFinished()).toBe(false);
+        expect(reader.position).toBe(0);
+        expect(reader.line).toBe(1);
+        expect(reader.column).toBe(1);
+        expect(reader.finished).toBe(false);
+    });
+
+    test('it\'s source can be accessed', () => {
+        const reader = new Reader;
+        const source = '2 \n\t 1';
+        reader.read(source);
+
+        expect(reader.source).toBe(source);
     });
 
     test('skips spaces', () => {

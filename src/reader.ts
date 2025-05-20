@@ -20,24 +20,29 @@ export class Reader
         this.reset();
     }
 
-    getPosition(): number
+    get position(): number
     {
         return this.#position;
     }
 
-    getLine(): number
+    get line(): number
     {
         return this.#line;
     }
 
-    getColumn(): number
+    get column(): number
     {
         return this.#column;
     }
 
-    getFinished(): boolean
+    get finished(): boolean
     {
         return this.#finished;
+    }
+
+    get source(): string
+    {
+        return this.#source;
     }
 
     step(): void
