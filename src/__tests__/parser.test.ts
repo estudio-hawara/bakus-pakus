@@ -1,3 +1,4 @@
+import { ChoiceNode, OptionalNode, RepetitionNode, SequenceNode } from '../factory';
 import { Parser } from '../parser';
 
 describe('Parser', () => {
@@ -76,6 +77,88 @@ describe('Parser', () => {
         parser.eat('identifier');
 
         expect(() => { parser.Rhs(); }).toThrow(SyntaxError);
+    });
+
+    test('can parse choices', () => {
+        const parser = new Parser;
+        const source = 'binary = "0" | "1";';
+        const parsed = parser.parse(source);
+
+        expect(parsed.rules).toHaveLength(1);
+
+        const rule = parsed.rules[0];
+        expect(rule.identifier.value).toBe('binary');
+        expect(rule.rhs.type).toBe('Choice');
+
+        const choice = (rule.rhs as ChoiceNode);
+        expect(choice.left).toStrictEqual({ type: 'Terminal', value: '0' });
+        expect(choice.right).toStrictEqual({ type: 'Terminal', value: '1' });
+    });
+
+    test('can parse sequences', () => {
+        const parser = new Parser;
+        const source = 'group = "(" , rhs , ")";';
+        const parsed = parser.parse(source);
+
+        expect(parsed.rules).toHaveLength(1);
+
+        const rule = parsed.rules[0];
+        expect(rule.identifier.value).toBe('group');
+        expect(rule.rhs.type).toBe('Sequence');
+
+        expect(rule.rhs).toStrictEqual({
+            type: 'Sequence',
+            left: {
+                type: 'Sequence',
+                left: { type: 'Terminal', value: '(' },
+                right: { type: 'Identifier', value: 'rhs' }
+            },
+            right: { type: 'Terminal', value: ')' }
+        });
+    });
+
+    test('can parse groups', () => {
+        const parser = new Parser;
+        const source = 'two binary digits = ("0" | "1"), ("0" | "1");';
+        const parsed = parser.parse(source);
+
+        expect(parsed.rules).toHaveLength(1);
+
+        const rule = parsed.rules[0];
+        expect(rule.identifier.value).toBe('two binary digits');
+
+        const sequence = (rule.rhs as SequenceNode);
+        expect(sequence.left.type).toBe('Group');
+        expect(sequence.right.type).toBe('Group');
+    });
+
+    test('can parse repetitions', () => {
+        const parser = new Parser;
+        const source = 'binary sequence = {"0" | "1"};';
+        const parsed = parser.parse(source);
+
+        expect(parsed.rules).toHaveLength(1);
+
+        const rule = parsed.rules[0];
+        expect(rule.identifier.value).toBe('binary sequence');
+
+        const repetition = (rule.rhs as RepetitionNode);
+        expect(repetition.value.type).toBe('Choice');
+    });
+
+    test('can parse optionals', () => {
+        const parser = new Parser;
+        const source = 'signed number = [minus], number;';
+        const parsed = parser.parse(source);
+
+        expect(parsed.rules).toHaveLength(1);
+
+        const rule = parsed.rules[0];
+        expect(rule.identifier.value).toBe('signed number');
+
+        const sequence = (rule.rhs as SequenceNode);
+        const optional = (sequence.left as OptionalNode);
+        expect(optional.value).toStrictEqual({ type: 'Identifier', value: 'minus' });
     });
 
 });

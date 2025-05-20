@@ -1,6 +1,6 @@
 export type GrammarNode = {
     type: string;
-    rules: Array<RuleNode>;
+    rules: RuleNode[];
 };
 
 export type RuleNode = {
@@ -9,7 +9,34 @@ export type RuleNode = {
     rhs: RhsNode;
 }
 
-export type RhsNode = IdentifierNode | TerminalNode;
+export type RhsNode = IdentifierNode | TerminalNode | GroupNode | RepetitionNode | OptionalNode | ChoiceNode | SequenceNode;
+
+export type GroupNode = {
+    type: string;
+    value: RhsNode;
+}
+
+export type RepetitionNode = {
+    type: string;
+    value: RhsNode;
+}
+
+export type OptionalNode = {
+    type: string;
+    value: RhsNode;
+}
+
+export type ChoiceNode = {
+    type: string;
+    left: RhsNode;
+    right: RhsNode;
+}
+
+export type SequenceNode = {
+    type: string;
+    left: RhsNode;
+    right: RhsNode;
+}
 
 export type IdentifierNode = {
     type: string;
@@ -23,7 +50,7 @@ export type TerminalNode = {
 
 export class Factory
 {
-    Grammar(rules: Array<RuleNode>): GrammarNode
+    Grammar(rules: RuleNode[]): GrammarNode
     {
         return {
             type: 'Grammar',
@@ -37,6 +64,48 @@ export class Factory
             type: 'Rule',
             identifier,
             rhs,
+        };
+    }
+
+    Group(value: RhsNode): GroupNode
+    {
+        return {
+            type: 'Group',
+            value,
+        }
+    }
+
+    Repetition(value: RhsNode): RepetitionNode
+    {
+        return {
+            type: 'Repetition',
+            value,
+        }
+    }
+
+    Optional(value: RhsNode): OptionalNode
+    {
+        return {
+            type: 'Optional',
+            value,
+        }
+    }
+
+    Choice(left: RhsNode, right: RhsNode): ChoiceNode
+    {
+        return {
+            type: 'Choice',
+            left,
+            right,
+        };
+    }
+
+    Sequence(left: RhsNode, right: RhsNode): SequenceNode
+    {
+        return {
+            type: 'Sequence',
+            left,
+            right,
         };
     }
 

@@ -1,4 +1,4 @@
-import { Factory, GrammarNode, IdentifierNode, RhsNode, RuleNode, TerminalNode } from "./factory";
+import { ChoiceNode, Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, TerminalNode } from "./factory";
 import { Token, Tokenizer } from "./tokenizer";
 
 export class Parser
@@ -81,13 +81,13 @@ export class Parser
      * Rule
      *   = Identifier
      *   , "="
-     *   , Rhs
+     *   , Sequence
      */
     Rule(): RuleNode
     {
         const identifier = this.Identifier();
         this.eat('=');
-        const rhs = this.Rhs();
+        const rhs = this.Sequence();
         this.eat(';');
 
         return this.#factory.Rule(identifier, rhs);
@@ -105,14 +105,62 @@ export class Parser
     }
 
     /**
+     * Sequence
+     *   = Choice
+     *   | Sequence, ",", Choice
+     *   ;
+     */
+    Sequence(): RhsNode
+    {
+        let left = this.Choice();
+
+        while(this.#lookahead?.type === ',') {
+            this.eat(',');
+            const right = this.Choice();
+
+            left = this.#factory.Sequence(left, right);
+        }
+
+        return left;
+    }
+
+    /**
+     * Choice
+     *   = Rhs
+     *   | Choice, "|", Rhs
+     */
+    Choice(): RhsNode
+    {
+        let left = this.Rhs();
+
+        while(this.#lookahead?.type === '|') {
+            this.eat('|');
+            const right = this.Rhs();
+
+            left = this.#factory.Choice(left, right);
+        }
+
+        return left;
+    }
+
+    /**
      * Rhs
      *   = Terminal
      *   | Identifier
+     *   | Group
+     *   | Repetition
+     *   | Optional
      *   ;
      */
     Rhs(): RhsNode
     {
         switch(this.#lookahead!.type) {
+            case '(':
+                return this.Group();
+            case '{':
+                return this.Repetition();
+            case '[':
+                return this.Optional();
             case 'terminal':
                 return this.Terminal();
             case 'identifier':
@@ -120,6 +168,48 @@ export class Parser
         }
 
         throw new SyntaxError(`Unexpected ${this.#lookahead!.type} found in a right hind side value`);
+    }
+
+    /**
+     * Group
+     *   = "(", Rhs, ")"
+     *   ;
+     */
+    Group(): GroupNode
+    {
+        this.eat('(');
+        const value = this.Sequence();
+        this.eat(')');
+
+        return this.#factory.Group(value);
+    }
+
+    /**
+     * Repetition
+     *   = "{", Rhs, "}"
+     *   ;
+     */
+    Repetition(): RepetitionNode
+    {
+        this.eat('{');
+        const value = this.Sequence();
+        this.eat('}');
+
+        return this.#factory.Repetition(value);
+    }
+
+    /**
+     * Optional
+     *   = "[", Rhs, "]"
+     *   ;
+     */
+    Optional(): OptionalNode
+    {
+        this.eat('[');
+        const value = this.Sequence();
+        this.eat(']');
+
+        return this.#factory.Optional(value);
     }
 
     /**

@@ -49,6 +49,24 @@ ebnfSpecification.add(/^\s+/, null);
 // Assignment operator
 ebnfSpecification.add(/^=/, '=');
 
+// Group symbols
+ebnfSpecification.add(/^\(/, '(');
+ebnfSpecification.add(/^\)/, ')');
+
+// Repetition symbols
+ebnfSpecification.add(/^\{/, '{');
+ebnfSpecification.add(/^\}/, '}');
+
+// Optional symbols
+ebnfSpecification.add(/^\[/, '[');
+ebnfSpecification.add(/^\]/, ']');
+
+// Choice symbol
+ebnfSpecification.add(/^\|/, '|');
+
+// Sequence symbol
+ebnfSpecification.add(/^\,/, ',');
+
 // Rule terminator operator
 ebnfSpecification.add(/^;/, ';');
 
