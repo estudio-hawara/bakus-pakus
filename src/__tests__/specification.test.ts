@@ -15,6 +15,14 @@ describe('Rule', () => {
         expect(rule.type).toBe(type);
     });
 
+    test('can check if a string matches the pattern', () => {
+        const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
+        const type = 'identifier';
+        const rule = new Rule(pattern, type);
+
+        expect(rule.match('1abc')).toBeFalsy();
+        expect(rule.match("abc1")).toBeTruthy();
+    });
 });
 
 describe('Specification', () => {
