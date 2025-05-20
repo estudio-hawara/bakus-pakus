@@ -4,13 +4,13 @@
 
 The library partially supports the ISO/IEC 14977 EBNF syntax and includes features like:
 
-- Optional sequences `[...]`
-- Repetitions `{...}`
-- Grouping `(...)`
-- Choices `|`
-- Sequences `,`
-- Terminal strings `" ... "`
-- Comment blocks `(* ... *)`
+- [x] Optional sequences `[...]`
+- [x] Repetitions `{...}`
+- [x] Grouping `(...)`
+- [x] Choices `|`
+- [x] Sequences `,`
+- [x] Terminal strings `" ... "`
+- [ ] Comment blocks `(* ... *)`
 
 Check [docs/ebnf.ebnf](docs/ebnf.ebnf) for specific details of the supported features.
 
