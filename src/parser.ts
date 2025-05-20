@@ -1,4 +1,4 @@
-import { Factory, IdentifierNode, RhsNode, RuleNode, TerminalNode } from "./factory";
+import { Factory, GrammarNode, IdentifierNode, RhsNode, RuleNode, TerminalNode } from "./factory";
 import { Token, Tokenizer } from "./tokenizer";
 
 export class Parser
@@ -15,17 +15,18 @@ export class Parser
         this.#factory = factory;
     }
 
-    get lookahead(): Token|null
-    {
-        return this.#lookahead;
-    }
-
     parse(value: string)
     {
         this.#tokenizer.read(value);
         this.#lookahead = this.#tokenizer.getNextToken();
 
         return this.Grammar();
+    }
+
+    reset()
+    {
+        this.#tokenizer.reset();
+        this.#lookahead = this.#tokenizer.getNextToken();
     }
 
     eat(type: string)
@@ -48,7 +49,7 @@ export class Parser
      *   = RuleList
      *   ;
      */
-    Grammar(): object
+    Grammar(): GrammarNode
     {
         const rules = this.RuleList();
         return this.#factory.Grammar(rules);
@@ -107,7 +108,7 @@ export class Parser
      */
     Rhs(): RhsNode
     {
-        switch(this.#lookahead?.type) {
+        switch(this.#lookahead!.type) {
             case 'terminal':
                 return this.Terminal();
             default:

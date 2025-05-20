@@ -69,6 +69,11 @@ export class Tokenizer
         this.#reader.read(source);
     }
 
+    reset()
+    {
+        this.#reader.reset();
+    }
+
     getNextToken(): Token|null {
         if (this.finished)
             return null;
