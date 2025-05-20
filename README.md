@@ -12,6 +12,8 @@ The library partially supports the ISO/IEC 14977 EBNF syntax and includes featur
 - Terminal strings `" ... "`
 - Comment blocks `(* ... *)`
 
+Check [docs/ebnf.ebnf](docs/ebnf.ebnf) for specific details of the supported features.
+
 ## Install
 
 ```bash
