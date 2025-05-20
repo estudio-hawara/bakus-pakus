@@ -45,6 +45,7 @@ export const ebnfSpecification = new Specification;
 
 // Whitespace
 ebnfSpecification.add(/^\s+/, null);
+ebnfSpecification.add(/^\(\*.*?\*\)/, null);
 
 // Assignment operator
 ebnfSpecification.add(/^=/, '=');
