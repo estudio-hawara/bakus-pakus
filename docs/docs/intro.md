@@ -2,46 +2,61 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Getting Started
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## Overview
 
-## Getting Started
+**Bakus-Pakus** is a lightweight JavaScript library designed for creating railroad diagrams from Extended Backus-Naur Form (EBNF) grammars. This library provides a simple and efficient way to visualize formal grammar specifications.
 
-Get started by **creating a new site**.
+## Key Features
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+- Support for both EBNF grammar notation
+- Generates railroad diagrams to help visualize complex language syntax
+- TypeScript support with full type definitions
+- Lightweight and easy to integrate into your projects
 
-### What you'll need
+## Installation
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
+You can install Bakus-Pakus using your preferred package manager:
 
 ```bash
-npm init docusaurus@latest my-website classic
+# Using npm
+npm install bakus-pakus
+
+# Using yarn
+yarn add bakus-pakus
+
+# Using pnpm
+pnpm add bakus-pakus
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+## Basic Usage
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+```typescript
+import { Parser, Renderer } from 'bakus-pakus';
 
-## Start your site
+// Define your grammar
+const grammar = `
+  letter = uppercase letter | lowercase letter ;
 
-Run the development server:
+  uppercase letter =
+      "A" | "B" | "C" | "D" | "E" | "F" | "G"
+    | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+    | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+    | "V" | "W" | "X" | "Y" | "Z";
 
-```bash
-cd my-website
-npm run start
+  lowercase letter =
+      "a" | "b" | "c" | "d" | "e" | "f" | "g"
+    | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+    | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+    | "v" | "w" | "x" | "y" | "z" ;
+`;
+
+// Parse the grammar
+const parser = new Parser();
+const parsed = parser.parse(grammar);
+
+// Render a diagram
+const renderer = new Renderer();
+const rendered = renderer.render(parsed);
 ```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
