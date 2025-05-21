@@ -62,6 +62,10 @@ ebnfSpecification.add(/^\}/, '}');
 ebnfSpecification.add(/^\[/, '[');
 ebnfSpecification.add(/^\]/, ']');
 
+// Special symbols
+ebnfSpecification.add(/^\?/, '?');
+ebnfSpecification.add(/^\?/, '?');
+
 // Choice symbol
 ebnfSpecification.add(/^\|/, '|');
 
@@ -75,5 +79,5 @@ ebnfSpecification.add(/^;/, ';');
 ebnfSpecification.add(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');
 
 // Single and double quoted terminals
-ebnfSpecification.add(/^"[A-Za-z0-9\[\]\{\}\(\)<>=\|\.,';\s]+"/, 'terminal');
-ebnfSpecification.add(/^'[A-Za-z0-9\[\]\{\}\(\)<>=\|\.,";\s]+'/, 'terminal');
+ebnfSpecification.add(/^"[A-Za-z0-9\[\]\{\}\(\)<>=\|\.,`;\s]+"/, 'terminal');
+ebnfSpecification.add(/^`[A-Za-z0-9\[\]\{\}\(\)<>=\|\.,";\s]+`/, 'terminal');
