@@ -2,7 +2,7 @@ import { Parser } from "./parser";
 import { Tokenizer } from "./tokenizer";
 import { Reader } from "./reader";
 import { Factory } from "./factory";
-import { Rule, Specification, ebnfSpecification } from "./specification";
+import { Rule, Specification, ebnf } from "./specification";
 
 export {
     Parser,
@@ -11,5 +11,5 @@ export {
     Factory,
     Rule,
     Specification,
-    ebnfSpecification,
+    ebnf,
 };

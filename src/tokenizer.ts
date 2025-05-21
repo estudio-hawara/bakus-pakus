@@ -1,5 +1,5 @@
 import { Reader } from "./reader";
-import { Specification, ebnfSpecification } from "./specification";
+import { Specification, ebnf } from "./specification";
 
 export class Token
 {
@@ -32,7 +32,7 @@ export class Tokenizer
 
     constructor(
         reader: Reader = new Reader,
-        specification: Specification = ebnfSpecification,
+        specification: Specification = ebnf,
     ) {
         reader.reset();
         this.#reader = reader;

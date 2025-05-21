@@ -41,43 +41,43 @@ export class Specification
     }
 }
 
-export const ebnfSpecification = new Specification;
+export const ebnf = new Specification;
 
 // Whitespace
-ebnfSpecification.add(/^\s+/, null);
-ebnfSpecification.add(/^\(\*.*?\*\)/, null);
+ebnf.add(/^\s+/, null);
+ebnf.add(/^\(\*.*?\*\)/, null);
 
 // Assignment operator
-ebnfSpecification.add(/^=/, '=');
+ebnf.add(/^=/, '=');
 
 // Group symbols
-ebnfSpecification.add(/^\(/, '(');
-ebnfSpecification.add(/^\)/, ')');
+ebnf.add(/^\(/, '(');
+ebnf.add(/^\)/, ')');
 
 // Repetition symbols
-ebnfSpecification.add(/^\{/, '{');
-ebnfSpecification.add(/^\}/, '}');
+ebnf.add(/^\{/, '{');
+ebnf.add(/^\}/, '}');
 
 // Optional symbols
-ebnfSpecification.add(/^\[/, '[');
-ebnfSpecification.add(/^\]/, ']');
+ebnf.add(/^\[/, '[');
+ebnf.add(/^\]/, ']');
 
 // Special symbols
-ebnfSpecification.add(/^\?/, '?');
-ebnfSpecification.add(/^\?/, '?');
+ebnf.add(/^\?/, '?');
+ebnf.add(/^\?/, '?');
 
 // Choice symbol
-ebnfSpecification.add(/^\|/, '|');
+ebnf.add(/^\|/, '|');
 
 // Sequence symbol
-ebnfSpecification.add(/^\,/, ',');
+ebnf.add(/^\,/, ',');
 
 // Rule terminator operator
-ebnfSpecification.add(/^;/, ';');
+ebnf.add(/^;/, ';');
 
 // Identifier
-ebnfSpecification.add(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');
+ebnf.add(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');
 
 // Single and double quoted terminals
-ebnfSpecification.add(/^"[^"]+"/, 'terminal');
-ebnfSpecification.add(/^`[^`]+`/, 'terminal');
+ebnf.add(/^"[^"]+"/, 'terminal');
+ebnf.add(/^`[^`]+`/, 'terminal');
