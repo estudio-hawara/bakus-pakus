@@ -32,6 +32,8 @@ pnpm add bakus-pakus
 
 ## Basic Usage
 
+This is a library, so you are meant to use it from your own JavaScript code. Here's all you need to know.
+
 ```typescript
 import { Parser, Renderer } from 'bakus-pakus';
 
@@ -60,3 +62,5 @@ const parsed = parser.parse(grammar);
 const renderer = new Renderer();
 const rendered = renderer.render(parsed);
 ```
+
+That's it. Now `rendered` contains an SVG diagram describing the grammar that you provided.
