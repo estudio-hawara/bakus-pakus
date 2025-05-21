@@ -4,10 +4,10 @@
 
 The library partially supports the ISO/IEC 14977 EBNF syntax and includes features like:
 
-- [x] Optional sequences `[...]`
-- [x] Repetitions `{...}`
-- [x] Grouping `(...)`
-- [x] Specials `?...?`
+- [x] Optional sequences `[ ... ]`
+- [x] Repetitions `{ ... }`
+- [x] Grouping `( ... )`
+- [x] Specials `? ... ?`
 - [x] Choices `|`
 - [x] Sequences `,`
 - [x] Terminal strings `" ... "`
