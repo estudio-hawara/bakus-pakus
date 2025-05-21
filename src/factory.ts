@@ -1,57 +1,51 @@
-export type GrammarNode = {
-    type: string;
-    rules: RuleNode[];
+export type NodeType = string;
+
+export type BaseNode = {
+  type: NodeType;
 };
 
-export type RuleNode = {
-    type: string;
-    identifier: IdentifierNode;
-    rhs: RhsNode;
-}
+export type IdentifierNode = BaseNode & {
+  value: string;
+};
 
-export type RhsNode = IdentifierNode | TerminalNode | GroupNode | RepetitionNode | OptionalNode | ChoiceNode | SequenceNode;
+export type TerminalNode = BaseNode & {
+  value: string;
+};
 
-export type GroupNode = {
-    type: string;
-    value: RhsNode;
-}
+export type UnaryNode = BaseNode & {
+  value: RhsNode;
+};
 
-export type RepetitionNode = {
-    type: string;
-    value: RhsNode;
-}
+export type BinaryNode = BaseNode & {
+  left: RhsNode;
+  right: RhsNode;
+};
 
-export type OptionalNode = {
-    type: string;
-    value: RhsNode;
-}
+export type GroupNode = UnaryNode;
+export type RepetitionNode = UnaryNode;
+export type OptionalNode = UnaryNode;
+export type SpecialNode = UnaryNode;
 
-export type SpecialNode = {
-    type: string;
-    value: RhsNode;
-}
+export type ChoiceNode = BinaryNode;
+export type SequenceNode = BinaryNode;
 
-export type ChoiceNode = {
-    type: string;
-    left: RhsNode;
-    right: RhsNode;
-}
+export type RhsNode = 
+  | IdentifierNode 
+  | TerminalNode 
+  | GroupNode 
+  | RepetitionNode 
+  | OptionalNode 
+  | ChoiceNode 
+  | SequenceNode;
 
-export type SequenceNode = {
-    type: string;
-    left: RhsNode;
-    right: RhsNode;
-}
+export type RuleNode = BaseNode & {
+  identifier: IdentifierNode;
+  rhs: RhsNode;
+};
 
-export type IdentifierNode = {
-    type: string;
-    value: string;
-}
-
-export type TerminalNode = {
-    type: string;
-    value: string;
-}
+export type GrammarNode = BaseNode & {
+  rules: RuleNode[];
+};
 
 export class Factory
 {
