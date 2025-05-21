@@ -3,6 +3,11 @@
   "description": "Small JavaScript library for creating railroad diagrams from Bakus-Naur Form grammars",
   "version": "1.0.0",
 
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estudio-hawara/bakus-pakus.git"
+  },
+
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -13,10 +18,21 @@
     }
   },
 
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+
+  "publishConfig": {
+    "access": "public"
+  },
+
   "scripts": {
     "build": "pnpm run build:esm && pnpm run build:cjs",
     "build:esm": "tsc --module ESNext --outDir dist/esm",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "prepare": "pnpm run build",
     "test": "jest",
     "coverage": "jest --collect-coverage"
   },

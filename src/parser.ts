@@ -1,4 +1,4 @@
-import { ChoiceNode, Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, SpecialNode, TerminalNode } from "./factory";
+import { Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SpecialNode, TerminalNode } from "./factory";
 import { Token, Tokenizer } from "./tokenizer";
 
 export class Parser
