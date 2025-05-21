@@ -7,7 +7,7 @@ The library partially supports the ISO/IEC 14977 EBNF syntax and includes featur
 - [x] Optional sequences `[...]`
 - [x] Repetitions `{...}`
 - [x] Grouping `(...)`
-- [ ] Specials `?...?`
+- [x] Specials `?...?`
 - [x] Choices `|`
 - [x] Sequences `,`
 - [x] Terminal strings `" ... "`
@@ -15,10 +15,13 @@ The library partially supports the ISO/IEC 14977 EBNF syntax and includes featur
 
 Check [docs/ebnf.ebnf](docs/ebnf.ebnf) for specific details of the supported features.
 
----
-
 > [!NOTE]
 > I started writing this library while studying the [Parser from scratch](http://dmitrysoshnikov.com/courses/parser-from-scratch/) course from [@dmitrysoshnikov](https://github.com/dmitrysoshnikov), so you may find several similarities with his approach to recursive descent parser. Following his course[s] will definitely help you understanding this codebase.
+
+## Notes
+
+> [!WARNING]
+> Until this library is considered battle ready, it won't be uploaded to any package repository. Also, no releases will be created until that point. Use it at your discretion and remember that it's an unfinished piece of software shared without any warrant.
 
 ## Install
 
@@ -27,11 +30,6 @@ git clone https://github.com/estudio-hawara/bakus-pakus
 cd bakus-pakus
 pnpm install
 ```
-
----
-
-> [!WARNING]
-> Until this library is considered battle ready, it won't be uploaded to any package repository. Also, no releases will be created until that point. Use it at your discretion and remember that it's an unfinished piece of software shared without any warrant.
 
 ## Tests
 

@@ -26,6 +26,11 @@ export type OptionalNode = {
     value: RhsNode;
 }
 
+export type SpecialNode = {
+    type: string;
+    value: RhsNode;
+}
+
 export type ChoiceNode = {
     type: string;
     left: RhsNode;
@@ -87,6 +92,14 @@ export class Factory
     {
         return {
             type: 'Optional',
+            value,
+        }
+    }
+
+    Special(value: RhsNode): SpecialNode
+    {
+        return {
+            type: 'Special',
             value,
         }
     }

@@ -1,4 +1,4 @@
-import { ChoiceNode, Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, TerminalNode } from "./factory";
+import { ChoiceNode, Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, SpecialNode, TerminalNode } from "./factory";
 import { Token, Tokenizer } from "./tokenizer";
 
 export class Parser
@@ -161,6 +161,8 @@ export class Parser
                 return this.Repetition();
             case '[':
                 return this.Optional();
+            case '?':
+                return this.Special();
             case 'terminal':
                 return this.Terminal();
             case 'identifier':
@@ -210,6 +212,20 @@ export class Parser
         this.eat(']');
 
         return this.#factory.Optional(value);
+    }
+
+    /**
+     * Special
+     *   = "[", Rhs, "]"
+     *   ;
+     */
+    Special(): SpecialNode
+    {
+        this.eat('?');
+        const value = this.Sequence();
+        this.eat('?');
+
+        return this.#factory.Special(value);
     }
 
     /**

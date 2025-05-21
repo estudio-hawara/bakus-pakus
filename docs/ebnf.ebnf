@@ -19,6 +19,7 @@ rhs = terminal
   | ( "(" , rhs , ")" ) (* group *)
   | ( "{" , rhs , "}" ) (* repetition *)
   | ( "[" , rhs , "]" ) (* optional *)
+  | ( "?" , rhs , "?" ) (* special *)
   | ( rhs , "|" , rhs ) (* choice *)
   | ( rhs , "," , rhs ) (* sequence *)
   ;

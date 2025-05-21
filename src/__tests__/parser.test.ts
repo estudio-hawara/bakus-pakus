@@ -1,4 +1,4 @@
-import { ChoiceNode, OptionalNode, RepetitionNode, SequenceNode } from '../factory';
+import { ChoiceNode, OptionalNode, RepetitionNode, SequenceNode, SpecialNode } from '../factory';
 import { Parser } from '../parser';
 
 describe('Parser', () => {
@@ -159,6 +159,20 @@ describe('Parser', () => {
         const sequence = (rule.rhs as SequenceNode);
         const optional = (sequence.left as OptionalNode);
         expect(optional.value).toStrictEqual({ type: 'Identifier', value: 'minus' });
+    });
+
+    test('can parse specials', () => {
+        const parser = new Parser;
+        const source = 'identifier with spaces = ? "[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?" ?;';
+        const parsed = parser.parse(source);
+
+        expect(parsed.rules).toHaveLength(1);
+
+        const rule = parsed.rules[0];
+        expect(rule.identifier.value).toBe('identifier with spaces');
+
+        const special = (rule.rhs as SpecialNode);
+        expect(special.value).toStrictEqual({ type: "Terminal", value: "[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?" });
     });
 
 });
