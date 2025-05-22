@@ -12,4 +12,8 @@ describe('Renderer', () => {
         expect(() => new Renderer(parser)).not.toThrow(Error);
     });
 
+    test('a default parser is used', () => {
+        expect(() => new Renderer).not.toThrow(Error);
+    });
+
 });
