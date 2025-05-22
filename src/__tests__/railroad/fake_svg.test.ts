@@ -1,7 +1,7 @@
-import { Attributes } from '../../renders/attributes';
-import { FakeSVG } from '../../renders/fake_svg';
+import { Attributes } from '../../railroad/attributes';
+import { FakeSVG } from '../../railroad/fake_svg';
 
-describe('Renders / FakeSVG', () => {
+describe('Railroad / FakeSVG', () => {
 
     const mockDocument = {
         createElementNS: jest.fn(),

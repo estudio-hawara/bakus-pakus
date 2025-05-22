@@ -1,6 +1,6 @@
-import { escape } from '../../renders/utils';
+import { escape } from '../../railroad/utils';
 
-describe('Renders / utils / escape', () => {
+describe('Railroad / utils / escape', () => {
 
     test('leaves strings without special characters untouched', () => {
         const original = 'hello world';

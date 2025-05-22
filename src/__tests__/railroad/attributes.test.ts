@@ -1,6 +1,6 @@
-import { Attribute, Attributes } from '../../renders/attributes';
+import { Attribute, Attributes } from '../../railroad/attributes';
 
-describe('Renders / Attribute', () => {
+describe('Railroad / Attribute', () => {
 
     test('accepts valid attribute names', () => {
         expect(Attribute.isValidName('name')).toBeTruthy();
@@ -46,7 +46,7 @@ describe('Renders / Attribute', () => {
 
 });
 
-describe('Renders / Attributes', () => {
+describe('Railroad / Attributes', () => {
 
     test('accepts valid attribute names', () => {
         const attributes = new Attributes();

@@ -1,6 +1,6 @@
-import { SVG } from '../../renders/svg';
+import { SVG } from '../../railroad/svg';
 
-describe('Renders / SVG', () => {
+describe('Railroad / SVG', () => {
 
     const mockDocument = {
         createElementNS: jest.fn(),
