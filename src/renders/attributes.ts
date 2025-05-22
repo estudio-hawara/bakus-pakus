@@ -1,10 +1,3 @@
-export function isValidAttributeName(attributeName: string): boolean
-{
-    const pattern = /^[a-zA-Z][a-zA-Z0-9\-._]*$/;
-
-    return pattern.test(attributeName);
-}
-
 export class Attribute
 {
     #name: string;
@@ -14,11 +7,18 @@ export class Attribute
         name: string,
         value: string,
     ) {
-        if (! isValidAttributeName(name))
+        if (! Attribute.isValidName(name))
             throw new SyntaxError(`Invalid attribute name ${name}`);
 
         this.#name = name;
         this.#value = value;
+    }
+
+    static isValidName(attributeName: string): boolean
+    {
+        const pattern = /^[a-zA-Z][a-zA-Z0-9\-._]*$/;
+
+        return pattern.test(attributeName);
     }
 
     get name(): string
@@ -44,33 +44,41 @@ export class Attribute
 
 export class Attributes
 {
-    #attributes: Attribute[] = [];
+    #attributes: { [key: string]: Attribute } = {};
 
     add(name: string, value: string): void
     {
         const attribute = new Attribute(name, value);
-        this.#attributes.push(attribute);
+        this.#attributes[name] = attribute;
+    }
+
+    get(name: string): string | undefined
+    {
+        if (! (name in this.#attributes))
+            return undefined;
+
+        return this.#attributes[name].value;
+    }
+
+    toString(): string
+    {
+        let strings: string[] = [];
+
+        for(const [key, attribute] of Object.entries(this.#attributes)) {
+            strings.push(attribute.toString());
+        }
+
+        return strings.join(' ');
     }
 
     toDictionary(): { [key: string]: string }
     {
         const dictionary: { [key: string]: string } = {};
 
-        for(const [key, attribute] of this.#attributes.entries()) {
+        for(const [key, attribute] of Object.entries(this.#attributes)) {
             dictionary[attribute.name] = attribute.value;
         }
 
         return dictionary;
-    }
-
-    toString(): string
-    {
-        let string = '';
-
-        for(const [key, attribute] of this.#attributes.entries()) {
-            string += ' ' + attribute.toString();
-        }
-
-        return string;
     }
 }
