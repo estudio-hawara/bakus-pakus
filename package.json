@@ -2,12 +2,10 @@
   "name": "bakus-pakus",
   "description": "Small JavaScript library for creating railroad diagrams from Bakus-Naur Form grammars",
   "version": "1.0.0",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/estudio-hawara/bakus-pakus.git"
   },
-
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -17,17 +15,14 @@
       "require": "./dist/cjs/index.js"
     }
   },
-
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
-
   "publishConfig": {
     "access": "public"
   },
-
   "scripts": {
     "build": "pnpm run build:esm && pnpm run build:cjs",
     "build:esm": "tsc --module ESNext --outDir dist/esm",
@@ -36,20 +31,18 @@
     "test": "jest",
     "coverage": "jest --collect-coverage"
   },
-
   "keywords": [
     "bnf",
     "ebnf"
   ],
-
   "packageManager": "pnpm@10.8.1",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "ts-jest": "^29.3.4",
     "typescript": "^5.8.3"
   },
-
   "author": "Carlos Capote Pérez Andreu <carlos.capote@hawara.es>",
   "license": "MIT"
 }
