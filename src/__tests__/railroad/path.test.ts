@@ -22,7 +22,7 @@ describe('Railroad / Path', () => {
         path = new Path(10, 20);
     });
     
-    describe('constructor', () => {
+    describe('Constructor', () => {
 
         it('should create a path element with initial position', () => {
             expect(path.attributes.add).toHaveBeenCalledWith('d', 'M 10 20');
@@ -35,7 +35,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('isClockwise static', () => {
+    describe('Static method: isClockwise', () => {
 
         it('should return true for clockwise transitions', () => {
             expect(Path.isClockwise('North', 'East')).toBe(true);
@@ -60,7 +60,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('m', () => {
+    describe('Method: m', () => {
 
         it('should add relative move command', () => {
             const result = path.m(5, 10);
@@ -77,7 +77,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('h', () => {
+    describe('Method: h', () => {
 
         it('should add horizontal line command', () => {
             const result = path.h(15);
@@ -94,7 +94,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('right', () => {
+    describe('Method: right', () => {
 
         it('should add positive horizontal movement for positive values', () => {
             const result = path.right(10);
@@ -117,7 +117,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('left', () => {
+    describe('Method: left', () => {
 
         it('should add negative horizontal movement for positive values', () => {
             const result = path.left(10);
@@ -140,7 +140,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('v', () => {
+    describe('Method: v', () => {
 
         it('should add vertical line command', () => {
             const result = path.v(15);
@@ -157,7 +157,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('down', () => {
+    describe('Method: down', () => {
 
         it('should add positive vertical movement for positive values', () => {
             const result = path.down(10);
@@ -180,7 +180,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('up', () => {
+    describe('Method: up', () => {
 
         it('should add negative vertical movement for positive values', () => {
             const result = path.up(10);
@@ -203,7 +203,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('l', () => {
+    describe('Method: l', () => {
 
         it('should add line to command', () => {
             const result = path.l(5, 10);
@@ -220,7 +220,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('format', () => {
+    describe('Method: format', () => {
 
         it('should add formatting to path', () => {
             const result = path.format();
@@ -231,7 +231,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('arc', () => {
+    describe('Method: arc', () => {
 
         beforeEach(() => {
             const options = new Options({ arcRadius: 10 });
@@ -286,7 +286,7 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('semiArc', () => {
+    describe('Method: semiArc', () => {
 
         beforeEach(() => {
             const options = new Options({ arcRadius: 10 });
@@ -438,20 +438,19 @@ describe('Railroad / Path', () => {
 
     });
     
-    describe('method chaining', () => {
+    describe('Method chaining', () => {
 
         it('should allow chaining multiple path commands', () => {
             const result = path
-            .m(5, 5)
-            .h(10)
-            .v(10)
-            .l(5, 5)
-            .right(15)
-            .down(20);
+                .m(5, 5)
+                .h(10)
+                .v(10)
+                .l(5, 5)
+                .right(15)
+                .down(20);
             
             expect(result).toBe(path);
             
-            // Verify all commands were called
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' m 5 5');
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' h 10');
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' v 10');
