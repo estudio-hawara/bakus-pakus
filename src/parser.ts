@@ -68,7 +68,7 @@ export class Parser
      */
     RuleList(): Array<RuleNode>
     {
-        const rules = [this.Rule()];
+        const rules: Array<RuleNode> = [];
 
         while (this.#lookahead != null) {
             rules.push(this.Rule());
