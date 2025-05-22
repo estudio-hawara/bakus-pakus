@@ -1,0 +1,138 @@
+import { Attributes } from '../../renders/attributes';
+import { FakeSVG } from '../../renders/fake_svg';
+
+describe('Renders / FakeSVG', () => {
+
+    const mockDocument = {
+        createElementNS: jest.fn(),
+    } as unknown as Document;
+
+    const mockElement = {
+        setAttribute: jest.fn(),
+        setAttributeNS: jest.fn(),
+        appendChild: jest.fn(),
+        textContent: '',
+    } as unknown as Element;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        (mockDocument.createElementNS as jest.Mock).mockReturnValue(mockElement);
+    });
+
+    test('creates a simple svg elements', () => {
+        const svg = new FakeSVG('rect');
+        expect(svg.toString()).toContain('<rect></rect>');
+    });
+    
+    test('should create a FakeSVG with tag and attributes', () => {
+        const attributes = new Attributes();
+        attributes.add('width', '100');
+        attributes.add('height', '50');
+        
+        const svg = new FakeSVG('rect', attributes);
+        const result = svg.toString();
+        
+        expect(result).toContain('width="100"');
+        expect(result).toContain('height="50"');
+    });
+
+    test('should add child element to empty children array', () => {
+        const parent = new FakeSVG('g');
+        const child = new FakeSVG('rect');
+
+        parent.appendChild(child);
+
+        const result = parent.toString();
+        expect(result).toContain('<rect>');
+    });
+
+    test('should convert string children to array when adding child', () => {
+        const parent = new FakeSVG('text', new Attributes(), 'Initial text');
+        const child = new FakeSVG('tspan');
+        
+        parent.appendChild(child);
+        
+        const result = parent.toString();
+        expect(result).toContain('<tspan>');
+        expect(result).not.toContain('Initial text');
+    });
+
+    test('returns it\'s text as children', () => {
+        const fakeSvg = new FakeSVG('text', new Attributes(), 'Initial text');
+        
+        expect(fakeSvg.children).toContain('Initial text');
+    });
+
+    test('can add multiple children', () => {
+        const parent = new FakeSVG('g');
+        const child1 = new FakeSVG('rect');
+        const child2 = new FakeSVG('circle');
+        
+        parent.appendChild(child1);
+        parent.appendChild(child2);
+        
+        const result = parent.toString();
+        expect(result).toContain('<rect>');
+        expect(result).toContain('<circle>');
+    });
+
+    test('can add an element to another fake svg', () => {
+        const parent = new FakeSVG('g');
+        const child = new FakeSVG('rect');
+        
+        const result = child.addTo(parent);
+        
+        expect(result).toBeInstanceOf(FakeSVG);
+        expect(parent.children.length).toBe(1);
+    });
+
+    test('can add an element to a dom parent', () => {
+        const parent = document.createElement('div');
+        const child = new FakeSVG('rect', new Attributes(), '', document);
+        
+        const result = child.addTo(parent);
+        
+        expect(result).toBeInstanceOf(Element);
+        expect(parent.children.length).toBe(1);
+    });
+
+    test('to svg should throw error when document is null', () => {
+        const svg = new FakeSVG('rect');
+        
+        expect(() => svg.toSVG()).toThrow('Missing document object');
+    });
+
+    test('should create an svg element with attributes', () => {
+        const attributes = new Attributes();
+        attributes.add('width', '100');
+        attributes.add('height', '50');
+        
+        const svg = new FakeSVG('rect', attributes, '', mockDocument);
+        svg.toSVG();
+        
+        expect(mockDocument.createElementNS).toHaveBeenCalledWith('http://www.w3.org/2000/svg', 'rect');
+        expect(mockElement.setAttribute).toHaveBeenCalledWith('width', '100');
+        expect(mockElement.setAttribute).toHaveBeenCalledWith('height', '50');
+    });
+
+    test('includes it\'s children when rendered as an svg', () => {
+        const g = new FakeSVG('g', new Attributes, '', mockDocument);
+        const circle = new FakeSVG('circle');
+        const rect = new FakeSVG('rect');
+
+        g.appendChild(circle);
+        g.appendChild(rect);
+        const svg = g.toSVG();
+        
+        expect(svg.appendChild).toHaveBeenCalledTimes(2);
+    });
+
+    test('executes a given callback', () => {
+        const rect = new FakeSVG('rect');
+        const callback = jest.fn();
+        rect.walk(callback);
+
+        expect(callback).toHaveBeenCalledTimes(1);
+    });
+
+});
