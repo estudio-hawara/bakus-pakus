@@ -271,16 +271,17 @@ describe('Railroad / Path', () => {
         
         it('should handle all counter-clockwise combinations', () => {
             path.arc('East', 'North');
+
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' a 10 10 0 0 0 -10 -10');
             
-            jest.clearAllMocks();
-            
+            jest.clearAllMocks();            
             path.arc('South', 'East');
+
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' a 10 10 0 0 0 10 -10');
             
-            jest.clearAllMocks();
-            
+            jest.clearAllMocks();           
             path.arc('West', 'South');
+
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' a 10 10 0 0 0 10 10');
         });
 
@@ -450,7 +451,6 @@ describe('Railroad / Path', () => {
                 .down(20);
             
             expect(result).toBe(path);
-            
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' m 5 5');
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' h 10');
             expect(path.attributes.concat).toHaveBeenCalledWith('d', ' v 10');
