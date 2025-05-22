@@ -2,43 +2,154 @@ import { Factory } from '../factory';
 
 describe('Factory', () => {
 
-    test('is a class', () => {
-        expect(typeof Factory).toBe('function');
+    describe('Constructor', () => {
+
+        it('is a class', () => {
+            expect(typeof Factory).toBe('function');
+        });
+
     });
 
-    test('can generate terminal nodes', () => {
-        const factory = new Factory;
-        const terminal = factory.Terminal('0');
+    describe('Method: Grammar', () => {
 
-        expect(terminal.type).toBe('Terminal');
-        expect(terminal.value).toBe('0');
+        it('can generate grammar nodes', () => {
+            const factory = new Factory;
+            const grammar = factory.Grammar(
+                [
+                    {
+                        type: 'Rule',
+                        identifier: { type: 'Identifier', value: 'named rule' },
+                        rhs: { type: 'Terminal', value: 'Implementation' },
+                    }
+                ]
+
+            );
+
+            expect(grammar.type).toBe('Grammar');
+            expect(grammar.rules).toHaveLength(1);
+        });
+
     });
 
-    test('can generate group nodes', () => {
-        const factory = new Factory;
-        const terminal = factory.Terminal('0');
-        const group = factory.Group(terminal);
+    describe('Method: Rule', () => {
 
-        expect(group.type).toBe('Group');
-        expect(group.value).toStrictEqual({ type: 'Terminal', value: '0' });
+        it('can generate rule nodes', () => {
+            const factory = new Factory;
+            const rule = factory.Rule(
+                { type: 'Identifier', value: 'named rule' },
+                { type: 'Terminal', value: 'Implementation' },
+            );
+
+            expect(rule.type).toBe('Rule');
+            expect(rule.identifier).toStrictEqual({ type: 'Identifier', value: 'named rule' });
+            expect(rule.rhs).toStrictEqual({ type: 'Terminal', value: 'Implementation' });
+        });
+
     });
 
-    test('can generate repetition nodes', () => {
-        const factory = new Factory;
-        const terminal = factory.Terminal('0');
-        const repetition = factory.Repetition(terminal);
 
-        expect(repetition.type).toBe('Repetition');
-        expect(repetition.value).toStrictEqual({ type: 'Terminal', value: '0' });
+    describe('Method: Group', () => {
+
+        it('can generate group nodes', () => {
+            const factory = new Factory;
+            const group = factory.Group({ type: 'Terminal', value: 'Groupable' });
+
+            expect(group.type).toBe('Group');
+            expect(group.value).toStrictEqual({ type: 'Terminal', value: 'Groupable' });
+        });
+
     });
 
-    test('can generate optional nodes', () => {
-        const factory = new Factory;
-        const terminal = factory.Terminal('0');
-        const optional = factory.Optional(terminal);
+    describe('Method: Repetition', () => {
 
-        expect(optional.type).toBe('Optional');
-        expect(optional.value).toStrictEqual({ type: 'Terminal', value: '0' });
+        it('can generate repetition nodes', () => {
+            const factory = new Factory;
+            const repetition = factory.Repetition({ type: 'Terminal', value: 'Repeatable' });
+
+            expect(repetition.type).toBe('Repetition');
+            expect(repetition.value).toStrictEqual({ type: 'Terminal', value: 'Repeatable' });
+        });
+
+    });
+
+    describe('Method: Optional', () => {
+
+        it('can generate optional nodes', () => {
+            const factory = new Factory;
+            const optional = factory.Optional({ type: 'Terminal', value: 'Ignorable' });
+
+            expect(optional.type).toBe('Optional');
+            expect(optional.value).toStrictEqual({ type: 'Terminal', value: 'Ignorable' });
+        });        
+
+    });
+
+    describe('Method: Special', () => {
+
+        it('can generate special nodes', () => {
+            const factory = new Factory;
+            const special = factory.Special({ type: 'Terminal', value: 'Unspeakable' });
+
+            expect(special.type).toBe('Special');
+            expect(special.value).toStrictEqual({ type: 'Terminal', value: 'Unspeakable' });
+        });        
+
+    });
+
+    describe('Method: Choice', () => {
+
+        it('can generate choice nodes', () => {
+            const factory = new Factory;
+            const choice = factory.Choice(
+                { type: 'Terminal', value: '0' },
+                { type: 'Terminal', value: '1' },
+            );
+
+            expect(choice.type).toBe('Choice');
+            expect(choice.left).toStrictEqual({ type: 'Terminal', value: '0' });
+            expect(choice.right).toStrictEqual({ type: 'Terminal', value: '1' });
+        });
+
+    });
+
+    describe('Method: Sequence', () => {
+
+        it('can generate sequence nodes', () => {
+            const factory = new Factory;
+            const sequence = factory.Sequence(
+                { type: 'Terminal', value: '0' },
+                { type: 'Terminal', value: '1' },
+            );
+
+            expect(sequence.type).toBe('Sequence');
+            expect(sequence.left).toStrictEqual({ type: 'Terminal', value: '0' });
+            expect(sequence.right).toStrictEqual({ type: 'Terminal', value: '1' });
+        });
+
+    });
+
+    describe('Method: Identifier', () => {
+
+        it('can generate identifier nodes', () => {
+            const factory = new Factory;
+            const identifier = factory.Identifier('variable name with spaces');
+
+            expect(identifier.type).toBe('Identifier');
+            expect(identifier.value).toBe('variable name with spaces');
+        });
+
+    });
+
+    describe('Method: Terminal', () => {
+
+        it('can generate terminal nodes', () => {
+            const factory = new Factory;
+            const terminal = factory.Terminal('0');
+
+            expect(terminal.type).toBe('Terminal');
+            expect(terminal.value).toBe('0');
+        });
+
     });
 
 });
