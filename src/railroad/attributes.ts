@@ -68,6 +68,11 @@ export class Attributes
         this.#attributes[name] = attribute;
     }
 
+    count(): number
+    {
+        return Object.entries(this.#attributes).length;
+    }
+
     toString(): string
     {
         let strings: string[] = [];

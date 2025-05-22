@@ -88,7 +88,9 @@ export class FakeSVG
 
     toString(): string
     {
-        let string = '<' + this.#tag + this.#attributes.toString() + '>';
+        let string = this.#attributes.count() ?
+            `<${this.#tag} ${this.#attributes.toString()}>` :
+            `<${this.#tag}>`;
 
         if(this.#tag == 'g' || this.#tag == 'svg')
             string += "\n";
