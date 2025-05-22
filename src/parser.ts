@@ -114,7 +114,7 @@ export class Parser
     {
         let left = this.Choice();
 
-        while(this.#lookahead?.type === ',') {
+        while(this.#lookahead!.type === ',') {
             this.eat(',');
             const right = this.Choice();
 
@@ -133,7 +133,7 @@ export class Parser
     {
         let left = this.Rhs();
 
-        while(this.#lookahead?.type === '|') {
+        while(this.#lookahead!.type === '|') {
             this.eat('|');
             const right = this.Rhs();
 
