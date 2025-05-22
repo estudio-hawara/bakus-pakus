@@ -54,10 +54,30 @@ describe('Railroad / Attributes', () => {
         expect(attributes.get('id')).toBe('diagram');
     });
 
+    test('prevails the last value in case of multiple calls', () => {
+        const attributes = new Attributes();
+        attributes.add('id', 'forget');
+        attributes.add('id', 'diagram');
+        expect(attributes.get('id')).toBe('diagram');
+    });
+
     test('returns undefiend for non defined attribute names', () => {
         const attributes = new Attributes();
         attributes.add('id', 'diagram');
         expect(attributes.get('class')).toBeUndefined();
+    });
+
+    test('concatenates attribute values', () => {
+        const attributes = new Attributes();
+        attributes.add('d', 'M5 5');
+        attributes.concat('d', ' m10 10')
+        expect(attributes.get('d')).toBe('M5 5 m10 10');
+    });
+
+    test('concatenate works even if add wasn\'t called first', () => {
+        const attributes = new Attributes();
+        attributes.concat('d', 'M10 10')
+        expect(attributes.get('d')).toBe('M10 10');
     });
 
     test('converts the attributes to a string', () => {

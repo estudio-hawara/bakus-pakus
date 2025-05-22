@@ -60,6 +60,14 @@ export class Attributes
         return this.#attributes[name].value;
     }
 
+    concat(name: string, value: string): void
+    {
+        const current = this.get(name) ?? '';
+        const attribute = new Attribute(name, current + value);
+
+        this.#attributes[name] = attribute;
+    }
+
     toString(): string
     {
         let strings: string[] = [];

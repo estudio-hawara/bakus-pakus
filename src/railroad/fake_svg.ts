@@ -1,4 +1,5 @@
 import { Attributes } from "./attributes";
+import { Options } from "./options";
 import { SVG } from "./svg";
 
 type Children = FakeSVG[] | string;
@@ -9,13 +10,25 @@ export class FakeSVG
     #attributes: Attributes;
     #children: Children;
     #document: Document | null;
+    #options: Options;
 
-    constructor(tag: string, attributes: Attributes = new Attributes, text: string = '', document: Document | null = null)
-    {
+    constructor(
+        tag: string,
+        attributes: Attributes = new Attributes,
+        text: string = '',
+        document: Document | null = null,
+        options: Options = new Options,
+    ) {
         this.#tag = tag;
         this.#attributes = attributes;
         this.#children = text;
         this.#document = document;
+        this.#options = options;
+    }
+
+    get attributes(): Attributes
+    {
+        return this.#attributes;
     }
 
     get children(): Children
@@ -24,6 +37,11 @@ export class FakeSVG
             return this.#children;
 
         return [...this.#children];
+    }
+
+    get options(): Options
+    {
+        return this.#options;
     }
 
     format() {}

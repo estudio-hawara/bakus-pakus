@@ -1,5 +1,6 @@
 import { Attributes } from '../../railroad/attributes';
 import { FakeSVG } from '../../railroad/fake_svg';
+import { Options } from '../../railroad/options';
 
 describe('Railroad / FakeSVG', () => {
 
@@ -34,6 +35,29 @@ describe('Railroad / FakeSVG', () => {
         
         expect(result).toContain('width="100"');
         expect(result).toContain('height="50"');
+    });
+
+    test('shares its attributes', () => {
+        const attributes = new Attributes();
+        attributes.add('width', '100');
+        attributes.add('height', '50');
+        
+        const svg = new FakeSVG('rect', attributes);
+        
+        expect(svg.attributes.get('width')).toBe('100');
+        expect(svg.attributes.get('height')).toBe('50');
+    });
+
+    test('shares the options that\'s using', () => {
+        const options = new Options({
+            debug: true,
+            verticalSeparation: 10,
+        });
+
+        const svg = new FakeSVG('svg', undefined, undefined, undefined, options);
+
+        expect(svg.options.debug).toBe(true);
+        expect(svg.options.verticalSeparation).toBe(10);
     });
 
     test('should add child element to empty children array', () => {
