@@ -21,8 +21,8 @@ describe('Railroad / SVG', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
-    
-    test('should create SVG element with correct namespace', () => {
+
+    it('should create an svg element with its namespace', () => {
         SVG(mockDocument, 'rect');
         
         expect(mockDocument.createElementNS).toHaveBeenCalledWith(
@@ -31,7 +31,7 @@ describe('Railroad / SVG', () => {
         );
     });
     
-    test('should create element with specified name', () => {
+    it('should create an element with its corresponding tag name', () => {
         SVG(mockDocument, 'circle');
         expect(mockDocument.createElementNS).toHaveBeenCalledWith(
             'http://www.w3.org/2000/svg',
@@ -45,7 +45,7 @@ describe('Railroad / SVG', () => {
         );
     });
     
-    test('should set regular attributes using setAttribute', () => {
+    it('should create an element with a given set of attributes', () => {
         const attributes: { [key: string]: string } = {
             'width': '100',
             'height': '200',
@@ -60,7 +60,7 @@ describe('Railroad / SVG', () => {
         expect(mockElement.setAttribute).toHaveBeenCalledTimes(3);
     });
     
-    test('should handle xlink:href attribute specially using setAttributeNS', () => {
+    it('should handle xlink:href attribute specially', () => {
         const attributes: { [key: string]: string } = {
             'xlink:href': '#someId',
             'width': '50'
@@ -78,38 +78,40 @@ describe('Railroad / SVG', () => {
         expect(mockElement.setAttribute).toHaveBeenCalledTimes(1);
     });
     
-    test('should set text content when provided', () => {
+    it('should set text content when provided', () => {
         const text: string = 'Hello SVG';
         SVG(mockDocument, 'text', {}, text);
         
         expect(mockElement.textContent).toBe(text);
     });
     
-    test('should set empty text content when no text provided', () => {
+    it('should set empty text content when no text provided', () => {
         SVG(mockDocument, 'rect');
+
         expect(mockElement.textContent).toBe('');
     });
     
-    test('should handle empty attributes object', () => {
+    it('should handle empty attributes object', () => {
         SVG(mockDocument, 'circle', {});
         
         expect(mockElement.setAttribute).not.toHaveBeenCalled();
         expect(mockElement.setAttributeNS).not.toHaveBeenCalled();
     });
     
-    test('should handle undefined attributes (default parameter)', () => {
+    it('should handle undefined attributes (default parameter)', () => {
         SVG(mockDocument, 'ellipse');
         
         expect(mockElement.setAttribute).not.toHaveBeenCalled();
         expect(mockElement.setAttributeNS).not.toHaveBeenCalled();
     });
     
-    test('should return the created element', () => {
+    it('should return the created element', () => {
         const result = SVG(mockDocument, 'polygon');
+
         expect(result).toBe(mockElement);
     });
     
-    test('should handle mixed attributes including xlink:href', () => {
+    it('should handle mixed attributes including xlink:href', () => {
         const attributes: { [key: string]: string } = {
             'id': 'myElement',
             'xlink:href': '#target',
@@ -131,7 +133,7 @@ describe('Railroad / SVG', () => {
         expect(mockElement.setAttributeNS).toHaveBeenCalledTimes(1);
     });
     
-    test('should handle numeric attribute values as strings', () => {
+    it('should handle numeric attribute values as strings', () => {
         const attributes: { [key: string]: string } = {
             'x': '10',
             'y': '20',
@@ -146,7 +148,7 @@ describe('Railroad / SVG', () => {
         expect(mockElement.textContent).toBe('Test Text');
     });
     
-    test('should handle multiple xlink:href attributes if present', () => {
+    it('should handle multiple xlink:href attributes if present', () => {
         const attributes: { [key: string]: string } = {
             'xlink:href': '#first'
         };
