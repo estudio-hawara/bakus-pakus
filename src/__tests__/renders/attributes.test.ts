@@ -1,20 +1,16 @@
-import { isValidAttributeName, Attribute, Attributes } from '../../renders/attributes';
+import { Attribute, Attributes } from '../../renders/attributes';
 
-describe('Renders/isValidAttributeName', () => {
+describe('Renders / Attribute', () => {
 
     test('accepts valid attribute names', () => {
-        expect(isValidAttributeName('name')).toBeTruthy();
-        expect(isValidAttributeName('data-state')).toBeTruthy();
+        expect(Attribute.isValidName('name')).toBeTruthy();
+        expect(Attribute.isValidName('data-state')).toBeTruthy();
     });
 
     test('rejects invalid attribute names', () => {
-        expect(isValidAttributeName('not "valid"')).toBeFalsy();
-        expect(isValidAttributeName('also invalid!')).toBeFalsy();
+        expect(Attribute.isValidName('not "valid"')).toBeFalsy();
+        expect(Attribute.isValidName('also invalid!')).toBeFalsy();
     });
-
-});
-
-describe('Renders/Attribute', () => {
 
     test('accepts valid attribute names', () => {
         const name = 'data-state';
@@ -50,13 +46,32 @@ describe('Renders/Attribute', () => {
 
 });
 
-describe('Renders/Attributes', () => {
+describe('Renders / Attributes', () => {
 
     test('accepts valid attribute names', () => {
         const attributes = new Attributes();
         attributes.add('id', 'diagram');
+        expect(attributes.get('id')).toBe('diagram');
+    });
+
+    test('returns undefiend for non defined attribute names', () => {
+        const attributes = new Attributes();
+        attributes.add('id', 'diagram');
+        expect(attributes.get('class')).toBeUndefined();
+    });
+
+    test('converts the attributes to a string', () => {
+        const attributes = new Attributes();
+        attributes.add('id', 'diagram');
         attributes.add('title', 'Diagram');
-        expect(attributes.toString()).toBe(' id="diagram" title="Diagram"');
+        expect(attributes.toString()).toBe('id="diagram" title="Diagram"');
+    });
+
+    test('converts the attributes to a dictionary', () => {
+        const attributes = new Attributes();
+        attributes.add('id', 'diagram');
+        attributes.add('title', 'Diagram');
+        expect(attributes.toDictionary()).toStrictEqual({id: 'diagram', title: 'Diagram'});
     });
 
 });

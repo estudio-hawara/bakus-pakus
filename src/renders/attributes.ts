@@ -52,6 +52,17 @@ export class Attributes
         this.#attributes.push(attribute);
     }
 
+    toDictionary(): { [key: string]: string }
+    {
+        const dictionary: { [key: string]: string } = {};
+
+        for(const [key, attribute] of this.#attributes.entries()) {
+            dictionary[attribute.name] = attribute.value;
+        }
+
+        return dictionary;
+    }
+
     toString(): string
     {
         let string = '';
