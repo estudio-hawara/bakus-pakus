@@ -12,6 +12,10 @@ export type TerminalNode = BaseNode & {
   value: string;
 };
 
+export type SpecialNode = BaseNode & {
+  value: string;
+};
+
 export type UnaryNode = BaseNode & {
   value: RhsNode;
 };
@@ -24,7 +28,6 @@ export type BinaryNode = BaseNode & {
 export type GroupNode = UnaryNode;
 export type RepetitionNode = UnaryNode;
 export type OptionalNode = UnaryNode;
-export type SpecialNode = UnaryNode;
 
 export type ChoiceNode = BinaryNode;
 export type SequenceNode = BinaryNode;
@@ -90,7 +93,7 @@ export class Factory
         }
     }
 
-    Special(value: RhsNode): SpecialNode
+    Special(value: string): SpecialNode
     {
         return {
             type: 'Special',

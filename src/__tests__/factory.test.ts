@@ -88,11 +88,11 @@ describe('Factory', () => {
 
         it('can generate special nodes', () => {
             const factory = new Factory;
-            const special = factory.Special({ type: 'Terminal', value: 'Unspeakable' });
+            const special = factory.Special('Unspeakable');
 
             expect(special.type).toBe('Special');
-            expect(special.value).toStrictEqual({ type: 'Terminal', value: 'Unspeakable' });
-        });        
+            expect(special.value).toBe('Unspeakable');
+        });
 
     });
 

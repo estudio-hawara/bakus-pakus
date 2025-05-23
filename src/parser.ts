@@ -161,12 +161,12 @@ export class Parser
                 return this.Repetition();
             case '[':
                 return this.Optional();
-            case '?':
+            case 'special':
                 return this.Special();
-            case 'terminal':
-                return this.Terminal();
             case 'identifier':
                 return this.Identifier();
+            case 'terminal':
+                return this.Terminal();
         }
 
         throw new SyntaxError(`Unexpected ${this.#lookahead!.type} found in a right hind side value`);
@@ -216,16 +216,13 @@ export class Parser
 
     /**
      * Special
-     *   = "[", Rhs, "]"
+     *   = "?", Rhs, "?"
      *   ;
      */
     Special(): SpecialNode
     {
-        this.eat('?');
-        const value = this.Sequence();
-        this.eat('?');
-
-        return this.#factory.Special(value);
+        const token = this.eat('special');
+        return this.#factory.Special(token.value.slice(1, -1).trim());
     }
 
     /**
@@ -236,6 +233,6 @@ export class Parser
     Terminal(): TerminalNode
     {
         const token = this.eat('terminal');
-        return this.#factory.Terminal(token.value.slice(1, -1));
+        return this.#factory.Terminal(token.value.slice(1, -1).trim());
     }
 }

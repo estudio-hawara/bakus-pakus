@@ -1,178 +1,373 @@
-import { ChoiceNode, OptionalNode, RepetitionNode, SequenceNode, SpecialNode } from '../factory';
+import { ChoiceNode, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, SpecialNode, TerminalNode } from '../factory';
 import { Parser } from '../parser';
 
 describe('Parser', () => {
 
-    test('is a class', () => {
-        expect(typeof Parser).toBe('function');
-    });
+    describe('Constructor', () => {
 
-    test('can parse a simple grammar', () => {
-        const parser = new Parser;
-        const source = 'zero = "0";';
-        const parsed = parser.parse(source);
-
-        expect(parsed).toStrictEqual({
-            type: 'Grammar',
-            rules: [
-                {
-                    type: 'Rule',
-                    identifier: {
-                        type: 'Identifier',
-                        value: 'zero',
-                    },
-                    rhs: {
-                        type: 'Terminal',
-                        value: '0',
-                    },
-                },
-            ],
+        it('is a class', () => {
+            expect(typeof Parser).toBe('function');
         });
+
     });
 
-    test('throws an error when trying to eat a token on the end of the source', () => {
-        const parser = new Parser;
-        const source = 'zero = "0";';
-        parser.parse(source);
+    describe('Method: read', () => {
 
-        expect(() => { parser.eat('identifier'); }).toThrow(SyntaxError);
+        it('has a read method', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+
+            expect(() => parser.read(source)).not.toThrow(Error);
+        });
+
     });
 
-    test('throws an error when trying to eat a token different than the lookahead', () => {
-        const parser = new Parser;
-        const source = 'zero = "0";';
-        parser.read(source);
-        parser.reset();
+    describe('Method: parse', () => {
 
-        expect(() => { parser.eat('terminal'); }).toThrow(SyntaxError);
+        it('can parse a simple grammar', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+            const parsed = parser.parse(source);
+
+            expect(parsed).toStrictEqual({
+                type: 'Grammar',
+                rules: [
+                    {
+                        type: 'Rule',
+                        identifier: {
+                            type: 'Identifier',
+                            value: 'zero',
+                        },
+                        rhs: {
+                            type: 'Terminal',
+                            value: '0',
+                        },
+                    },
+                ],
+            });
+        });
+
+        it('throws an error when trying to eat a token on the end of the source', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+            parser.parse(source);
+
+            expect(() => { parser.eat('identifier'); }).toThrow(SyntaxError);
+        });
+
+        it('can parse multiple rules', () => {
+            const parser = new Parser;
+            const source = `
+            zero = "0";
+            one = "1";
+            `;
+            const parsed = parser.parse(source);
+
+            expect(parsed.rules).toHaveLength(2);
+        });
+
+        it('can parse rhs identifiers', () => {
+            const parser = new Parser;
+            const source = `
+            zero = "0";
+            one minus one = zero;
+            `;
+            const parsed = parser.parse(source);
+
+            expect(parsed.rules).toHaveLength(2);
+        });
+
     });
 
-    test('can parse multiple rules', () => {
-        const parser = new Parser;
-        const source = `
-        zero = "0";
-        one = "1";
-        `;
-        const parsed = parser.parse(source);
+    describe('Method: reset', () => {
 
-        expect(parsed.rules).toHaveLength(2);
+        it('throws an error when trying to eat a token different than the lookahead', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+            parser.read(source);
+            parser.reset();
+
+            expect(() => { parser.eat('terminal'); }).toThrow(SyntaxError);
+        });
+
     });
 
-    test('can parse rhs identifiers', () => {
-        const parser = new Parser;
-        const source = `
-        zero = "0";
-        one minus one = zero;
-        `;
-        const parsed = parser.parse(source);
+    describe('Method: eat', () => {
 
-        expect(parsed.rules).toHaveLength(2);
+        it('throws an error when trying to read a right hand side where there isn\'t one', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+            parser.read(source);
+            parser.reset();
+            parser.eat('identifier');
+
+            expect(() => { parser.Rhs(); }).toThrow(SyntaxError);
+        });
+
     });
 
-    test('throws an error when trying to read a right hand side where there isn\'t one', () => {
-        const parser = new Parser;
-        const source = 'zero = "0";';
-        parser.read(source);
-        parser.reset();
-        parser.eat('identifier');
+    describe('Method: Grammar', () => {
 
-        expect(() => { parser.Rhs(); }).toThrow(SyntaxError);
+        it('can parse grammars', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";\none = "1";';
+
+            parser.read(source);
+            const grammar = (parser.Grammar() as GrammarNode);
+
+            expect(grammar.rules).toHaveLength(2);
+        });
+
     });
 
-    test('can parse choices', () => {
-        const parser = new Parser;
-        const source = 'binary = "0" | "1";';
-        const parsed = parser.parse(source);
+    describe('Method: RuleList', () => {
 
-        expect(parsed.rules).toHaveLength(1);
+        it('can parse lists of rules', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";\none = "1";';
 
-        const rule = parsed.rules[0];
-        expect(rule.identifier.value).toBe('binary');
-        expect(rule.rhs.type).toBe('Choice');
+            parser.read(source);
+            const rules = (parser.RuleList() as Array<RuleNode>);
 
-        const choice = (rule.rhs as ChoiceNode);
-        expect(choice.left).toStrictEqual({ type: 'Terminal', value: '0' });
-        expect(choice.right).toStrictEqual({ type: 'Terminal', value: '1' });
+            expect(rules).toHaveLength(2);
+        });
+
     });
 
-    test('can parse sequences', () => {
-        const parser = new Parser;
-        const source = 'group = "(" , rhs , ")";';
-        const parsed = parser.parse(source);
+    describe('Method: Rule', () => {
 
-        expect(parsed.rules).toHaveLength(1);
+        it('can parse single rules', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
 
-        const rule = parsed.rules[0];
-        expect(rule.identifier.value).toBe('group');
-        expect(rule.rhs.type).toBe('Sequence');
+            parser.read(source);
+            const rule = parser.Rule();
 
-        expect(rule.rhs).toStrictEqual({
-            type: 'Sequence',
-            left: {
+            expect(rule.identifier.value).toBe('zero');
+        });
+
+    });
+
+    describe('Method: Identifier', () => {
+
+        it('can parse identifiers', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+
+            parser.read(source);
+            const identifier = parser.Identifier();
+
+            expect(identifier.value).toBe('zero');
+        });
+
+    });
+
+    describe('Method: Sequence', () => {
+
+        it('can parse sequences', () => {
+            const parser = new Parser;
+            const source = 'group = "(" , rhs , ")";';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+
+            const sequence = (parser.Sequence() as SequenceNode);
+
+            expect(sequence.type).toBe('Sequence');
+            expect(sequence.left).toStrictEqual({
                 type: 'Sequence',
                 left: { type: 'Terminal', value: '(' },
-                right: { type: 'Identifier', value: 'rhs' }
-            },
-            right: { type: 'Terminal', value: ')' }
+                right: { type: 'Identifier', value: 'rhs' },
+            });
+            expect(sequence.right).toStrictEqual({ type: 'Terminal', value: ')' });
         });
+
     });
 
-    test('can parse groups', () => {
-        const parser = new Parser;
-        const source = 'two binary digits = ("0" | "1"), ("0" | "1");';
-        const parsed = parser.parse(source);
+    describe('Method: Choice', () => {
 
-        expect(parsed.rules).toHaveLength(1);
+        it('can parse choice', () => {
+            const parser = new Parser;
+            const source = 'binary = "0" | "1";';
 
-        const rule = parsed.rules[0];
-        expect(rule.identifier.value).toBe('two binary digits');
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const choice = (parser.Choice() as ChoiceNode);
 
-        const sequence = (rule.rhs as SequenceNode);
-        expect(sequence.left.type).toBe('Group');
-        expect(sequence.right.type).toBe('Group');
+            expect(choice.left).toStrictEqual({ type: 'Terminal', value: '0' });
+            expect(choice.right).toStrictEqual({ type: 'Terminal', value: '1' });
+        });
+
     });
 
-    test('can parse repetitions', () => {
-        const parser = new Parser;
-        const source = 'binary sequence = {"0" | "1"};';
-        const parsed = parser.parse(source);
+    describe('Method: Rhs', () => {
 
-        expect(parsed.rules).toHaveLength(1);
+        it('can parse groups in right hand sides', () => {
+            const parser = new Parser;
+            const source = 'sequence or choice = ( rhs , "|" , rhs ) | ( rhs , "," , rhs );';
 
-        const rule = parsed.rules[0];
-        expect(rule.identifier.value).toBe('binary sequence');
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const group = (parser.Rhs() as GroupNode);
 
-        const repetition = (rule.rhs as RepetitionNode);
-        expect(repetition.value.type).toBe('Choice');
+            expect(group.type).toBe('Group');
+            expect(group.value.type).toBe('Sequence');
+        });
+
+        it('can parse repetitions in right hand sides', () => {
+            const parser = new Parser;
+            const source = 'grammar = { rule };';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const repetition = (parser.Rhs() as RepetitionNode);
+
+            expect(repetition.type).toBe('Repetition');
+
+            const identifier = (repetition.value as IdentifierNode);
+            expect(identifier.value).toBe('rule');
+        });
+
+        it('can parse optionals in right hand sides', () => {
+            const parser = new Parser;
+            const source = 'phone = [ prefix ], number;';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const optional = (parser.Rhs() as OptionalNode);
+
+            expect(optional.type).toBe('Optional');
+
+            const identifier = (optional.value as IdentifierNode);
+            expect(identifier.value).toBe('prefix');
+        });
+
+        it('can parse specials in right hand sides', () => {
+            const parser = new Parser;
+            const source = 'zero = ? one minus one ?;';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const special = (parser.Rhs() as SpecialNode);
+
+            expect(special.type).toBe('Special');
+            expect(special.value).toBe('one minus one');
+        });
+
+        it('can parse identifiers in right hand sides', () => {
+            const parser = new Parser;
+            const source = 'zero = null;';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const identifier = (parser.Rhs() as IdentifierNode);
+
+            expect(identifier.type).toBe('Identifier');
+            expect(identifier.value).toBe('null');
+        });
+
+        it('can parse terminals in right hand sides', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const terminal = (parser.Rhs() as TerminalNode);
+
+            expect(terminal.type).toBe('Terminal');
+            expect(terminal.value).toBe('0');
+        });
+
+
     });
 
-    test('can parse optionals', () => {
-        const parser = new Parser;
-        const source = 'signed number = [minus], number;';
-        const parsed = parser.parse(source);
+    describe('Method: Group', () => {
 
-        expect(parsed.rules).toHaveLength(1);
+        it('can parse groups', () => {
+            const parser = new Parser;
+            const source = 'one or eleven = ("0" | "1"), "1";';
 
-        const rule = parsed.rules[0];
-        expect(rule.identifier.value).toBe('signed number');
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const group = (parser.Group() as GroupNode);
 
-        const sequence = (rule.rhs as SequenceNode);
-        const optional = (sequence.left as OptionalNode);
-        expect(optional.value).toStrictEqual({ type: 'Identifier', value: 'minus' });
+            expect(group.type).toBe('Group');
+        });
+
     });
 
-    test('can parse specials', () => {
-        const parser = new Parser;
-        const source = 'identifier with spaces = ? "[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?" ?;';
-        const parsed = parser.parse(source);
+    describe('Method: Repetition', () => {
 
-        expect(parsed.rules).toHaveLength(1);
+        it('can parse repetitions', () => {
+            const parser = new Parser;
+            const source = 'binary representation = {"0" | "1"};';
 
-        const rule = parsed.rules[0];
-        expect(rule.identifier.value).toBe('identifier with spaces');
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const repetition = (parser.Repetition() as RepetitionNode);
 
-        const special = (rule.rhs as SpecialNode);
-        expect(special.value).toStrictEqual({ type: "Terminal", value: "[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?" });
+            expect(repetition.type).toBe('Repetition');
+        });
+
+    });
+
+    describe('Method: Optional', () => {
+
+        it('can parse optionals', () => {
+            const parser = new Parser;
+            const source = 'one or negative one = ["-"], "1"};';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const optional = (parser.Optional() as OptionalNode);
+
+            expect(optional.type).toBe('Optional');
+        });
+
+    });
+
+    describe('Method: Special', () => {
+
+        it('can parse specials', () => {
+            const parser = new Parser;
+            const source = 'prime = ? prime number ?;';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const specials = (parser.Special() as SpecialNode);
+
+            expect(specials.type).toBe('Special');
+            expect(specials.value).toBe('prime number');
+        });
+
+    });
+
+    describe('Method: Terminal', () => {
+
+        it('can parse terminals', () => {
+            const parser = new Parser;
+            const source = 'zero = "0";';
+
+            parser.read(source);
+            parser.Identifier();
+            parser.eat('=');
+            const terminal = parser.Terminal();
+
+            expect(terminal.value).toBe('0');
+        });
+
     });
 
 });

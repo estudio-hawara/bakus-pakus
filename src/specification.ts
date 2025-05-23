@@ -63,8 +63,7 @@ ebnf.add(/^\[/, '[');
 ebnf.add(/^\]/, ']');
 
 // Special symbols
-ebnf.add(/^\?/, '?');
-ebnf.add(/^\?/, '?');
+ebnf.add(/^\?[^\?]+\?/, 'special');
 
 // Choice symbol
 ebnf.add(/^\|/, '|');
