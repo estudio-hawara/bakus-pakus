@@ -10,16 +10,34 @@ type Spin = 'Clockwise' | 'Counter clockwise';
 
 export class Path extends FakeSVG
 {
+    #x: number;
+    #y: number;
+
     constructor(
         x: number,
         y: number,
-        attributes: Attributes = new Attributes,
+        attributes: Attributes | { [key: string]: string | number | boolean } = new Attributes,
         document: Document | null = null,
         options: Options = new Options,
     ) {
+        if (! (attributes instanceof Attributes))
+            attributes = new Attributes(attributes);
+
         super('path', attributes, '', document, options);
 
+        this.#x = x;
+        this.#y = y;
         this.attributes.add('d', `M ${x} ${y}`);
+    }
+
+    get x(): number
+    {
+        return this.#x;
+    }
+
+    get y(): number
+    {
+        return this.#y;
     }
 
     static isClockwise(from: FourCardinals, to: FourCardinals)

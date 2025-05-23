@@ -48,7 +48,7 @@ describe('Tokenizer', () => {
 
     describe('Getter: position', () => {
 
-        it('\'s current position can be accessed', () => {
+        it('its current position can be accessed', () => {
             const tokenizer = new Tokenizer;
 
             expect(tokenizer.position).toBe(0);
@@ -58,7 +58,7 @@ describe('Tokenizer', () => {
 
     describe('Getter: line', () => {
 
-        it('\'s current line can be accessed', () => {
+        it('its current line can be accessed', () => {
             const tokenizer = new Tokenizer;
 
             expect(tokenizer.line).toBe(1);
@@ -68,7 +68,7 @@ describe('Tokenizer', () => {
 
     describe('Getter: column', () => {
 
-        it('\'s current column can be accessed', () => {
+        it('its current column can be accessed', () => {
             const tokenizer = new Tokenizer;
 
             expect(tokenizer.column).toBe(1);
@@ -78,7 +78,7 @@ describe('Tokenizer', () => {
 
     describe('Getter: finished', () => {
 
-        it('\'s finished flag can be accessed', () => {
+        it('its finished flag can be accessed', () => {
             const tokenizer = new Tokenizer;
 
             expect(tokenizer.finished).toBeTruthy();
@@ -88,7 +88,7 @@ describe('Tokenizer', () => {
 
     describe('Getter: source', () => {
 
-        it('\'s source text can be accessed', () => {
+        it('its source text can be accessed', () => {
             const tokenizer = new Tokenizer;
 
             expect(tokenizer.source).toBe('');

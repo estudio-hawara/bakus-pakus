@@ -1,8 +1,9 @@
 import { Attributes } from "./attributes";
 import { Options } from "./options";
 import { SVG } from "./svg";
+import { escapeString } from "./utils";
 
-type Children = FakeSVG[] | string;
+export type Children = FakeSVG[] | string;
 
 export class FakeSVG
 {
@@ -14,16 +15,25 @@ export class FakeSVG
 
     constructor(
         tag: string,
-        attributes: Attributes = new Attributes,
-        text: string = '',
+        attributes: Attributes | { [key: string]: string | number | boolean } = new Attributes,
+        children: Children = [],
         document: Document | null = null,
         options: Options = new Options,
     ) {
         this.#tag = tag;
+
+        if (! (attributes instanceof Attributes))
+            attributes = new Attributes(attributes);
+
         this.#attributes = attributes;
-        this.#children = text;
+        this.#children = children;
         this.#document = document;
         this.#options = options;
+    }
+
+    get tag(): string
+    {
+        return this.#tag;
     }
 
     get attributes(): Attributes
@@ -43,8 +53,6 @@ export class FakeSVG
     {
         return this.#options;
     }
-
-    format() {}
 
     appendChild(element: FakeSVG)
     {
@@ -96,7 +104,7 @@ export class FakeSVG
             string += "\n";
 
         if (typeof this.#children == 'string') {
-            string += escape(this.#children);
+            string += escapeString(this.#children);
         }
 
         if (Array.isArray(this.#children))

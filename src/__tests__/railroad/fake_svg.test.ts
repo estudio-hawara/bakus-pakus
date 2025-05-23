@@ -39,6 +39,18 @@ describe('Railroad / FakeSVG', () => {
             expect(result).toContain('height="50"');
         });
 
+        it('accepts attributes as a plain object', () => {
+            const svg = new FakeSVG('rect', {
+                width: 100,
+                height: 50,
+            });
+
+            const result = svg.toString();
+            
+            expect(result).toContain('width="100"');
+            expect(result).toContain('height="50"');
+        });
+
     });
 
     describe('Getters: attributes', () => {

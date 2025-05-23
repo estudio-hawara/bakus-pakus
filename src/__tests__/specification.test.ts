@@ -12,7 +12,7 @@ describe('Rule', () => {
 
     describe('Getter: pattern', () => {
 
-        it('\'s pattern can be accessed', () => {
+        it('its pattern can be accessed', () => {
             const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
             const type = 'identifier';
             const rule = new Rule(pattern, type);
@@ -24,7 +24,7 @@ describe('Rule', () => {
 
     describe('Getter: type', () => {
 
-        it('\'s type can be accessed', () => {
+        it('its type can be accessed', () => {
             const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
             const type = 'identifier';
             const rule = new Rule(pattern, type);
@@ -61,7 +61,7 @@ describe('Specification', () => {
 
     describe('Getter: rules', () => {
 
-        it('\'s rules list can be accessed', () => {
+        it('its rules list can be accessed', () => {
             const specification = new Specification;
 
             expect(specification.rules).toHaveLength(0);

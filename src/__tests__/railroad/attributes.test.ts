@@ -77,6 +77,19 @@ describe('Railroad / Attribute', () => {
 
 describe('Railroad / Attributes', () => {
 
+    describe('Constructor', () => {
+
+        it('accept values on construction', () => {
+            const attributes = new Attributes({
+                id: 'diagram',
+                class: 'railroad',
+            });
+
+            expect(attributes.get('id')).toBe('diagram');
+            expect(attributes.get('class')).toBe('railroad');
+        });
+    });
+
     describe('Method: add', () => {
 
         it('accepts valid attribute names', () => {

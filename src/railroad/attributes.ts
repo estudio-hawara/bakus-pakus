@@ -16,7 +16,7 @@ export class Attribute
 
     static isValidName(attributeName: string): boolean
     {
-        const pattern = /^[a-zA-Z][a-zA-Z0-9\-._]*$/;
+        const pattern = /^[a-zA-Z][a-zA-Z0-9\-\:._]*$/;
 
         return pattern.test(attributeName);
     }
@@ -45,6 +45,12 @@ export class Attribute
 export class Attributes
 {
     #attributes: { [key: string]: Attribute } = {};
+
+    constructor(attributes: { [key: string]: string | number | boolean } = {})
+    {
+        for(const [key, value] of Object.entries(attributes))
+            this.add(key, value.toString());
+    }
 
     add(name: string, value: string): void
     {
