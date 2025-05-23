@@ -5,21 +5,7 @@ export class Reader
     #column: number = 1;
     #finished: boolean = true;
     #source: string = '';
-    
-    reset(): void
-    {
-        this.#position = 0;
-        this.#line = 1;
-        this.#column = 1;
-        this.#finished = this.#position >= this.#source.length;
-    }
-    
-    read(source: string): void
-    {
-        this.#source = source;
-        this.reset();
-    }
-    
+
     get position(): number
     {
         return this.#position;
@@ -44,7 +30,21 @@ export class Reader
     {
         return this.#source;
     }
+
+    reset(): void
+    {
+        this.#position = 0;
+        this.#line = 1;
+        this.#column = 1;
+        this.#finished = this.#position >= this.#source.length;
+    }
     
+    read(source: string): void
+    {
+        this.#source = source;
+        this.reset();
+    }
+
     step(): void
     {
         if (this.#position + 1 >= this.#source.length) {
