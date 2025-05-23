@@ -12,7 +12,7 @@ describe('Reader', () => {
 
     describe('Getter: position', () => {
 
-        it('\' current position can be accessed', () => {
+        it('its current position can be accessed', () => {
             const reader = new Reader;
             reader.read('321');
 
@@ -27,7 +27,7 @@ describe('Reader', () => {
 
     describe('Getter: line', () => {
 
-        it('\' current line can be accessed', () => {
+        it('its current line can be accessed', () => {
             const reader = new Reader;
             reader.read('2\n1');
 
@@ -42,7 +42,7 @@ describe('Reader', () => {
 
     describe('Getter: column', () => {
 
-        it('\' current column can be accessed', () => {
+        it('its current column can be accessed', () => {
             const reader = new Reader;
             reader.read('21');
 
@@ -57,7 +57,7 @@ describe('Reader', () => {
 
     describe('Getter: finished', () => {
 
-        it('\' finished flag can be accessed', () => {
+        it('its finished flag can be accessed', () => {
             const reader = new Reader;
             reader.read('21');
 
