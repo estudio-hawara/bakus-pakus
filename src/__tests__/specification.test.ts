@@ -2,48 +2,90 @@ import { Rule, Specification } from '../specification';
 
 describe('Rule', () => {
 
-    test('is a class', () => {
-        expect(typeof Rule).toBe('function');
+    describe('Constructor', () => {
+
+        it('is a class', () => {
+            expect(typeof Rule).toBe('function');
+        });
+
     });
 
-    test('can store a regex and a type', () => {
-        const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
-        const type = 'identifier';
-        const rule = new Rule(pattern, type);
+    describe('Getter: pattern', () => {
 
-        expect(rule.pattern).toBe(pattern);
-        expect(rule.type).toBe(type);
+        it('\'s pattern can be accessed', () => {
+            const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
+            const type = 'identifier';
+            const rule = new Rule(pattern, type);
+
+            expect(rule.pattern).toBe(pattern);
+        });
+
     });
 
-    test('can check if a string matches the pattern', () => {
-        const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
-        const type = 'identifier';
-        const rule = new Rule(pattern, type);
+    describe('Getter: type', () => {
 
-        expect(rule.match('1abc')).toBeFalsy();
-        expect(rule.match("abc1")).toBeTruthy();
+        it('\'s type can be accessed', () => {
+            const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
+            const type = 'identifier';
+            const rule = new Rule(pattern, type);
+
+            expect(rule.type).toBe(type);
+        });
+
     });
+
+    describe('Method: match', () => {
+
+        it('can check if a string matches the pattern', () => {
+            const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
+            const type = 'identifier';
+            const rule = new Rule(pattern, type);
+
+            expect(rule.match('1abc')).toBeFalsy();
+            expect(rule.match("abc1")).toBeTruthy();
+        });
+
+    });
+
 });
 
 describe('Specification', () => {
 
-    test('is a class', () => {
-        expect(typeof Specification).toBe('function');
+    describe('Constructor', () => {
+
+        it('is a class', () => {
+            expect(typeof Specification).toBe('function');
+        });
+
     });
 
-    test('can store rules', () => {
-        const specification = new Specification;
+    describe('Getter: rules', () => {
 
-        const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
-        const type = 'identifier';
+        it('\'s rules list can be accessed', () => {
+            const specification = new Specification;
 
-        specification.add(pattern, type);
+            expect(specification.rules).toHaveLength(0);
+        });
 
-        const rules = specification.rules;
+    });
 
-        expect(rules).toHaveLength(1);
-        expect(rules[0].pattern).toBe(pattern);
-        expect(rules[0].type).toBe(type);
+    describe('Method: add', () => {
+
+        it('has a method to register new rules', () => {
+            const specification = new Specification;
+
+            const pattern = /^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/;
+            const type = 'identifier';
+
+            specification.add(pattern, type);
+
+            const rules = specification.rules;
+
+            expect(rules).toHaveLength(1);
+            expect(rules[0].pattern).toBe(pattern);
+            expect(rules[0].type).toBe(type);
+        });
+
     });
 
 });

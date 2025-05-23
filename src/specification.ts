@@ -29,15 +29,15 @@ export class Specification
 {
     #rules: Rule[] = [];
 
+    get rules(): Rule[]
+    {
+        return [...this.#rules];
+    }
+
     add(pattern: RegExp, type: string|null)
     {
         const rule = new Rule(pattern, type);
         this.#rules.push(rule);
-    }
-
-    get rules(): Rule[]
-    {
-        return [...this.#rules];
     }
 }
 
