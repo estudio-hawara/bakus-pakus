@@ -7,11 +7,18 @@ describe('Railroad / DiagramContainer', () => {
 
     describe('Constructor', () => {
 
+        it('can be instantiated without explicit attributes', () => {
+            const tag = 'div';
+            const items: FakeSVG[] = [];
+            const container = new DiagramContainer(tag, undefined, items);
+
+            expect(container.tag).toBe(tag);
+        });
+
         it('should initialize properties correctly', () => {
             const tag = 'div';
             const attributes = new Attributes();
             const items: FakeSVG[] = [];
-
             const container = new DiagramContainer(tag, attributes, items);
 
             expect(container.tag).toBe(tag);
@@ -27,7 +34,6 @@ describe('Railroad / DiagramContainer', () => {
             const attributes = new Attributes();
             const child = new Terminal('Child');
             const items: FakeSVG[] = [child];
-
             const container = new DiagramContainer(tag, attributes, items);
 
             const mockCallback = jest.fn();
