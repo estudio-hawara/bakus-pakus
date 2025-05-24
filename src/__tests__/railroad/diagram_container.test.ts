@@ -8,7 +8,7 @@ describe('Railroad / DiagramContainer', () => {
     describe('Constructor', () => {
 
         it('can be instantiated without explicit attributes', () => {
-            const tag = 'div';
+            const tag = 'g';
             const items: FakeSVG[] = [];
             const container = new DiagramContainer(tag, undefined, items);
 
@@ -16,7 +16,7 @@ describe('Railroad / DiagramContainer', () => {
         });
 
         it('should initialize properties correctly', () => {
-            const tag = 'div';
+            const tag = 'g';
             const attributes = new Attributes();
             const items: FakeSVG[] = [];
             const container = new DiagramContainer(tag, attributes, items);
@@ -30,16 +30,16 @@ describe('Railroad / DiagramContainer', () => {
     describe('Method: walk', () => {
 
         it('should call the callback for itself and all items', () => {
-            const tag = 'div';
+            const tag = 'g';
             const attributes = new Attributes();
             const child = new Terminal('Child');
             const items: FakeSVG[] = [child];
             const container = new DiagramContainer(tag, attributes, items);
 
             const mockCallback = jest.fn();
-
             container.walk(mockCallback);
 
+            expect(mockCallback).toHaveBeenCalledWith(container);
             expect(mockCallback).toHaveBeenCalledWith(child);
         });
 

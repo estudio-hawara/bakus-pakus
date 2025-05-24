@@ -19,7 +19,7 @@ export class Terminal extends FakeSVG
 
         this.attributes.add('class', 'terminal');
 
-        if (options.debug) {
+        if (this.options.debug) {
             this.attributes.add('data-updown', this.up + " " + this.down);
             this.attributes.add('data-type', 'terminal');
         }
