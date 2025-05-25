@@ -79,12 +79,12 @@ export class Path extends FakeSVG
         return this;
     }
 
-    down(value: number): Path
+    vDown(value: number): Path
     {
         return this.v(Math.max(0, value));
     }
 
-    up(value: number): Path
+    vUp(value: number): Path
     {
         return this.v(-Math.max(0, value));
     }
@@ -96,7 +96,7 @@ export class Path extends FakeSVG
 		return this;
 	}
 
-    format()
+    format(): Path
     {
         this.attributes.concat('d', 'h.5');
 

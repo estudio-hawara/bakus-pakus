@@ -17,6 +17,9 @@ export class Terminal extends FakeSVG
 
         this.#text = text;
 
+        this.up = this.down = 11;
+        this.width = this.#text.length * this.options.defaultCharWidth + 20;
+       
         this.attributes.add('class', 'terminal');
 
         if (this.options.debug) {
@@ -30,22 +33,7 @@ export class Terminal extends FakeSVG
         return this.#text;
     }
 
-    get width(): number
-    {
-        return this.#text.length * this.options.defaultCharWidth + 20;
-    }
-
-    get up(): number
-    {
-        return 11;
-    }
-
-    get down(): number
-    {
-        return 11;
-    }
-
-    format(x: number, y: number, width: number)
+    format(x: number, y: number, width: number): Terminal
     {
         const gaps = determineGaps(width, this.width, this.options);
 

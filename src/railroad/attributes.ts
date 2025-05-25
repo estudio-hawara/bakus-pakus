@@ -66,6 +66,11 @@ export class Attributes
         return this.#attributes[name].value;
     }
 
+    delete(name: string): void
+    {
+        delete this.#attributes[name];
+    }
+
     concat(name: string, value: string): void
     {
         const current = this.get(name) ?? '';

@@ -159,7 +159,7 @@ describe('Railroad / Path', () => {
 
         it('should add positive vertical movement for positive values', () => {
             const path = new Path(10, 20);
-            const result = path.down(10);
+            const result = path.vDown(10);
 
             expect(path.attributes.get('d')).toContain('v 10');
             expect(result).toBe(path);
@@ -167,14 +167,14 @@ describe('Railroad / Path', () => {
 
         it('should add zero movement for negative values', () => {
             const path = new Path(10, 20);
-            path.down(-5);
+            path.vDown(-5);
 
             expect(path.attributes.get('d')).toContain('v 0');
         });
 
         it('should add zero movement for zero value', () => {
             const path = new Path(10, 20);
-            path.down(0);
+            path.vDown(0);
 
             expect(path.attributes.get('d')).toContain('v 0');
         });
@@ -185,7 +185,7 @@ describe('Railroad / Path', () => {
 
         it('should add negative vertical movement for positive values', () => {
             const path = new Path(10, 20);
-            const result = path.up(10);
+            const result = path.vUp(10);
     
             expect(path.attributes.get('d')).toContain('v -10');
             expect(result).toBe(path);
@@ -193,14 +193,14 @@ describe('Railroad / Path', () => {
 
         it('should add zero movement for negative values', () => {
             const path = new Path(10, 20);
-            path.up(-5);
+            path.vUp(-5);
     
             expect(path.attributes.get('d')).toContain('v 0');
         });
 
         it('should add zero movement for zero value', () => {
             const path = new Path(10, 20);
-            path.up(0);
+            path.vUp(0);
     
             expect(path.attributes.get('d')).toContain('v 0');
         });
@@ -488,7 +488,7 @@ describe('Railroad / Path', () => {
                 .v(10)
                 .l(5, 5)
                 .right(15)
-                .down(20);
+                .vDown(20);
     
             expect(result).toBe(path);
             expect(path.attributes.get('d')).toContain('m 5 5');

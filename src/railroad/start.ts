@@ -1,4 +1,3 @@
-import { Attributes } from "./attributes";
 import { FakeSVG } from "./fake_svg";
 import { Options } from "./options";
 import { Path } from "./path";
@@ -12,7 +11,7 @@ export class Start extends FakeSVG
     #label: string;
 
     constructor(
-        type: StartType,
+        type: StartType = 'simple',
         label: string = '',
         options: Options = new Options,
     ) {
@@ -20,6 +19,9 @@ export class Start extends FakeSVG
 
         this.#type = type;
         this.#label = label;
+
+        this.up = this.down = 10;
+        this.width = Math.max(20, this.label.length * this.options.defaultCharWidth + 10);
 
         if (this.options.debug) {
             this.attributes.add('data-updown', this.up + " " + this.down);
@@ -37,34 +39,19 @@ export class Start extends FakeSVG
         return this.#label;
     }
 
-    get width(): number
-    {
-        return Math.max(20, this.label.length * this.options.defaultCharWidth + 10);
-    }
-
-    get up(): number
-    {
-        return 10;
-    }
-
-    get down(): number
-    {
-        return 10;
-    }
-
     format(x: number, y: number): Start
     {
         let path = new Path(x, y - 10);
 
         if (this.type === "simple") {
-            path.down(20)
+            path.vDown(20)
                 .m(10, -20)
-                .down(20)
+                .vDown(20)
                 .m(-10, -10)
                 .right(this.width)
                 .addTo(this);
         } else {
-            path.down(20)
+            path.vDown(20)
                 .m(0, -10)
                 .right(this.width)
                 .addTo(this);

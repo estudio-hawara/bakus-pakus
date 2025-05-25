@@ -13,6 +13,12 @@ export class FakeSVG
     #document: Document | null;
     #options: Options;
 
+    up: number = 0;
+    down: number = 0;
+    height: number = 0;
+    width: number = 0;
+    needsSpace: boolean = false;
+
     constructor(
         tag: string,
         attributes: Attributes | { [key: string]: string | number | boolean } = new Attributes,
@@ -43,15 +49,23 @@ export class FakeSVG
 
     get children(): Children
     {
-        if (typeof this.#children === 'string')
-            return this.#children;
-
-        return [...this.#children];
+        return this.#children;
     }
 
     get options(): Options
     {
         return this.#options;
+    }
+
+    set children(value: Children)
+    {
+        this.#children = value;
+    }
+
+    /* istanbul ignore next */
+    format(x: number = 0, y: number = 0, width: number = 0): FakeSVG
+    {
+        return this;
     }
 
     appendChild(element: FakeSVG)

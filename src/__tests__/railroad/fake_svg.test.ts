@@ -94,6 +94,21 @@ describe('Railroad / FakeSVG', () => {
 
     });
 
+    describe('Setters: children', () => {
+
+        it('its children can be reset', () => {
+            const fakeSvg = new FakeSVG('text', new Attributes(), 'Initial text');
+            fakeSvg.children = 'Overwritten text';
+            
+            expect(fakeSvg.children).toContain('Overwritten text');
+
+            fakeSvg.children = [new FakeSVG('g')];
+
+            expect(Array.isArray(fakeSvg.children)).toBeTruthy();
+        });
+
+    });
+
     describe('Method: appendChild', () => {
 
         it('should add child element to empty children array', () => {

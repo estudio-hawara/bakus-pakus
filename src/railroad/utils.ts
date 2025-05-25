@@ -5,6 +5,10 @@ type gapTypes = {
     right: number,
 }
 
+export function unnull(...args: any) {
+	return args.reduce((sofar: any, x: any) => sofar !== undefined ? sofar : x);
+}
+
 export function escapeString(value: string): string
 {
     return value.replace(

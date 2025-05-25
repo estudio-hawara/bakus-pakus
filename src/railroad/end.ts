@@ -16,6 +16,9 @@ export class End extends FakeSVG
 
         this.#type = type;
 
+        this.up = this.down = 10;
+        this.width = 20;
+
         if (this.options.debug) {
             this.attributes.add('data-updown', this.up + " " + this.down);
             this.attributes.add('data-type', 'end');
@@ -25,21 +28,6 @@ export class End extends FakeSVG
     get type(): EndType
     {
         return this.#type;
-    }
-
-    get width(): number
-    {
-        return 20;
-    }
-
-    get up(): number
-    {
-        return 10;
-    }
-
-    get down(): number
-    {
-        return 10;
     }
 
     format(x: number, y: number): End
