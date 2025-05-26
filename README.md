@@ -1,6 +1,6 @@
-# Bakus Pakus
+# Choo Choo
 
-**Bakus Pakus** is a JavaScript library that generates visual railroad diagrams from Extended Backus-Naur Form (EBNF) grammars. Railroad diagrams provide an intuitive, graphical representation of formal language syntax rules, making it easier to understand and document complex grammars.
+**Choo Choo** is a JavaScript library that generates visual railroad diagrams from Extended Backus-Naur Form (EBNF) grammars. Railroad diagrams provide an intuitive, graphical representation of formal language syntax rules, making it easier to understand and document complex grammars.
 
 The library partially supports the ISO/IEC 14977 EBNF syntax and includes features like:
 
@@ -26,8 +26,8 @@ Check [docs/ebnf.ebnf](docs/ebnf.ebnf) for specific details of the supported fea
 ## Install
 
 ```bash
-git clone https://github.com/estudio-hawara/bakus-pakus
-cd bakus-pakus
+git clone https://github.com/estudio-hawara/choo-choo
+cd choo-choo
 pnpm install
 ```
 

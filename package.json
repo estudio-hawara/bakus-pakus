@@ -1,10 +1,10 @@
 {
-  "name": "bakus-pakus",
+  "name": "choo-choo",
   "description": "Small JavaScript library for creating railroad diagrams from Bakus-Naur Form grammars",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/estudio-hawara/bakus-pakus.git"
+    "url": "https://github.com/estudio-hawara/choo-choo.git"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
