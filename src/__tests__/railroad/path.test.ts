@@ -308,7 +308,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4); // ≈ 7.07
                 const inversed = 10 - section; // ≈ 2.93
 
-                expect(result).toBe(`a 10 10 0 0 1 ${section} ${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 ${section} ${inversed}`);
             });
     
             it('should create clockwise semi arc from North East', () => {
@@ -318,7 +318,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 ${inversed} ${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 ${inversed} ${section}`);
             });
     
             it('should create clockwise semi arc from East', () => {
@@ -328,7 +328,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 -${inversed} ${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 -${inversed} ${section}`);
             });
     
             it('should create clockwise semi arc from South East', () => {
@@ -338,7 +338,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 -${section} ${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 -${section} ${inversed}`);
             });
     
             it('should create clockwise semi arc from South', () => {
@@ -348,7 +348,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 -${section} -${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 -${section} -${inversed}`);
             });
     
             it('should create clockwise semi arc from South West', () => {
@@ -358,7 +358,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 -${inversed} -${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 -${inversed} -${section}`);
             });
     
             it('should create clockwise semi arc from West', () => {
@@ -368,7 +368,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 ${inversed} -${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 ${inversed} -${section}`);
             });
     
             it('should create clockwise semi arc from North West', () => {
@@ -378,7 +378,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 1 ${section} -${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 1 ${section} -${inversed}`);
             });
 
         });
@@ -392,7 +392,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 -${section} ${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 -${section} ${inversed}`);
             });
     
             it('should create counter clockwise semi arc from North West', () => {
@@ -402,7 +402,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 -${inversed} ${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 -${inversed} ${section}`);
             });
     
             it('should create counter clockwise semi arc from West', () => {
@@ -412,7 +412,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 ${inversed} ${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 ${inversed} ${section}`);
             });
     
             it('should create counter clockwise semi arc from South West', () => {
@@ -422,7 +422,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 ${section} ${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 ${section} ${inversed}`);
             });
     
             it('should create counter clockwise semi arc from South', () => {
@@ -432,7 +432,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 ${section} -${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 ${section} -${inversed}`);
             });
     
             it('should create counter clockwise semi arc from South East', () => {
@@ -442,7 +442,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 ${inversed} -${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 ${inversed} -${section}`);
             });
     
             it('should create counter clockwise semi arc from East', () => {
@@ -452,7 +452,7 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 -${inversed} -${section}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 -${inversed} -${section}`);
             });
     
             it('should create counter clockwise semi arc from North East', () => {
@@ -462,18 +462,27 @@ describe('Railroad / Path', () => {
                 const section = 10 * Math.sin(Math.PI / 4);
                 const inversed = 10 - section;
 
-                expect(result).toBe(`a 10 10 0 0 0 -${section} -${inversed}`);
+                expect(result.attributes.get('d')).toContain(`a 10 10 0 0 0 -${section} -${inversed}`);
             });
 
         });
 
-        it('should throw error for unexpected values', () => {
+        it('should throw error for unexpected cardinals', () => {
             expect(() => {
                 const path = new Path(10, 20);
 
                 // @ts-ignore - Testing runtime error with invalid inputs
-                path.semiArc('Invalid', 'Invalid');
-            }).toThrow('Unexpected values for a semi arc');
+                path.semiArc('Invalid', 'Clockwise');
+            }).toThrow(Error);
+        });
+
+        it('should throw error for unexpected spins', () => {
+            expect(() => {
+                const path = new Path(10, 20);
+
+                // @ts-ignore - Testing runtime error with invalid inputs
+                path.semiArc('North', 'Invalid');
+            }).toThrow(Error);
         });
 
     });
