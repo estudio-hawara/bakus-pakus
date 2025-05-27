@@ -9,7 +9,7 @@ describe('Railroad / HorizontalChoice', () => {
     
     describe('Constructor', () => {
         
-        it('should throw a RangeError if less than two items are provided', () => {
+        it('should throw an error if less than two items are provided', () => {
             const item1 = new FakeSVG('g');
             
             expect(() => new HorizontalChoice([item1])).toThrow(RangeError);
@@ -28,7 +28,7 @@ describe('Railroad / HorizontalChoice', () => {
             const item3 = new FakeSVG('g');
             item3.width = 40;
             item3.needsSpace = true;
-            item3.height = 20; // Give the last item some height
+            item3.height = 20;
             
             const options = new Options({ arcRadius: 10 });
             const horizontalChoice = new HorizontalChoice([item1, item2, item3], options);
@@ -64,7 +64,7 @@ describe('Railroad / HorizontalChoice', () => {
             expect(horizontalChoice.up).toBeGreaterThanOrEqual(25);
         });
 
-        it('should set needsSpace to false', () => {
+        it('should set needs space to false', () => {
             const item1 = new FakeSVG('g');
             const item2 = new FakeSVG('g');
             const horizontalChoice = new HorizontalChoice([item1, item2]);
@@ -86,9 +86,13 @@ describe('Railroad / HorizontalChoice', () => {
 
     describe('Method: format', () => {
         
-        it('should call determineGaps with correct parameters', () => {
+        it('should call determine gaps with correct parameters', () => {
             const item1 = new FakeSVG('g');
+            item1.needsSpace = true;
+
             const item2 = new FakeSVG('g');
+            item2.needsSpace = true;
+
             const horizontalChoice = new HorizontalChoice([item1, item2]);
             
             const determineGapsSpy = jest.spyOn(utils, 'determineGaps');
@@ -121,7 +125,7 @@ describe('Railroad / HorizontalChoice', () => {
             pathSpy.mockRestore();
         });
 
-        it('should format each item and add to horizontalChoice', () => {
+        it('should format each item and add to horizontal choice', () => {
             const item1 = new FakeSVG('g');
             item1.width = 50;
             item1.height = 30;
@@ -162,10 +166,10 @@ describe('Railroad / HorizontalChoice', () => {
             pathSpy.mockRestore();
         });
 
-        it('should handle first item with height greater than lowerTrack', () => {
+        it('should handle first item with height greater than lower track', () => {
             const item1 = new FakeSVG('g');
             item1.width = 50;
-            item1.height = 100; // Large height to exceed lowerTrack
+            item1.height = 100;
             item1.format = jest.fn().mockReturnValue(item1);
             
             const item2 = new FakeSVG('g');
@@ -185,7 +189,24 @@ describe('Railroad / HorizontalChoice', () => {
             pathSpy.mockRestore();
         });
 
-        it('should return the horizontalChoice itself after formatting', () => {
+        it('should handle first item with height just above lower track', () => {
+            const item1 = new FakeSVG('g');
+            item1.width = 50;
+            item1.height = 35;
+            item1.format = jest.fn().mockReturnValue(item1);
+            
+            const item2 = new FakeSVG('g');
+            item2.width = 30;
+            item2.height = 20;
+            item2.format = jest.fn().mockReturnValue(item2);
+            
+            const options = new Options({ arcRadius: 10 });
+            const horizontalChoice = new HorizontalChoice([item1, item2], options);
+            
+            expect(() => horizontalChoice.format()).not.toThrow();
+        });
+
+        it('should return the horizontal choice itself after formatting', () => {
             const item1 = new FakeSVG('g');
             const item2 = new FakeSVG('g');
             const horizontalChoice = new HorizontalChoice([item1, item2]);

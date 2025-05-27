@@ -21,7 +21,7 @@ describe('Railroad / Choice', () => {
             const item3 = new FakeSVG('g');
 
             expect(() => new Choice([item1, item2, item3], undefined, -1)).toThrow(RangeError);
-            expect(() => new Choice([item1, item2, item3], undefined, 2)).toThrow(RangeError);
+            expect(() => new Choice([item1, item2, item3], undefined, 3)).toThrow(RangeError);
         });
 
         it('should calculate width correctly based on items', () => {
@@ -34,8 +34,27 @@ describe('Railroad / Choice', () => {
             const item3 = new FakeSVG('g');
             item3.width = 40;
             
+            const item4 = new FakeSVG('g');
+            item4.width = 40;
+
             const options = new Options({ arcRadius: 10 });
-            const choice = new Choice([item1, item2, item3], options, 1);
+            const choice = new Choice([item1, item2, item3, item4], options, 1);
+            
+            expect(choice.width).toBe(50 + 4 * options.arcRadius);
+        });
+
+        it('should consider the normal element when calculating the width', () => {
+            const item1 = new FakeSVG('g');
+            item1.width = 50;
+            
+            const item2 = new FakeSVG('g');
+            item2.width = 30;
+            
+            const item3 = new FakeSVG('g');
+            item3.width = 40;
+            
+            const options = new Options({ arcRadius: 10 });
+            const choice = new Choice([item1, item2, item3], options, 2);
             
             expect(choice.width).toBe(50 + 4 * options.arcRadius);
         });

@@ -13,7 +13,7 @@ export class Choice extends DiagramContainer
         if (normal !== Math.floor(normal))
             throw new TypeError('The normal of an choice constructor must be an integer');
         
-        if (normal < 0 || normal >= items.length - 1)
+        if (normal < 0 || normal > items.length - 1)
             throw new RangeError('The normal of an choice must be the index of one of its items');
 
         super('g', {}, items, options);
