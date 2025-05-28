@@ -13,8 +13,10 @@ export class Stack extends DiagramContainer
 
         super('g', {}, items, options);
 
+        this.width = Math.max(...this.items.map(e => e.width + (e.needsSpace ? 20 : 0)));
+
         if (this.items.length > 1)
-            this.width += this.options.arcRadius;
+            this.width += this.options.arcRadius * 2;
 
         this.needsSpace = true;
 
@@ -84,7 +86,8 @@ export class Stack extends DiagramContainer
                     .arc('West', 'South')
                     .addTo(this);
                 
-                y += Math.max(item.down + this.options.verticalSeparation, this.options.arcRadius * 2);
+                y += Math.max(item.down + this.options.verticalSeparation, this.options.arcRadius * 2) +
+                    Math.max(this.items[i + 1].up + this.options.verticalSeparation, this.options.arcRadius * 2);
                 x = start + this.options.arcRadius;
             }
         }
