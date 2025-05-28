@@ -10,6 +10,7 @@ import { Sequence } from "@railroad/sequence";
 import { Stack } from "@railroad/stack";
 import { Start } from "@railroad/start";
 import { Terminal } from "@railroad/terminal";
+import { VerticalSequence } from "@app/railroad/vertical_sequence";
 
 export default {
     AlternatingSequence,
@@ -24,4 +25,5 @@ export default {
     Stack,
     Start,
     Terminal,
+    VerticalSequence,
 }
