@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.tsserver.maxTsServerMemory": 4096,
+    "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+    "typescript.tsserver.useSyntaxServer": "auto"
+  }
+}
