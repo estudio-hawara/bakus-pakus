@@ -78,7 +78,7 @@ export class Choice extends DiagramContainer
             let item = this.items[i];
 
             if (i == this.#normal - 1)
-                Math.max(this.options.arcRadius * 2, this.items[this.#normal].up + this.options.verticalSeparation + item.down + item.height);
+                distanceFromY = Math.max(this.options.arcRadius * 2, this.items[this.#normal].up + this.options.verticalSeparation + item.down + item.height);
 
             path(x, y)
                 .arc('South', 'East')
@@ -110,6 +110,7 @@ export class Choice extends DiagramContainer
             .right(this.options.arcRadius * 2)
             .addTo(this);
         
+        distanceFromY = 0;
         for (let i = this.#normal + 1; i <= last; i++) {
             const item = this.items[i];
 
