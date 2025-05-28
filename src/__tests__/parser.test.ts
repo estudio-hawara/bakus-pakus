@@ -1,5 +1,5 @@
-import { ChoiceNode, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, SpecialNode, TerminalNode } from '../factory';
-import { Parser } from '../parser';
+import { ChoiceNode, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, SpecialNode, TerminalNode } from '@app/factory';
+import { Parser } from '@app/parser';
 
 describe('Parser', () => {
 

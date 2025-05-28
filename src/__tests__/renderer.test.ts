@@ -1,5 +1,5 @@
-import { Renderer } from '../renderer';
-import { Parser } from '../parser';
+import { Renderer } from '@app/renderer';
+import { Parser } from '@app/parser';
 
 describe('Renderer', () => {
 

@@ -1,11 +1,11 @@
-import { Diagram, PaddingType } from '../../railroad/diagram';
-import { Start } from '../../railroad/start';
-import { End } from '../../railroad/end';
-import { FakeSVG } from '../../railroad/fake_svg';
-import { Options } from '../../railroad/options';
-import { Path } from '../../railroad/path';
-import { DiagramContainer } from '../../railroad/diagram_container';
-import { defaultStyle } from '../../railroad/style';
+import { Diagram, PaddingType } from '@railroad/diagram';
+import { Start } from '@railroad/start';
+import { End } from '@railroad/end';
+import { FakeSVG } from '@railroad/fake_svg';
+import { Options } from '@railroad/options';
+import { Path } from '@railroad/path';
+import { DiagramContainer } from '@railroad/diagram_container';
+import { defaultStyle } from '@railroad/style';
 
 describe('Railroad / Diagram', () => {
     

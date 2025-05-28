@@ -1,4 +1,4 @@
-import { Attribute, Attributes } from '../../railroad/attributes';
+import { Attribute, Attributes } from '@railroad/attributes';
 
 describe('Railroad / Attribute', () => {
 

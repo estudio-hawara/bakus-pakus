@@ -1,4 +1,4 @@
-import { Token, Tokenizer } from '../tokenizer';
+import { Token, Tokenizer } from '@app/tokenizer';
 
 describe('Token', () => {
 

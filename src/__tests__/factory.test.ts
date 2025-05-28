@@ -1,4 +1,4 @@
-import { Factory } from '../factory';
+import { Factory } from '@app/factory';
 
 describe('Factory', () => {
 

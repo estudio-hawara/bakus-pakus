@@ -1,4 +1,4 @@
-import { Rule, Specification } from '../specification';
+import { Rule, Specification } from '@app/specification';
 
 describe('Rule', () => {
 

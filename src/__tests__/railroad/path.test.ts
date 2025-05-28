@@ -1,6 +1,6 @@
-import { Path } from '../../railroad/path';
-import { Options } from '../../railroad/options';
-import { FakeSVG } from '../../railroad/fake_svg';
+import { Path } from '@railroad/path';
+import { Options } from '@railroad/options';
+import { FakeSVG } from '@railroad/fake_svg';
 
 describe('Railroad / Path', () => {
     

@@ -1,8 +1,8 @@
-import { ComplexDiagram } from '../../railroad/complex_diagram';
-import { Start } from '../../railroad/start';
-import { End } from '../../railroad/end';
-import { FakeSVG } from '../../railroad/fake_svg';
-import { Options } from '../../railroad/options';
+import { ComplexDiagram } from '@railroad/complex_diagram';
+import { Start } from '@railroad/start';
+import { End } from '@railroad/end';
+import { FakeSVG } from '@railroad/fake_svg';
+import { Options } from '@railroad/options';
 
 describe('Railroad / ComplexDiagram', () => {
     

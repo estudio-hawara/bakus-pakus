@@ -1,6 +1,6 @@
-import { FakeSVG } from '../../railroad/fake_svg';
-import { Path } from '../../railroad/path';
-import { title, text, rect, path, a } from '../../railroad/tags';
+import { FakeSVG } from '@railroad/fake_svg';
+import { Path } from '@railroad/path';
+import { title, text, rect, path, a } from '@railroad/tags';
 
 describe('Railroad / Tags / title', () => {
 

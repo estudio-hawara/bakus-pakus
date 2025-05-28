@@ -1,4 +1,4 @@
-import { SVG } from '../../railroad/svg';
+import { SVG } from '@railroad/svg';
 
 describe('Railroad / SVG', () => {
 

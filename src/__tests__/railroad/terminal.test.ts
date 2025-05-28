@@ -1,6 +1,6 @@
-import { Terminal, wrapString } from '../../railroad/terminal';
-import { Options } from '../../railroad/options';
-import { FakeSVG } from '../../railroad/fake_svg';
+import { Terminal, wrapString } from '@railroad/terminal';
+import { Options } from '@railroad/options';
+import { FakeSVG } from '@railroad/fake_svg';
 
 describe('Railroad / Terminal', () => {
 

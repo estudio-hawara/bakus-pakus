@@ -1,7 +1,7 @@
-import { Sequence } from '../../railroad/sequence';
-import { FakeSVG } from '../../railroad/fake_svg';
-import { Options } from '../../railroad/options';
-import * as tags from '../../railroad/tags';
+import { Sequence } from '@railroad/sequence';
+import { FakeSVG } from '@railroad/fake_svg';
+import { Options } from '@railroad/options';
+import * as tags from '@railroad/tags';
 
 describe('Railroad / Sequence', () => {
     

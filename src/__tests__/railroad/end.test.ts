@@ -1,5 +1,5 @@
-import { Options } from "../../railroad/options";
-import { End } from "../../railroad/end";
+import { Options } from "@railroad/options";
+import { End } from "@railroad/end";
 
 describe('Railroad / End', () => {
 

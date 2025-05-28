@@ -1,4 +1,4 @@
-import { Reader } from '../reader';
+import { Reader } from '@app/reader';
 
 describe('Reader', () => {
 

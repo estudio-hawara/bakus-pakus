@@ -1,7 +1,7 @@
-import { AlternatingSequence } from '../../railroad/alternating_sequence';
-import { FakeSVG } from '../../railroad/fake_svg';
-import { Options } from '../../railroad/options';
-import * as tags from '../../railroad/tags';
+import { AlternatingSequence } from '@railroad/alternating_sequence';
+import { FakeSVG } from '@railroad/fake_svg';
+import { Options } from '@railroad/options';
+import * as tags from '@railroad/tags';
 
 describe('Railroad / AlternatingSequence', () => {
     
