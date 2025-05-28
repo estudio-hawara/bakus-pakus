@@ -8,7 +8,7 @@ export class Choice extends DiagramContainer
 {
     #normal: number;
 
-    constructor(items: FakeSVG[], options: Options = new Options, normal: number)
+    constructor(items: FakeSVG[], normal: number = 0, options: Options = new Options)
     {
         if (normal !== Math.floor(normal))
             throw new TypeError('The normal of an choice constructor must be an integer');

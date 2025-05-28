@@ -12,7 +12,7 @@ describe('Railroad / Choice', () => {
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
 
-            expect(() => new Choice([item1, item2, item3], undefined, 1.5)).toThrow(TypeError);
+            expect(() => new Choice([item1, item2, item3], 1.5)).toThrow(TypeError);
         });
 
         it('should throw a RangeError if normal is out of bounds', () => {
@@ -20,8 +20,8 @@ describe('Railroad / Choice', () => {
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
 
-            expect(() => new Choice([item1, item2, item3], undefined, -1)).toThrow(RangeError);
-            expect(() => new Choice([item1, item2, item3], undefined, 3)).toThrow(RangeError);
+            expect(() => new Choice([item1, item2, item3], -1)).toThrow(RangeError);
+            expect(() => new Choice([item1, item2, item3], 3)).toThrow(RangeError);
         });
 
         it('should calculate width correctly based on items', () => {
@@ -38,7 +38,7 @@ describe('Railroad / Choice', () => {
             item4.width = 40;
 
             const options = new Options({ arcRadius: 10 });
-            const choice = new Choice([item1, item2, item3, item4], options, 1);
+            const choice = new Choice([item1, item2, item3, item4], 1, options);
             
             expect(choice.width).toBe(50 + 4 * options.arcRadius);
         });
@@ -54,7 +54,7 @@ describe('Railroad / Choice', () => {
             item3.width = 40;
             
             const options = new Options({ arcRadius: 10 });
-            const choice = new Choice([item1, item2, item3], options, 2);
+            const choice = new Choice([item1, item2, item3], 2, options);
             
             expect(choice.width).toBe(50 + 4 * options.arcRadius);
         });
@@ -69,7 +69,7 @@ describe('Railroad / Choice', () => {
             const item3 = new FakeSVG('g');
             item3.height = 30;
             
-            const choice = new Choice([item1, item2, item3], undefined, 1);
+            const choice = new Choice([item1, item2, item3], 1);
             
             expect(choice.height).toBe(50);
         });
@@ -91,7 +91,7 @@ describe('Railroad / Choice', () => {
             item3.down = 15;
             
             const options = new Options({ arcRadius: 10, verticalSeparation: 20 });
-            const choice = new Choice([item1, item2, item3], options, 1);
+            const choice = new Choice([item1, item2, item3], 1, options);
             
             expect(choice.up).toBe(70);
             expect(choice.down).toBe(50);
@@ -102,7 +102,7 @@ describe('Railroad / Choice', () => {
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
             const options = new Options({ debug: true });
-            const choice = new Choice([item1, item2, item3], options, 1);
+            const choice = new Choice([item1, item2, item3], 1, options);
             
             expect(choice.attributes.get('data-updown')).toBeDefined();
             expect(choice.attributes.get('data-type')).toBe('choice');
@@ -116,7 +116,7 @@ describe('Railroad / Choice', () => {
             const item1 = new FakeSVG('g');
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
-            const choice = new Choice([item1, item2, item3], undefined, 1);
+            const choice = new Choice([item1, item2, item3], 1);
             
             const pathSpy = jest.spyOn(tags, 'path');
             
@@ -149,7 +149,7 @@ describe('Railroad / Choice', () => {
             item3.down = 23;
             item3.format = jest.fn().mockReturnValue(item3);
             
-            const choice = new Choice([item1, item2, item3], undefined, 1);
+            const choice = new Choice([item1, item2, item3], 1);
             
             choice.format();
             
@@ -162,7 +162,7 @@ describe('Railroad / Choice', () => {
             const item1 = new FakeSVG('g');
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
-            const choice = new Choice([item1, item2, item3], undefined, 1);
+            const choice = new Choice([item1, item2, item3], 1);
             
             const result = choice.format();
             
@@ -173,7 +173,7 @@ describe('Railroad / Choice', () => {
             const item1 = new FakeSVG('g');
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
-            const choice = new Choice([item1, item2, item3], undefined, 1);
+            const choice = new Choice([item1, item2, item3], 1);
             
             const addToSpy = jest.spyOn(FakeSVG.prototype, 'addTo');
             choice.format();
