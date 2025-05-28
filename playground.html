@@ -38,12 +38,19 @@
                 result.appendChild(generated.toSVG(document));
             }
 
+            window.setSource = (source) => {
+                const sourceArea = document.getElementById('source-area');
+                sourceArea.value = source;
+                update();
+            }
+
             document.addEventListener('DOMContentLoaded', () => { initialize(); update(); });
         </script>
     </head>
     <body>
         <style>
             body {
+                font-size: 18px;
                 display: flex;
                 flex-direction: column;
                 gap: 1em;
@@ -56,8 +63,22 @@
             }
 
             #source-area, #generated-area {
+                font-size: 18px;
                 width: 50%;
                 height: 50vh;
+                resize: none;
+            }
+
+            #examples-section {
+                display: flex;
+                flex-direction: row;
+                gap: .5em;
+            }
+
+            #examples-section textarea {
+                font-size: 18px;
+                width: 100%;
+                height: 200px;
                 resize: none;
             }
         </style>
@@ -120,12 +141,28 @@
         </style>
 
         <section id="input-section">
-            <textarea id="source-area">new Diagram([new Terminal('1'), new Terminal('2')])</textarea>
-            <textarea id="generated-area"></textarea>
+            <textarea id="source-area">new Diagram([])</textarea>
+            <textarea readonly id="generated-area"></textarea>
         </section>
 
         <section id="result-section">
             <picture id="result"></picture>
+        </section>
+
+        <section id="examples-section">
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new Terminal('1'),
+    new Terminal('2'),
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new AlternatingSequence([
+        new Terminal('1'),
+        new Terminal('2'),
+    ])
+])</textarea>
+
         </section>
     </body>
 </html>

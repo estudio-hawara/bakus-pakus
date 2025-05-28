@@ -76,7 +76,7 @@ export class AlternatingSequence extends DiagramContainer
             .arc('West', 'North')
             .addTo(this);
 
-        first.format(x + 2 * this.options.arcRadius, y + firstIn, this.width - 4 * this.options.arcRadius)
+        first.format(x + 2 * this.options.arcRadius, y - firstIn, this.width - 4 * this.options.arcRadius)
             .addTo(this);
         
         path(x + this.width - 2 * this.options.arcRadius, y - firstOut)
