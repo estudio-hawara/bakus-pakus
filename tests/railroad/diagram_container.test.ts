@@ -1,7 +1,7 @@
-import { Attributes } from "../../railroad/attributes";
-import { FakeSVG } from "../../railroad/fake_svg";
-import { Terminal } from "../../railroad/terminal";
-import { DiagramContainer } from "../../railroad/diagram_container";
+import { Attributes } from "@railroad/attributes";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Terminal } from "@railroad/terminal";
+import { DiagramContainer } from "@railroad/diagram_container";
 
 describe('Railroad / DiagramContainer', () => {
 

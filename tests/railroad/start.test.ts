@@ -1,5 +1,5 @@
-import { Options } from "../../railroad/options";
-import { Start } from "../../railroad/start";
+import { Options } from "@railroad/options";
+import { Start } from "@railroad/start";
 
 describe('Railroad / Start', () => {
 
