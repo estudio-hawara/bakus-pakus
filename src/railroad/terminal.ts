@@ -19,7 +19,8 @@ export class Terminal extends FakeSVG
 
         this.up = this.down = 11;
         this.width = this.#text.length * this.options.defaultCharWidth + 20;
-       
+        this.needsSpace = true;
+
         this.attributes.add('class', 'terminal');
 
         if (this.options.debug) {
