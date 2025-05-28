@@ -21,7 +21,7 @@ export class Diagram extends DiagramContainer
 
     constructor(items: FakeSVG[], options: Options = new Options)
     {
-        super('svg', undefined, items, options);
+        super('svg', {class: options.diagramClass}, items, options);
 
         if (! (this.items[0] instanceof Start))
             this.items.unshift(new Start);
