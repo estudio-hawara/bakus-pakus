@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Railroad Diagram</title>
+        <script type="module">
+            import { Railroad } from './dist/esm/index.js';
+
+            const {
+                AlternatingSequence,
+                Choice,
+                ComplexDiagram,
+                DiagramContainer,
+                Diagram,
+                End,
+                HorizontalChoice,
+                Path,
+                Sequence,
+                Stack,
+                Start,
+                Terminal,
+            } = Railroad;
+
+            function initialize() {
+                document.getElementById('source-area').addEventListener('input', update);
+            }
+
+            function update() {
+                const sourceArea = document.getElementById('source-area');
+                const generatedArea = document.getElementById('generated-area');
+                const result = document.getElementById('result');
+
+                const source = sourceArea.value;
+                const generated = eval(source);
+
+                generatedArea.value = generated.toString();
+
+                result.innerHTML = '';
+                result.appendChild(generated.toSVG(document));
+            }
+
+            document.addEventListener('DOMContentLoaded', () => { initialize(); update(); });
+        </script>
+    </head>
+    <body>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+
+            #input-section {
+                display: flex;
+                flex-direction: row;
+                gap: .5em;
+            }
+
+            #source-area, #generated-area {
+                width: 50%;
+                height: 50vh;
+                resize: none;
+            }
+        </style>
+
+        <style>
+            svg {
+                background-color: hsl(30,20%,95%);
+            }
+
+            path {
+                stroke-width: 3;
+                stroke: black;
+                fill: rgba(0,0,0,0);
+            }
+
+            text {
+                font: bold 14px monospace;
+                text-anchor: middle;
+                white-space: pre;
+            }
+
+            text.diagram-text {
+                font-size: 12px;
+            }
+
+            text.diagram-arrow {
+                font-size: 16px;
+            }
+
+            text.label {
+                text-anchor: start;
+            }
+
+            text.comment {
+                font: italic 12px monospace;
+            }
+
+            rect {
+                stroke-width: 3;
+                stroke: black;
+                fill: hsl(120,100%,90%);
+            }
+
+            rect.group-box {
+                stroke: gray;
+                stroke-dasharray: 10 5;
+                fill: none;
+            }
+
+            path.diagram-text {
+                stroke-width: 3;
+                stroke: black;
+                fill: white;
+                cursor: help;
+            }
+
+            g.diagram-text:hover path.diagram-text {
+                fill: #eee;
+            }
+        </style>
+
+        <section id="input-section">
+            <textarea id="source-area">new Diagram([new Terminal('1'), new Terminal('2')])</textarea>
+            <textarea id="generated-area"></textarea>
+        </section>
+
+        <section id="result-section">
+            <picture id="result"></picture>
+        </section>
+    </body>
+</html>
