@@ -18,6 +18,7 @@
                 Stack,
                 Start,
                 Terminal,
+                VerticalSequence,
             } = Railroad;
 
             function initialize() {
@@ -191,6 +192,13 @@
 
             <textarea readonly onclick="setSource(this.value)">new Diagram([
     new Stack([
+        new Terminal('1'),
+        new Terminal('2'),
+    ])
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new VerticalSequence([
         new Terminal('1'),
         new Terminal('2'),
     ])
