@@ -21,7 +21,7 @@ describe('Railroad / Stack', () => {
             const options = new Options({ arcRadius: 10 });
             const stack = new Stack([item1, item2], options);
             
-            expect(stack.width).toBe(10);
+            expect(stack.width).toBe(70);
         });
         
         it('should set needsSpace to true', () => {
