@@ -1,8 +1,8 @@
-import { Attributes } from "./attributes";
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
-import { a, path, rect, text, title } from "./tags";
-import { determineGaps } from "./utils";
+import { Attributes } from "@railroad/attributes";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
+import { a, path, rect, text, title } from "@railroad/tags";
+import { determineGaps } from "@railroad/utils";
 
 export class Terminal extends FakeSVG
 {

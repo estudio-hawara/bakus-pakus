@@ -1,8 +1,8 @@
-import { Diagram } from "./diagram";
-import { End } from "./end";
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
-import { Start } from "./start";
+import { Diagram } from "@railroad/diagram";
+import { End } from "@railroad/end";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
+import { Start } from "@railroad/start";
 
 export class ComplexDiagram extends Diagram
 {

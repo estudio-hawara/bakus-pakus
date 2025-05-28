@@ -1,5 +1,5 @@
-import { Children, FakeSVG } from "./fake_svg";
-import { Path } from "./path";
+import { Children, FakeSVG } from "@railroad/fake_svg";
+import { Path } from "@railroad/path";
 
 export function title(
     text: string,

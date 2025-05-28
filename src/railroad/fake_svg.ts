@@ -1,7 +1,7 @@
-import { Attributes } from "./attributes";
-import { Options } from "./options";
-import { SVG } from "./svg";
-import { escapeString } from "./utils";
+import { Attributes } from "@railroad/attributes";
+import { Options } from "@railroad/options";
+import { SVG } from "@railroad/svg";
+import { escapeString } from "@railroad/utils";
 
 export type Children = FakeSVG[] | string;
 

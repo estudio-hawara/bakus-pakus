@@ -1,5 +1,5 @@
-import { Reader } from "./reader";
-import { Specification, ebnf } from "./specification";
+import { Reader } from "@app/reader";
+import { Specification, ebnf } from "@app/specification";
 
 export class Token
 {

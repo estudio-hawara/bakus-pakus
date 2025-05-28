@@ -1,4 +1,4 @@
-import { Options } from "./options";
+import { Options } from "@railroad/options";
 
 type gapTypes = {
     left: number,

@@ -1,6 +1,6 @@
-import { Attributes } from "./attributes";
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
+import { Attributes } from "@railroad/attributes";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
 
 type FourCardinals = 'North' | 'East' | 'South' | 'West';
 

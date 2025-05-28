@@ -1,6 +1,5 @@
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
-import { Path } from "./path";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
 
 export type EndType = 'simple' | 'complex';
 

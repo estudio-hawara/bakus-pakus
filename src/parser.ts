@@ -1,5 +1,5 @@
-import { Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SpecialNode, TerminalNode } from "./factory";
-import { Token, Tokenizer } from "./tokenizer";
+import { Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SpecialNode, TerminalNode } from "@app/factory";
+import { Token, Tokenizer } from "@app/tokenizer";
 
 export class Parser
 {

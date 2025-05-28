@@ -1,4 +1,4 @@
-import { Parser } from './parser';
+import { Parser } from '@app/parser';
 
 export class Renderer
 {

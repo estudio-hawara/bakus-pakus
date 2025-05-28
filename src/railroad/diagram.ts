@@ -1,12 +1,12 @@
-import { Attributes } from "./attributes";
-import { DiagramContainer } from "./diagram_container";
-import { End } from "./end";
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
-import { Path } from "./path";
-import { Start } from "./start";
-import { defaultStyle } from "./style";
-import { unnull } from "./utils";
+import { Attributes } from "@railroad/attributes";
+import { DiagramContainer } from "@railroad/diagram_container";
+import { End } from "@railroad/end";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
+import { Path } from "@railroad/path";
+import { Start } from "@railroad/start";
+import { defaultStyle } from "@railroad/style";
+import { unnull } from "@railroad/utils";
 
 export type PaddingType = {
     top?: number;

@@ -1,7 +1,7 @@
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
-import { Path } from "./path";
-import { text } from "./tags";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
+import { Path } from "@railroad/path";
+import { text } from "@railroad/tags";
 
 export type StartType = 'simple' | 'complex';
 

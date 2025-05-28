@@ -1,7 +1,7 @@
-import { Attributes } from "./attributes";
-import { FakeSVG } from "./fake_svg";
-import { Options } from "./options";
-import { wrapString } from "./terminal";
+import { Attributes } from "@railroad/attributes";
+import { FakeSVG } from "@railroad/fake_svg";
+import { Options } from "@railroad/options";
+import { wrapString } from "@railroad/terminal";
 
 export class DiagramContainer extends FakeSVG
 {
