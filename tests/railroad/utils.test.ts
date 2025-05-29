@@ -1,6 +1,4 @@
-import { FakeSVG } from '@railroad/fake_svg';
 import { Options } from '@railroad/options';
-import { Terminal } from '@railroad/terminal';
 import { determineGaps, escapeString } from '@railroad/utils';
 
 describe('Railroad / Utils / escapeString', () => {

@@ -1,4 +1,3 @@
-// filepath: /home/carlos/Programming/Courses/wordpress-gutenberg-block-development/choo-choo/src/__tests__/railroad/horizontal_choice.test.ts
 import { HorizontalChoice } from '@railroad/horizontal_choice';
 import { FakeSVG } from '@railroad/fake_svg';
 import { Options } from '@railroad/options';
