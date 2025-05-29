@@ -9,10 +9,11 @@
                 AlternatingSequence,
                 Choice,
                 ComplexDiagram,
-                DiagramContainer,
                 Diagram,
+                DiagramContainer,
                 End,
                 HorizontalChoice,
+                OptionalSequence,
                 Path,
                 Sequence,
                 Stack,
@@ -178,6 +179,13 @@
 
             <textarea readonly onclick="setSource(this.value)">new Diagram([
     new HorizontalChoice([
+        new Terminal('1'),
+        new Terminal('2'),
+    ])
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new OptionalSequence([
         new Terminal('1'),
         new Terminal('2'),
     ])

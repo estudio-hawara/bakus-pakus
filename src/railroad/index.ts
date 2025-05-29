@@ -1,10 +1,11 @@
 import { AlternatingSequence } from "@railroad/alternating_sequence";
 import { Choice } from "@railroad/choice";
 import { ComplexDiagram } from "@railroad/complex_diagram";
-import { DiagramContainer } from "@railroad/diagram_container";
 import { Diagram } from "@railroad/diagram";
+import { DiagramContainer } from "@railroad/diagram_container";
 import { End } from "@railroad/end";
 import { HorizontalChoice } from "@railroad/horizontal_choice";
+import { OptionalSequence } from "@app/railroad/optional_sequence";
 import { Path } from "@railroad/path";
 import { Sequence } from "@railroad/sequence";
 import { Stack } from "@railroad/stack";
@@ -16,10 +17,11 @@ export default {
     AlternatingSequence,
     Choice,
     ComplexDiagram,
-    DiagramContainer,
     Diagram,
+    DiagramContainer,
     End,
     HorizontalChoice,
+    OptionalSequence,
     Path,
     Sequence,
     Stack,
