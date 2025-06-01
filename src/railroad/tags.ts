@@ -39,3 +39,10 @@ export function a(
 ) {
     return new FakeSVG('a', attributes, children);
 }
+
+export function g(
+    attributes: { [key: string]: string | number | boolean } = {},
+    children: Children = [],
+) {
+    return new FakeSVG('g', attributes, children);
+}

@@ -5,6 +5,7 @@ import { Diagram } from "@railroad/diagram";
 import { DiagramContainer } from "@railroad/diagram_container";
 import { End } from "@railroad/end";
 import { HorizontalChoice } from "@railroad/horizontal_choice";
+import { MultipleChoice } from "@app/railroad/multiple_choice";
 import { OptionalSequence } from "@app/railroad/optional_sequence";
 import { Path } from "@railroad/path";
 import { Sequence } from "@railroad/sequence";
@@ -21,6 +22,7 @@ export default {
     DiagramContainer,
     End,
     HorizontalChoice,
+    MultipleChoice,
     OptionalSequence,
     Path,
     Sequence,

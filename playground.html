@@ -13,6 +13,7 @@
                 DiagramContainer,
                 End,
                 HorizontalChoice,
+                MultipleChoice,
                 OptionalSequence,
                 Path,
                 Sequence,
@@ -155,7 +156,6 @@
 
             <textarea readonly onclick="setSource(this.value)">new Diagram([
     new Terminal('1'),
-    new Terminal('2'),
 ])</textarea>
 
             <textarea readonly onclick="setSource(this.value)">new Diagram([
@@ -210,6 +210,14 @@
         new Terminal('1'),
         new Terminal('2'),
     ])
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new MultipleChoice([
+        new Terminal('1'),
+        new Terminal('2'),
+        new Terminal('3'),
+    ], 1)
 ])</textarea>
 
         </section>
