@@ -14,6 +14,7 @@
                 End,
                 HorizontalChoice,
                 MultipleChoice,
+                Optional,
                 OptionalSequence,
                 Path,
                 Sequence,
@@ -181,6 +182,12 @@
         new Terminal('1'),
         new Terminal('2'),
     ])
+])</textarea>
+
+<textarea readonly onclick="setSource(this.value)">new Diagram([
+    new Optional(
+        new Terminal('1'),
+    )
 ])</textarea>
 
             <textarea readonly onclick="setSource(this.value)">new Diagram([
