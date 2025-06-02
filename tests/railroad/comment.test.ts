@@ -113,6 +113,20 @@ describe('Railroad / Comment', () => {
             expect(result).toBe(comment);
         });
 
+        it('should use default values when no arguments are provided to format', () => {
+            const text = 'Default Comment';
+            const comment = new Comment(text);
+            const determineGapsSpy = jest.spyOn(tags, 'path');
+
+            comment.format();
+
+            // Verify that paths are created using default values
+            expect(determineGapsSpy).toHaveBeenCalled();
+            expect(comment.format(0, 0, 0)).toBe(comment);
+
+            determineGapsSpy.mockRestore();
+        });
+
     });
     
 });
