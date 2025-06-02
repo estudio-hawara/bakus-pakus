@@ -10,5 +10,10 @@ export class Optional extends Choice
         const normal = skip ? 0 : 1;
 
         super([new Skip, item], normal, options);
+
+        if (this.options.debug) {
+            this.attributes.add('data-updown', `${this.up} ${this.height} ${this.down}`);
+            this.attributes.add('data-type', 'optional');
+        }
     }
 }

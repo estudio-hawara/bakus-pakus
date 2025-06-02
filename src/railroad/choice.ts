@@ -52,6 +52,11 @@ export class Choice extends DiagramContainer
         }
     }
 
+    get normal(): number
+    {
+        return this.#normal;
+    }
+
     format(
         x: number = 0,
         y: number = 0,
