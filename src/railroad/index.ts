@@ -15,14 +15,18 @@ import { Stack } from "@railroad/stack";
 import { Start } from "@railroad/start";
 import { Terminal } from "@railroad/terminal";
 import { ZeroOrMore } from "@app/railroad/zero_or_more";
+import { Group } from "@app/railroad/group";
+import { Comment } from "@app/railroad/comment";
 
 export default {
     AlternatingSequence,
     Choice,
+    Comment,
     ComplexDiagram,
     Diagram,
     DiagramContainer,
     End,
+    Group,
     HorizontalChoice,
     MultipleChoice,
     OneOrMore,

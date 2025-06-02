@@ -8,10 +8,12 @@
             const {
                 AlternatingSequence,
                 Choice,
+                Comment,
                 ComplexDiagram,
                 Diagram,
                 DiagramContainer,
                 End,
+                Group,
                 HorizontalChoice,
                 MultipleChoice,
                 OneOrMore,
@@ -189,6 +191,13 @@
 <textarea readonly onclick="setSource(this.value)">new Diagram([
     new Optional(
         new Terminal('1'),
+    )
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new Group(
+        new Terminal('1'),
+        "One",
     )
 ])</textarea>
 
