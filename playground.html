@@ -16,6 +16,7 @@
                 Group,
                 HorizontalChoice,
                 MultipleChoice,
+                NonTerminal,
                 OneOrMore,
                 Optional,
                 OptionalSequence,
@@ -234,6 +235,11 @@
     new OneOrMore(
         new Terminal('1'),
     ),
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new Terminal('To be'),
+    new NonTerminal('Not to be'),
 ])</textarea>
 
             <textarea readonly onclick="setSource(this.value)">new Diagram([
