@@ -1,5 +1,6 @@
 import { Comment } from "@app/railroad/comment";
 import { FakeSVG } from "@app/railroad/fake_svg";
+import { Options } from "@app/railroad/options";
 import { path, rect } from "@app/railroad/tags";
 import { determineGaps } from "@app/railroad/utils";
 
@@ -10,12 +11,15 @@ export class Group extends FakeSVG
 
     #boxUp: number;
 
-    constructor(item: FakeSVG, label: string)
-    {
-        super('g');
+    constructor(
+        item: FakeSVG,
+        label: string,
+        options: Options = new Options
+    ) {
+        super('g', {}, undefined, undefined, options);
 
         this.#item = item;
-        this.#label = label ? new Comment(label) : null;
+        this.#label = label ? new Comment(label, null, null, options) : null;
         this.#boxUp = this.up = Math.max(this.#item.up + this.options.verticalSeparation, this.options.arcRadius);
 
         this.needsSpace = true;
