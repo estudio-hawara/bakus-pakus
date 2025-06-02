@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { AlternatingSequence } from "@railroad/alternating_sequence";
 import { Choice } from "@railroad/choice";
 import { Comment } from "@app/railroad/comment";

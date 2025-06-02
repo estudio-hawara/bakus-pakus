@@ -1,4 +1,5 @@
 import { FakeSVG } from "@app/railroad/fake_svg";
+import { Options } from "@app/railroad/options";
 import { a, path, text, title } from "@app/railroad/tags";
 import { determineGaps } from "@app/railroad/utils";
 
@@ -8,9 +9,13 @@ export class Comment extends FakeSVG
     #href: string|null = null;
     #title: string|null = null;
 
-    constructor(text: string, href: string|null = null, title: string|null = null)
-    {
-        super('g');
+    constructor(
+        text: string,
+        href: string|null = null,
+        title: string|null = null,
+        options: Options = new Options,
+    ) {
+        super('g', {}, undefined, undefined, options);
 
         this.#text = text;
         this.#href = href;
