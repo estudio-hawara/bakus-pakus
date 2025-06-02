@@ -14,6 +14,7 @@ import { Sequence } from "@railroad/sequence";
 import { Stack } from "@railroad/stack";
 import { Start } from "@railroad/start";
 import { Terminal } from "@railroad/terminal";
+import { ZeroOrMore } from "@app/railroad/zero_or_more";
 
 export default {
     AlternatingSequence,
@@ -32,4 +33,5 @@ export default {
     Stack,
     Start,
     Terminal,
+    ZeroOrMore,
 }

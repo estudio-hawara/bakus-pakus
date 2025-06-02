@@ -22,6 +22,7 @@
                 Stack,
                 Start,
                 Terminal,
+                ZeroOrMore,
             } = Railroad;
 
             function initialize() {
@@ -218,6 +219,18 @@
         new Terminal('2'),
         new Terminal('3'),
     ], 1)
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new OneOrMore(
+        new Terminal('1'),
+    ),
+])</textarea>
+
+            <textarea readonly onclick="setSource(this.value)">new Diagram([
+    new ZeroOrMore(
+        new Terminal('1'),
+    ),
 ])</textarea>
 
         </section>
