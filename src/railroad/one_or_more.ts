@@ -1,4 +1,5 @@
 import { FakeSVG } from "@app/railroad/fake_svg";
+import { Options } from "@app/railroad/options";
 import { Skip } from "@app/railroad/skip";
 import { path } from "@app/railroad/tags";
 import { determineGaps } from "@app/railroad/utils";
@@ -8,9 +9,12 @@ export class OneOrMore extends FakeSVG
     #item: FakeSVG;
     #separator: FakeSVG;
 
-    constructor(item: FakeSVG, separator: FakeSVG = new Skip)
-    {
-        super('g');
+    constructor(
+        item: FakeSVG,
+        separator: FakeSVG = new Skip,
+        options: Options = new Options,
+    ) {
+        super('g', {}, undefined, undefined, options);
 
         this.#item = item;
         this.#separator = separator;
