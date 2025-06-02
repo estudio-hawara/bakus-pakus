@@ -11,5 +11,12 @@ export class ZeroOrMore extends Optional
         const oneOrMore = new OneOrMore(item, separator);
     
         super(oneOrMore, true, options);
+
+        this.height = item.height;
+
+        if (this.options.debug) {
+            this.attributes.add('data-updown', `${this.up} ${this.height} ${this.down}`);
+            this.attributes.add('data-type', 'zero-or-more');
+        }
     }
 }
