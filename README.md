@@ -47,6 +47,21 @@ Generate a test coverage report to ensure code quality:
 
 ```bash
 pnpm run coverage
+
+# or with full details
+
+pnpm run coverage --verbose
+```
+
+### Test manually in Node.js
+
+Open an interative test session from Node:
+
+```bash
+# node
+const Choo = require('./dist/cjs');
+const parser = new Choo.Parser;
+parser.parse('identifier = "a";');
 ```
 
 ## Build
@@ -57,22 +72,6 @@ Build both ESM and CommonJS versions of the library:
 
 ```bash
 pnpm run build
-```
-
-### Recreate the ECMAScript Module
-
-Generates the ES modules build in `dist/esm`:
-
-```bash
-pnpm run build:esm
-```
-
-### Recreate the CommonJS Build
-
-Generates the CommonJS build in `dist/cjs`:
-
-```bash
-pnpm run build:cjs
 ```
 
 ## References
