@@ -23,7 +23,21 @@ describe('Railroad / Stack', () => {
             
             expect(stack.width).toBe(70);
         });
-        
+
+        it('should consider if child items need space', () => {
+            const item1 = new FakeSVG('g');
+            item1.width = 50;
+            
+            const item2 = new FakeSVG('g');
+            item2.width = 40;
+            item2.needsSpace = true;
+            
+            const options = new Options({ arcRadius: 10 });
+            const stack = new Stack([item1, item2], options);
+            
+            expect(stack.width).toBe(80);
+        });
+
         it('should set needsSpace to true', () => {
             const item = new FakeSVG('g');
             const stack = new Stack([item]);

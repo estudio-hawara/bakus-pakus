@@ -181,7 +181,10 @@ describe('Railroad / MultipleChoice', () => {
             const item1 = new FakeSVG('g');
             const item2 = new FakeSVG('g');
             const item3 = new FakeSVG('g');
-            const multipleChoice = new MultipleChoice([item1, item2, item3], 1);
+            const item4 = new FakeSVG('g');
+            const item5 = new FakeSVG('g');
+            const options = new Options({arcRadius: 100});
+            const multipleChoice = new MultipleChoice([item1, item2, item3, item4, item5], 2, 'all', options);
             
             const result = multipleChoice.format();
             

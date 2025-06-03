@@ -1,6 +1,6 @@
 import { FakeSVG } from '@railroad/fake_svg';
 import { Path } from '@railroad/path';
-import { title, text, rect, path, a } from '@railroad/tags';
+import { title, text, rect, path, a, g } from '@railroad/tags';
 
 describe('Railroad / Tags / title', () => {
 
@@ -106,6 +106,18 @@ describe('Railroad / Tags / a', () => {
         expect(result).toBeInstanceOf(FakeSVG);
         expect(result.tag).toBe('a');
         expect(result.attributes.toDictionary()).toStrictEqual(attributes);
+    });
+
+});
+
+describe('Railroad / Tags / g', () => {
+
+    it('should create an g element', () => {
+        const result = g();
+
+        expect(result).toBeInstanceOf(FakeSVG);
+        expect(result.tag).toBe('g');
+        expect(result.attributes.toDictionary()).toStrictEqual({});
     });
 
 });
