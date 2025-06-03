@@ -1,4 +1,4 @@
-import { Factory } from '@app/factory';
+import { Factory, Identifier, Rule, Terminal } from '@app/factory';
 
 describe('Factory', () => {
 
@@ -14,18 +14,13 @@ describe('Factory', () => {
 
         it('can generate grammar nodes', () => {
             const factory = new Factory;
-            const grammar = factory.Grammar(
-                [
-                    {
-                        type: 'Rule',
-                        identifier: { type: 'Identifier', value: 'named rule' },
-                        rhs: { type: 'Terminal', value: 'Implementation' },
-                    }
-                ]
+            const grammar = factory.Grammar([
+                new Rule(
+                    new Identifier('named rule'),
+                    new Terminal('Implementation'),
+                ),
+            ]);
 
-            );
-
-            expect(grammar.type).toBe('Grammar');
             expect(grammar.rules).toHaveLength(1);
         });
 
@@ -36,26 +31,25 @@ describe('Factory', () => {
         it('can generate rule nodes', () => {
             const factory = new Factory;
             const rule = factory.Rule(
-                { type: 'Identifier', value: 'named rule' },
-                { type: 'Terminal', value: 'Implementation' },
+                new Identifier('named rule'),
+                new Terminal('Implementation'),
             );
 
-            expect(rule.type).toBe('Rule');
-            expect(rule.identifier).toStrictEqual({ type: 'Identifier', value: 'named rule' });
-            expect(rule.rhs).toStrictEqual({ type: 'Terminal', value: 'Implementation' });
+            expect(rule.identifier.toDictionary()).toStrictEqual({ type: 'Identifier', value: 'named rule' });
+            expect(rule.value.toDictionary()).toStrictEqual({ type: 'Terminal', value: 'Implementation' });
         });
 
     });
-
 
     describe('Method: Group', () => {
 
         it('can generate group nodes', () => {
             const factory = new Factory;
-            const group = factory.Group({ type: 'Terminal', value: 'Groupable' });
+            const group = factory.Group(
+                new Terminal('Groupable')
+            );
 
-            expect(group.type).toBe('Group');
-            expect(group.value).toStrictEqual({ type: 'Terminal', value: 'Groupable' });
+            expect(group.value.toDictionary()).toStrictEqual({ type: 'Terminal', value: 'Groupable' });
         });
 
     });
@@ -64,10 +58,11 @@ describe('Factory', () => {
 
         it('can generate repetition nodes', () => {
             const factory = new Factory;
-            const repetition = factory.Repetition({ type: 'Terminal', value: 'Repeatable' });
+            const repetition = factory.Repetition(
+                new Terminal('Repeatable')
+            );
 
-            expect(repetition.type).toBe('Repetition');
-            expect(repetition.value).toStrictEqual({ type: 'Terminal', value: 'Repeatable' });
+            expect(repetition.value.toDictionary()).toStrictEqual({ type: 'Terminal', value: 'Repeatable' });
         });
 
     });
@@ -76,10 +71,11 @@ describe('Factory', () => {
 
         it('can generate optional nodes', () => {
             const factory = new Factory;
-            const optional = factory.Optional({ type: 'Terminal', value: 'Ignorable' });
+            const optional = factory.Optional(
+                new Terminal('Ignorable')
+            );
 
-            expect(optional.type).toBe('Optional');
-            expect(optional.value).toStrictEqual({ type: 'Terminal', value: 'Ignorable' });
+            expect(optional.value.toDictionary()).toStrictEqual({ type: 'Terminal', value: 'Ignorable' });
         });        
 
     });
@@ -90,7 +86,6 @@ describe('Factory', () => {
             const factory = new Factory;
             const special = factory.Special('Unspeakable');
 
-            expect(special.type).toBe('Special');
             expect(special.value).toBe('Unspeakable');
         });
 
@@ -101,13 +96,12 @@ describe('Factory', () => {
         it('can generate choice nodes', () => {
             const factory = new Factory;
             const choice = factory.Choice(
-                { type: 'Terminal', value: '0' },
-                { type: 'Terminal', value: '1' },
+                new Terminal('0'),
+                new Terminal('1'),
             );
 
-            expect(choice.type).toBe('Choice');
-            expect(choice.left).toStrictEqual({ type: 'Terminal', value: '0' });
-            expect(choice.right).toStrictEqual({ type: 'Terminal', value: '1' });
+            expect(choice.left.toDictionary()).toStrictEqual({ type: 'Terminal', value: '0' });
+            expect(choice.right.toDictionary()).toStrictEqual({ type: 'Terminal', value: '1' });
         });
 
     });
@@ -117,13 +111,12 @@ describe('Factory', () => {
         it('can generate sequence nodes', () => {
             const factory = new Factory;
             const sequence = factory.Sequence(
-                { type: 'Terminal', value: '0' },
-                { type: 'Terminal', value: '1' },
+                new Terminal('0'),
+                new Terminal('1'),
             );
 
-            expect(sequence.type).toBe('Sequence');
-            expect(sequence.left).toStrictEqual({ type: 'Terminal', value: '0' });
-            expect(sequence.right).toStrictEqual({ type: 'Terminal', value: '1' });
+            expect(sequence.left.toDictionary()).toStrictEqual({ type: 'Terminal', value: '0' });
+            expect(sequence.right.toDictionary()).toStrictEqual({ type: 'Terminal', value: '1' });
         });
 
     });
@@ -134,7 +127,6 @@ describe('Factory', () => {
             const factory = new Factory;
             const identifier = factory.Identifier('variable name with spaces');
 
-            expect(identifier.type).toBe('Identifier');
             expect(identifier.value).toBe('variable name with spaces');
         });
 
@@ -146,7 +138,6 @@ describe('Factory', () => {
             const factory = new Factory;
             const terminal = factory.Terminal('0');
 
-            expect(terminal.type).toBe('Terminal');
             expect(terminal.value).toBe('0');
         });
 

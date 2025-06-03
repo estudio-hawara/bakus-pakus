@@ -1,137 +1,316 @@
-export type NodeType = string;
+export type Rhs =
+    | Identifier
+    | Terminal
+    | Special
+    | Group
+    | Repetition
+    | Optional
+    | Choice
+    | Sequence;
 
-export type BaseNode = {
-  type: NodeType;
-};
-
-export type IdentifierNode = BaseNode & {
-  value: string;
-};
-
-export type TerminalNode = BaseNode & {
-  value: string;
-};
-
-export type SpecialNode = BaseNode & {
-  value: string;
-};
-
-export type UnaryNode = BaseNode & {
-  value: RhsNode;
-};
-
-export type BinaryNode = BaseNode & {
-  left: RhsNode;
-  right: RhsNode;
-};
-
-export type GroupNode = UnaryNode;
-export type RepetitionNode = UnaryNode;
-export type OptionalNode = UnaryNode;
-
-export type ChoiceNode = BinaryNode;
-export type SequenceNode = BinaryNode;
-
-export type RhsNode = 
-  | IdentifierNode 
-  | TerminalNode 
-  | GroupNode 
-  | RepetitionNode 
-  | OptionalNode 
-  | ChoiceNode 
-  | SequenceNode;
-
-export type RuleNode = BaseNode & {
-  identifier: IdentifierNode;
-  rhs: RhsNode;
-};
-
-export type GrammarNode = BaseNode & {
-  rules: RuleNode[];
-};
-
-export class Factory
+export class Grammar
 {
-    Grammar(rules: RuleNode[]): GrammarNode
+    #rules: Rule[];
+
+    constructor(rules: Rule[])
+    {
+        this.#rules = rules;
+    }
+
+    get rules(): Rule[]
+    {
+        return this.#rules;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Grammar',
-            rules,
+            rules: this.#rules.map(r => r.toDictionary()),
         };
     }
+}
 
-    Rule(identifier: IdentifierNode, rhs: RhsNode): RuleNode
+export class Rule
+{
+    #identifier: Identifier;
+    #value: Rhs;
+
+    constructor(identifier: Identifier, value: Rhs)
+    {
+        this.#identifier = identifier;
+        this.#value = value;
+    }
+
+    get identifier(): Rhs
+    {
+        return this.#identifier;
+    }
+
+    get value(): Rhs
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Rule',
-            identifier,
-            rhs,
+            identifier: this.identifier.toDictionary(),
+            value: this.value.toDictionary(),
         };
     }
+}
 
-    Group(value: RhsNode): GroupNode
+export class Group
+{
+    #value: Rhs;
+
+    constructor(value: Rhs)
+    {
+        this.#value = value;
+    }
+
+    get value(): Rhs
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Group',
-            value,
-        }
+            value: this.value.toDictionary(),
+        };
+    }
+}
+
+export class Repetition
+{
+    #value: Rhs;
+
+    constructor(value: Rhs)
+    {
+        this.#value = value;
     }
 
-    Repetition(value: RhsNode): RepetitionNode
+    get value(): Rhs
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Repetition',
-            value,
-        }
+            value: this.value.toDictionary(),
+        };
+    }
+}
+
+export class Optional
+{
+    #value: Rhs;
+
+    constructor(value: Rhs)
+    {
+        this.#value = value;
     }
 
-    Optional(value: RhsNode): OptionalNode
+    get value(): Rhs
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Optional',
-            value,
-        }
+            value: this.value.toDictionary(),
+        };
     }
+}
 
-    Special(value: string): SpecialNode
+export class Choice
+{
+    #left: Rhs;
+    #right: Rhs;
+
+    constructor(left: Rhs, right: Rhs)
     {
-        return {
-            type: 'Special',
-            value,
-        }
+        this.#left = left;
+        this.#right = right;
     }
 
-    Choice(left: RhsNode, right: RhsNode): ChoiceNode
+    get left(): Rhs
+    {
+        return this.#left;
+    }
+
+    get right(): Rhs
+    {
+        return this.#right;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Choice',
-            left,
-            right,
+            left: this.left.toDictionary(),
+            right: this.right.toDictionary(),
         };
     }
+}
 
-    Sequence(left: RhsNode, right: RhsNode): SequenceNode
+export class Sequence
+{
+    #left: Rhs;
+    #right: Rhs;
+
+    constructor(left: Rhs, right: Rhs)
+    {
+        this.#left = left;
+        this.#right = right;
+    }
+
+    get left(): Rhs
+    {
+        return this.#left;
+    }
+
+    get right(): Rhs
+    {
+        return this.#right;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Sequence',
-            left,
-            right,
+            left: this.left.toDictionary(),
+            right: this.right.toDictionary(),
         };
     }
+}
 
-    Identifier(value: string): IdentifierNode
+export class Identifier
+{
+    #value: string;
+
+    constructor(value: string)
+    {
+        this.#value = value;
+    }
+
+    get value(): string
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Identifier',
-            value,
+            value: this.value,
         };
     }
+}
 
-    Terminal(value: string): TerminalNode
+export class Terminal
+{
+    #value: string;
+
+    constructor(value: string)
+    {
+        this.#value = value;
+    }
+
+    get value(): string
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
     {
         return {
             type: 'Terminal',
-            value,
+            value: this.value,
         };
+    }
+}
+
+export class Special
+{
+    #value: string;
+
+    constructor(value: string)
+    {
+        this.#value = value;
+    }
+
+    get value(): string
+    {
+        return this.#value;
+    }
+
+    toDictionary(): object
+    {
+        return {
+            type: 'Special',
+            value: this.value,
+        };
+    }
+}
+
+export class Factory
+{
+    Grammar(rules: Rule[]): Grammar
+    {
+        return new Grammar(rules);
+    }
+
+    Rule(identifier: Identifier, value: Rhs): Rule
+    {
+        return new Rule(identifier, value);
+    }
+
+    Group(value: Rhs): Group
+    {
+        return new Group(value);
+    }
+
+    Repetition(value: Rhs): Repetition
+    {
+        return new Repetition(value);
+    }
+
+    Optional(value: Rhs): Optional
+    {
+        return new Optional(value);
+    }
+
+    Choice(left: Rhs, right: Rhs): Choice
+    {
+        return new Choice(left, right);
+    }
+
+    Sequence(left: Rhs, right: Rhs): Sequence
+    {
+        return new Sequence(left, right);
+    }
+
+    Identifier(value: string): Identifier
+    {
+        return new Identifier(value);
+    }
+
+    Terminal(value: string): Terminal
+    {
+        return new Terminal(value);
+    }
+
+    Special(value: string): Special
+    {
+        return new Special(value);
     }
 }

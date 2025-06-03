@@ -1,4 +1,4 @@
-import { ChoiceNode, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SequenceNode, SpecialNode, TerminalNode } from '@app/factory';
+import { Choice, Grammar, Group, Identifier, Optional, Repetition, Rhs, Rule, Sequence, Special, Terminal } from '@app/factory';
 import { Parser } from '@app/parser';
 
 describe('Parser', () => {
@@ -29,7 +29,7 @@ describe('Parser', () => {
             const source = 'zero = "0";';
             const parsed = parser.parse(source);
 
-            expect(parsed).toStrictEqual({
+            expect(parsed.toDictionary()).toStrictEqual({
                 type: 'Grammar',
                 rules: [
                     {
@@ -38,7 +38,7 @@ describe('Parser', () => {
                             type: 'Identifier',
                             value: 'zero',
                         },
-                        rhs: {
+                        value: {
                             type: 'Terminal',
                             value: '0',
                         },
@@ -113,7 +113,7 @@ describe('Parser', () => {
             const source = 'zero = "0";\none = "1";';
 
             parser.read(source);
-            const grammar = (parser.Grammar() as GrammarNode);
+            const grammar = (parser.Grammar() as Grammar);
 
             expect(grammar.rules).toHaveLength(2);
         });
@@ -127,7 +127,7 @@ describe('Parser', () => {
             const source = 'zero = "0";\none = "1";';
 
             parser.read(source);
-            const rules = (parser.RuleList() as Array<RuleNode>);
+            const rules = (parser.RuleList() as Array<Rule>);
 
             expect(rules).toHaveLength(2);
         });
@@ -143,7 +143,7 @@ describe('Parser', () => {
             parser.read(source);
             const rule = parser.Rule();
 
-            expect(rule.identifier.value).toBe('zero');
+            expect((rule.identifier as Identifier).value).toBe('zero');
         });
 
     });
@@ -172,15 +172,14 @@ describe('Parser', () => {
             parser.Identifier();
             parser.eat('=');
 
-            const sequence = (parser.Sequence() as SequenceNode);
+            const sequence = (parser.Sequence() as Sequence);
 
-            expect(sequence.type).toBe('Sequence');
-            expect(sequence.left).toStrictEqual({
+            expect(sequence.left.toDictionary()).toStrictEqual({
                 type: 'Sequence',
                 left: { type: 'Terminal', value: '(' },
                 right: { type: 'Identifier', value: 'rhs' },
             });
-            expect(sequence.right).toStrictEqual({ type: 'Terminal', value: ')' });
+            expect(sequence.right.toDictionary()).toStrictEqual({ type: 'Terminal', value: ')' });
         });
 
     });
@@ -194,10 +193,10 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const choice = (parser.Choice() as ChoiceNode);
+            const choice = (parser.Choice() as Choice);
 
-            expect(choice.left).toStrictEqual({ type: 'Terminal', value: '0' });
-            expect(choice.right).toStrictEqual({ type: 'Terminal', value: '1' });
+            expect(choice.left.toDictionary()).toStrictEqual({ type: 'Terminal', value: '0' });
+            expect(choice.right.toDictionary()).toStrictEqual({ type: 'Terminal', value: '1' });
         });
 
     });
@@ -211,10 +210,9 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const group = (parser.Rhs() as GroupNode);
+            const group = (parser.Rhs() as Group);
 
-            expect(group.type).toBe('Group');
-            expect(group.value.type).toBe('Sequence');
+            expect(group.value).toBeInstanceOf(Sequence);
         });
 
         it('can parse repetitions in right hand sides', () => {
@@ -224,11 +222,9 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const repetition = (parser.Rhs() as RepetitionNode);
 
-            expect(repetition.type).toBe('Repetition');
-
-            const identifier = (repetition.value as IdentifierNode);
+            const repetition = (parser.Rhs() as Repetition);
+            const identifier = (repetition.value as Identifier);
             expect(identifier.value).toBe('rule');
         });
 
@@ -239,11 +235,9 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const optional = (parser.Rhs() as OptionalNode);
 
-            expect(optional.type).toBe('Optional');
-
-            const identifier = (optional.value as IdentifierNode);
+            const optional = (parser.Rhs() as Optional);
+            const identifier = (optional.value as Identifier);
             expect(identifier.value).toBe('prefix');
         });
 
@@ -254,9 +248,8 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const special = (parser.Rhs() as SpecialNode);
+            const special = (parser.Rhs() as Special);
 
-            expect(special.type).toBe('Special');
             expect(special.value).toBe('one minus one');
         });
 
@@ -267,9 +260,8 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const identifier = (parser.Rhs() as IdentifierNode);
+            const identifier = (parser.Rhs() as Identifier);
 
-            expect(identifier.type).toBe('Identifier');
             expect(identifier.value).toBe('null');
         });
 
@@ -280,9 +272,8 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const terminal = (parser.Rhs() as TerminalNode);
+            const terminal = (parser.Rhs() as Terminal);
 
-            expect(terminal.type).toBe('Terminal');
             expect(terminal.value).toBe('0');
         });
 
@@ -293,14 +284,27 @@ describe('Parser', () => {
 
         it('can parse groups', () => {
             const parser = new Parser;
-            const source = 'one or eleven = ("0" | "1"), "1";';
+            const source = 'zero or one = ("0" | "1");';
 
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const group = (parser.Group() as GroupNode);
+            const group = (parser.Group() as Group);
 
-            expect(group.type).toBe('Group');
+            expect(group.toDictionary()).toStrictEqual({
+                type: "Group",
+                value: {
+                    type: "Choice",
+                    left: {
+                        type: "Terminal",
+                        value: "0",
+                    },
+                    right: {
+                        type: "Terminal",
+                        value: "1",
+                    },
+                },
+            });
         });
 
     });
@@ -314,9 +318,22 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const repetition = (parser.Repetition() as RepetitionNode);
+            const repetition = (parser.Repetition() as Repetition);
 
-            expect(repetition.type).toBe('Repetition');
+            expect(repetition.toDictionary()).toStrictEqual({
+                type: "Repetition",
+                value: {
+                    type: "Choice",
+                    left: {
+                        type: "Terminal",
+                        value: "0",
+                    },
+                    right: {
+                        type: "Terminal",
+                        value: "1",
+                    },
+                },
+            });
         });
 
     });
@@ -330,9 +347,15 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const optional = (parser.Optional() as OptionalNode);
+            const optional = (parser.Optional() as Optional);
 
-            expect(optional.type).toBe('Optional');
+            expect(optional.toDictionary()).toStrictEqual({
+                type: "Optional",
+                value: {
+                    type: "Terminal",
+                    value: "-",
+                },
+            });
         });
 
     });
@@ -346,9 +369,8 @@ describe('Parser', () => {
             parser.read(source);
             parser.Identifier();
             parser.eat('=');
-            const specials = (parser.Special() as SpecialNode);
+            const specials = parser.Special();
 
-            expect(specials.type).toBe('Special');
             expect(specials.value).toBe('prime number');
         });
 

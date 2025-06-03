@@ -1,12 +1,17 @@
-import { Parser } from '@app/parser';
+import { Grammar } from '@app/factory';
+import { Diagram } from '@app/railroad/diagram';
 
 export class Renderer
 {
-    #parser: Parser;
+    #grammar: Grammar;
 
-    constructor(
-        parser: Parser = new Parser(),
-    ) {
-        this.#parser = parser;
+    constructor(grammar: Grammar)
+    {
+        this.#grammar = grammar;
+    }
+
+    render(identifier: string): string
+    {
+        return '';
     }
 }

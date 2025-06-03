@@ -1,4 +1,4 @@
-import { Factory, GrammarNode, GroupNode, IdentifierNode, OptionalNode, RepetitionNode, RhsNode, RuleNode, SpecialNode, TerminalNode } from "@app/factory";
+import { Factory, Grammar, Group, Identifier, Optional, Repetition, Rhs, Rule, Special, Terminal } from "@app/factory";
 import { Token, Tokenizer } from "@app/tokenizer";
 
 export class Parser
@@ -54,7 +54,7 @@ export class Parser
      *   = RuleList
      *   ;
      */
-    Grammar(): GrammarNode
+    Grammar(): Grammar
     {
         const rules = this.RuleList();
         return this.#factory.Grammar(rules);
@@ -66,9 +66,9 @@ export class Parser
      *   | RuleList Rule
      *   ;
      */
-    RuleList(): Array<RuleNode>
+    RuleList(): Array<Rule>
     {
-        const rules: Array<RuleNode> = [];
+        const rules: Array<Rule> = [];
 
         while (this.#lookahead != null) {
             rules.push(this.Rule());
@@ -83,7 +83,7 @@ export class Parser
      *   , "="
      *   , Sequence
      */
-    Rule(): RuleNode
+    Rule(): Rule
     {
         const identifier = this.Identifier();
         this.eat('=');
@@ -98,7 +98,7 @@ export class Parser
      *   = IDENTIFIER
      *   ;
      */
-    Identifier(): IdentifierNode
+    Identifier(): Identifier
     {
         const token = this.eat('identifier');
         return this.#factory.Identifier(token.value);
@@ -110,7 +110,7 @@ export class Parser
      *   | Sequence, ",", Choice
      *   ;
      */
-    Sequence(): RhsNode
+    Sequence(): Rhs
     {
         let left = this.Choice();
 
@@ -129,7 +129,7 @@ export class Parser
      *   = Rhs
      *   | Choice, "|", Rhs
      */
-    Choice(): RhsNode
+    Choice(): Rhs
     {
         let left = this.Rhs();
 
@@ -152,7 +152,7 @@ export class Parser
      *   | Optional
      *   ;
      */
-    Rhs(): RhsNode
+    Rhs(): Rhs
     {
         switch(this.#lookahead!.type) {
             case '(':
@@ -177,7 +177,7 @@ export class Parser
      *   = "(", Rhs, ")"
      *   ;
      */
-    Group(): GroupNode
+    Group(): Group
     {
         this.eat('(');
         const value = this.Sequence();
@@ -191,7 +191,7 @@ export class Parser
      *   = "{", Rhs, "}"
      *   ;
      */
-    Repetition(): RepetitionNode
+    Repetition(): Repetition
     {
         this.eat('{');
         const value = this.Sequence();
@@ -205,7 +205,7 @@ export class Parser
      *   = "[", Rhs, "]"
      *   ;
      */
-    Optional(): OptionalNode
+    Optional(): Optional
     {
         this.eat('[');
         const value = this.Sequence();
@@ -219,7 +219,7 @@ export class Parser
      *   = "?", Rhs, "?"
      *   ;
      */
-    Special(): SpecialNode
+    Special(): Special
     {
         const token = this.eat('special');
         return this.#factory.Special(token.value.slice(1, -1).trim());
@@ -230,7 +230,7 @@ export class Parser
      *   = TERMINAL
      *   ;
      */
-    Terminal(): TerminalNode
+    Terminal(): Terminal
     {
         const token = this.eat('terminal');
         return this.#factory.Terminal(token.value.slice(1, -1).trim());
