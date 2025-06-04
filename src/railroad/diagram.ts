@@ -82,9 +82,10 @@ export class Diagram extends DiagramContainer
             }
         }
 
-        this.attributes.add('width', (this.width + padding.left! + padding.right!).toString());
-        this.attributes.add('height', (this.up + this.height + this.down + padding.top! + padding.bottom!).toString());
-        this.attributes.add('viewBox', `0 0 ${this.attributes.get('width')} ${this.attributes.get('height')}`);
+        const viewWidth = this.width + padding.left! + padding.right!;
+        const viewHeight = this.up + this.height + this.down + padding.top! + padding.bottom!;
+
+        this.attributes.add('viewBox', `0 0 ${viewWidth} ${viewHeight}`);
 
         g.addTo(this);
         this.#formatted = true;

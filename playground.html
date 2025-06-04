@@ -3,7 +3,7 @@
     <head>
         <title>Railroad Diagram</title>
         <script type="module">
-            import { Railroad } from './dist/esm/index.js';
+            import { Railroad, Parser, Renderer } from './dist/esm/index.js';
 
             const {
                 AlternatingSequence,
@@ -28,31 +28,27 @@
                 ZeroOrMore,
             } = Railroad;
 
+            const parser = new Parser();
+            const source = document.getElementById('source');
+            const result = document.getElementById('result');
+
             function initialize() {
-                document.getElementById('source-area').addEventListener('input', update);
+                document
+                    .getElementById('source')
+                    .addEventListener('input', update);
             }
 
             function update() {
-                const sourceArea = document.getElementById('source-area');
-                const generatedArea = document.getElementById('generated-area');
-                const result = document.getElementById('result');
+                const parsed = parser.parse(source.value);
+                const renderer = new Renderer(parsed);
 
-                const source = sourceArea.value;
-                const generated = eval(source);
-
-                generatedArea.value = generated.toString();
-
-                result.innerHTML = '';
-                result.appendChild(generated.toSVG(document));
+                result.innerHTML = renderer.render('rhs');
             }
 
-            window.setSource = (source) => {
-                const sourceArea = document.getElementById('source-area');
-                sourceArea.value = source;
+            document.addEventListener('DOMContentLoaded', () => {
+                initialize();
                 update();
-            }
-
-            document.addEventListener('DOMContentLoaded', () => { initialize(); update(); });
+            });
         </script>
     </head>
     <body>
@@ -61,33 +57,22 @@
                 font-size: 18px;
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 gap: 1em;
             }
 
-            #input-section {
-                display: flex;
-                flex-direction: row;
-                gap: .5em;
+            section {
+                width: 75vw;
             }
 
-            #source-area, #generated-area {
-                font-size: 18px;
-                width: 50%;
-                height: 50vh;
-                resize: none;
-            }
-
-            #examples-section {
-                display: flex;
-                flex-direction: row;
-                gap: .5em;
-            }
-
-            #examples-section textarea {
-                font-size: 18px;
+            #source {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
                 width: 100%;
-                height: 200px;
-                resize: none;
+                min-height: 25vh;
+                font: italic 16px monospace;
+                padding: .5em;
             }
         </style>
 
@@ -148,106 +133,27 @@
             }
         </style>
 
-        <section id="input-section">
-            <textarea id="source-area">new Diagram([])</textarea>
-            <textarea readonly id="generated-area"></textarea>
-        </section>
+        <h1>Live Preview</h1>
 
-        <section id="result-section">
+        <section>
             <picture id="result"></picture>
         </section>
 
-        <section id="examples-section">
+        <h2>Edit the source below to update the diagram above</h2>
 
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Terminal('1'),
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new AlternatingSequence([
-        new Terminal('1'),
-        new Terminal('2'),
-    ])
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Choice([
-        new Terminal('1'),
-        new Terminal('2'),
-    ])
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new ComplexDiagram([
-    new Terminal('1'),
-    new Terminal('2'),
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new HorizontalChoice([
-        new Terminal('1'),
-        new Terminal('2'),
-    ])
-])</textarea>
-
-<textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Optional(
-        new Terminal('1'),
-    )
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Group(
-        new Terminal('1'),
-        "One",
-    )
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new OptionalSequence([
-        new Terminal('1'),
-        new Terminal('2'),
-    ])
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Sequence([
-        new Terminal('1'),
-        new Terminal('2'),
-    ])
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Stack([
-        new Terminal('1'),
-        new Terminal('2'),
-    ])
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new MultipleChoice([
-        new Terminal('1'),
-        new Terminal('2'),
-        new Terminal('3'),
-    ], 1)
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new OneOrMore(
-        new Terminal('1'),
-    ),
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new Terminal('To be'),
-    new NonTerminal('Not to be'),
-])</textarea>
-
-            <textarea readonly onclick="setSource(this.value)">new Diagram([
-    new ZeroOrMore(
-        new Terminal('1'),
-    ),
-])</textarea>
-
+        <section>
+            <textarea id="source">
+rhs = terminal
+  | identifier
+  | ( "(" , rhs , ")" ) (* group *)
+  | ( "{" , rhs , "}" ) (* repetition *)
+  | ( "[" , rhs , "]" ) (* optional *)
+  | ( "?" , rhs , "?" ) (* special *)
+  | ( rhs , "|" , rhs ) (* choice *)
+  | ( rhs , "," , rhs ) (* sequence *)
+  ;
+            </textarea>
         </section>
+
     </body>
 </html>

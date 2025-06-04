@@ -21,7 +21,7 @@ export class Parser
         this.reset();
     }
 
-    parse(value: string)
+    parse(value: string): Grammar
     {
         this.read(value);
 

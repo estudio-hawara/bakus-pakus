@@ -119,7 +119,7 @@ export class Group extends Diagramable
 
     toDiagram(): Railroad.FakeSVG
     {
-        return new Railroad.Group(this.value.toDiagram());
+        return this.value.toDiagram();
     }
 }
 

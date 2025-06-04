@@ -13,7 +13,7 @@ export class Terminal extends FakeSVG
         attributes: Attributes | { [key: string]: string | number | boolean } = new Attributes,
         options: Options = new Options,
     ) {
-        super('g', attributes, '', document, options);
+        super('g', attributes, undefined, undefined, options);
 
         this.#text = text;
 
