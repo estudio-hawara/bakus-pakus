@@ -1,5 +1,4 @@
 import { Grammar } from '@app/factory';
-import { Diagram } from '@app/railroad/diagram';
 
 export class Renderer
 {
@@ -10,8 +9,10 @@ export class Renderer
         this.#grammar = grammar;
     }
 
-    render(identifier: string): string
+    render(identifier: string): string | undefined
     {
-        return '';
+        const rule = this.#grammar.rule(identifier);
+
+        return rule?.toDiagram().toString();
     }
 }

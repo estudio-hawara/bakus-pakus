@@ -1,3 +1,5 @@
+import * as Railroad from "@app/railroad";
+
 export type Rhs =
     | Identifier
     | Terminal
@@ -8,18 +10,35 @@ export type Rhs =
     | Choice
     | Sequence;
 
-export class Grammar
+abstract class Node
+{
+    abstract toDictionary(): object;
+}
+
+abstract class Diagramable extends Node
+{
+    abstract toDiagram(): Railroad.FakeSVG;
+}
+
+export class Grammar extends Node
 {
     #rules: Rule[];
 
     constructor(rules: Rule[])
     {
+        super();
+
         this.#rules = rules;
     }
 
     get rules(): Rule[]
     {
         return this.#rules;
+    }
+
+    rule(identifier: string): Rule | undefined
+    {
+        return this.#rules.find(r => (r.identifier as Identifier).value === identifier);
     }
 
     toDictionary(): object
@@ -31,13 +50,15 @@ export class Grammar
     }
 }
 
-export class Rule
+export class Rule extends Diagramable
 {
     #identifier: Identifier;
     #value: Rhs;
 
     constructor(identifier: Identifier, value: Rhs)
     {
+        super();
+
         this.#identifier = identifier;
         this.#value = value;
     }
@@ -60,14 +81,26 @@ export class Rule
             value: this.value.toDictionary(),
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.Diagram([
+            new Railroad.Group(
+                this.value.toDiagram(),
+                this.#identifier.value,
+            )
+        ]);
+    }
 }
 
-export class Group
+export class Group extends Diagramable
 {
     #value: Rhs;
 
     constructor(value: Rhs)
     {
+        super();
+
         this.#value = value;
     }
 
@@ -83,14 +116,21 @@ export class Group
             value: this.value.toDictionary(),
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.Group(this.value.toDiagram());
+    }
 }
 
-export class Repetition
+export class Repetition extends Diagramable
 {
     #value: Rhs;
 
     constructor(value: Rhs)
     {
+        super();
+
         this.#value = value;
     }
 
@@ -106,14 +146,21 @@ export class Repetition
             value: this.value.toDictionary(),
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.OneOrMore(this.value.toDiagram());
+    }
 }
 
-export class Optional
+export class Optional extends Diagramable
 {
     #value: Rhs;
 
     constructor(value: Rhs)
     {
+        super();
+
         this.#value = value;
     }
 
@@ -129,15 +176,22 @@ export class Optional
             value: this.value.toDictionary(),
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.ZeroOrMore(this.value.toDiagram());
+    }
 }
 
-export class Choice
+export class Choice extends Diagramable
 {
     #left: Rhs;
     #right: Rhs;
 
     constructor(left: Rhs, right: Rhs)
     {
+        super();
+
         this.#left = left;
         this.#right = right;
     }
@@ -160,15 +214,25 @@ export class Choice
             right: this.right.toDictionary(),
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.Choice([
+            this.left.toDiagram(),
+            this.right.toDiagram(),
+        ]);
+    }
 }
 
-export class Sequence
+export class Sequence extends Diagramable
 {
     #left: Rhs;
     #right: Rhs;
 
     constructor(left: Rhs, right: Rhs)
     {
+        super();
+
         this.#left = left;
         this.#right = right;
     }
@@ -191,14 +255,24 @@ export class Sequence
             right: this.right.toDictionary(),
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.Sequence([
+            this.left.toDiagram(),
+            this.right.toDiagram(),
+        ]);
+    }
 }
 
-export class Identifier
+export class Identifier extends Diagramable
 {
     #value: string;
 
     constructor(value: string)
     {
+        super();
+
         this.#value = value;
     }
 
@@ -214,14 +288,21 @@ export class Identifier
             value: this.value,
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.NonTerminal(this.value);
+    }
 }
 
-export class Terminal
+export class Terminal extends Diagramable
 {
     #value: string;
 
     constructor(value: string)
     {
+        super();
+
         this.#value = value;
     }
 
@@ -237,14 +318,21 @@ export class Terminal
             value: this.value,
         };
     }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.Terminal(this.value);
+    }
 }
 
-export class Special
+export class Special extends Diagramable
 {
     #value: string;
 
     constructor(value: string)
     {
+        super();
+
         this.#value = value;
     }
 
@@ -259,6 +347,11 @@ export class Special
             type: 'Special',
             value: this.value,
         };
+    }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        return new Railroad.Terminal(this.value, {class: 'special'});
     }
 }
 

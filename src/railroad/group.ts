@@ -13,7 +13,7 @@ export class Group extends FakeSVG
 
     constructor(
         item: FakeSVG,
-        label: string,
+        label: string | null = null,
         options: Options = new Options
     ) {
         super('g', {}, undefined, undefined, options);

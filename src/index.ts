@@ -4,7 +4,7 @@ import { Tokenizer } from "@app/tokenizer";
 import { Reader } from "@app/reader";
 import { Factory } from "@app/factory";
 import { Rule, Specification, ebnf } from "@app/specification";
-import Railroad from "@railroad/index";
+import * as Railroad from "@app/railroad";
 
 export {
     Renderer,

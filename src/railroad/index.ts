@@ -7,6 +7,7 @@ import { ComplexDiagram } from "@railroad/complex_diagram";
 import { Diagram } from "@railroad/diagram";
 import { DiagramContainer } from "@railroad/diagram_container";
 import { End } from "@railroad/end";
+import { FakeSVG } from "@app/railroad/fake_svg";
 import { Group } from "@app/railroad/group";
 import { HorizontalChoice } from "@railroad/horizontal_choice";
 import { MultipleChoice } from "@app/railroad/multiple_choice";
@@ -21,7 +22,7 @@ import { Start } from "@railroad/start";
 import { Terminal } from "@railroad/terminal";
 import { ZeroOrMore } from "@app/railroad/zero_or_more";
 
-export default {
+export {
     AlternatingSequence,
     Choice,
     Comment,
@@ -29,6 +30,7 @@ export default {
     Diagram,
     DiagramContainer,
     End,
+    FakeSVG,
     Group,
     HorizontalChoice,
     MultipleChoice,
