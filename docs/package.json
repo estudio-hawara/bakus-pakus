@@ -27,8 +27,7 @@
     "@docusaurus/module-type-aliases": "^3.8.0",
     "@docusaurus/tsconfig": "^3.8.0",
     "@docusaurus/types": "^3.8.0",
-    "typescript": "~5.6.3",
-    "webpack-dev-server": "^5.2.2"
+    "typescript": "~5.6.3"
   },
   "browserslist": {
     "production": [
@@ -44,5 +43,10 @@
   },
   "engines": {
     "node": ">=18.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "webpack-dev-server": "5.2.2"
+    }
   }
 }
