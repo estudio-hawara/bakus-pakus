@@ -2,6 +2,9 @@
 <html>
     <head>
         <title>Railroad Diagram</title>
+
+        <link rel="stylesheet" href="railroad.css">
+
         <script type="module">
             import { Railroad, Parser, Renderer } from './dist/esm/index.js';
 
@@ -39,10 +42,14 @@
             }
 
             function update() {
+                source.value = source.value.trim();
+
                 const parsed = parser.parse(source.value);
                 const renderer = new Renderer(parsed);
+                const rules = renderer.ruleNames();
 
-                result.innerHTML = renderer.render('rhs');
+                if (rules.length)
+                    result.innerHTML = renderer.render(rules[0]);
             }
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -50,11 +57,11 @@
                 update();
             });
         </script>
+
     </head>
     <body>
         <style>
             body {
-                font-size: 18px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -71,65 +78,8 @@
                 box-sizing: border-box;
                 width: 100%;
                 min-height: 25vh;
-                font: italic 16px monospace;
+                font: 20px monospace;
                 padding: .5em;
-            }
-        </style>
-
-        <style>
-            svg {
-                background-color: hsl(30,20%,95%);
-            }
-
-            path {
-                stroke-width: 3;
-                stroke: black;
-                fill: rgba(0,0,0,0);
-            }
-
-            text {
-                font: bold 14px monospace;
-                text-anchor: middle;
-                white-space: pre;
-            }
-
-            text.diagram-text {
-                font-size: 12px;
-            }
-
-            text.diagram-arrow {
-                font-size: 16px;
-            }
-
-            text.label {
-                text-anchor: start;
-            }
-
-            text.comment {
-                font: italic 12px monospace;
-            }
-
-            rect {
-                stroke-width: 3;
-                stroke: black;
-                fill: hsl(120,100%,90%);
-            }
-
-            rect.group-box {
-                stroke: gray;
-                stroke-dasharray: 10 5;
-                fill: none;
-            }
-
-            path.diagram-text {
-                stroke-width: 3;
-                stroke: black;
-                fill: white;
-                cursor: help;
-            }
-
-            g.diagram-text:hover path.diagram-text {
-                fill: #eee;
             }
         </style>
 
@@ -143,14 +93,14 @@
 
         <section>
             <textarea id="source">
-rhs = terminal
-  | identifier
-  | ( "(" , rhs , ")" ) (* group *)
-  | ( "{" , rhs , "}" ) (* repetition *)
-  | ( "[" , rhs , "]" ) (* optional *)
-  | ( "?" , rhs , "?" ) (* special *)
-  | ( rhs , "|" , rhs ) (* choice *)
-  | ( rhs , "," , rhs ) (* sequence *)
+Right Hand Side = Terminal
+  | Identifier
+  | ( "(" , Right Hand Side , ")" ) (* Group *)
+  | ( "{" , Right Hand Side , "}" ) (* Repetition *)
+  | ( "[" , Right Hand Side , "]" ) (* Optional *)
+  | ( "?" , Right Hand Side , "?" ) (* Special *)
+  | ( Right Hand Side , "|" , Right Hand Side ) (* Choice *)
+  | ( Right Hand Side , "," , Right Hand Side ) (* Sequence *)
   ;
             </textarea>
         </section>

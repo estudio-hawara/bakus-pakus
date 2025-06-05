@@ -1,4 +1,4 @@
-import { Grammar } from '@app/factory';
+import { Grammar, Identifier } from '@app/factory';
 
 export class Renderer
 {
@@ -7,6 +7,11 @@ export class Renderer
     constructor(grammar: Grammar)
     {
         this.#grammar = grammar;
+    }
+
+    ruleNames(): string[]
+    {
+        return this.#grammar.rules.map(r => (r.identifier as Identifier).value);
     }
 
     render(identifier: string): string | undefined
