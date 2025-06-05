@@ -14,9 +14,9 @@ export class Renderer
         return this.#grammar.rules.map(r => (r.identifier as Identifier).value);
     }
 
-    render(identifier: string): string | undefined
+    render(identifier: string, replace: boolean = false): string | undefined
     {
-        const rule = this.#grammar.rule(identifier);
+        const rule = this.#grammar.rule(identifier, replace);
 
         return rule?.toDiagram().toString();
     }

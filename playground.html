@@ -34,27 +34,56 @@
             const parser = new Parser();
             const source = document.getElementById('source');
             const result = document.getElementById('result');
+            const replace = document.getElementById('replace');
+            const rules = document.getElementById('rules');
 
             function initialize() {
                 document
                     .getElementById('source')
-                    .addEventListener('input', update);
+                    .addEventListener('input', onSourceChanged);
+                
+                document
+                    .getElementById('rules')
+                    .addEventListener('change', onSelectionChanged);
+                
+                document
+                    .getElementById('replace')
+                    .addEventListener('change', onSelectionChanged);
             }
 
-            function update() {
-                source.value = source.value.trim();
-
+            function onSourceChanged() {
                 const parsed = parser.parse(source.value);
                 const renderer = new Renderer(parsed);
-                const rules = renderer.ruleNames();
+                const ruleNames = renderer.ruleNames();
 
-                if (rules.length)
-                    result.innerHTML = renderer.render(rules[0]);
+                while (rules.options.length) {
+                    rules.options[0].remove();
+                }
+
+                ruleNames.forEach(r => {
+                    rules.options.add(new Option(r, r));
+                });
+
+                if (ruleNames.length)
+                    result.innerHTML = renderer.render(rules.value, replace.checked);
+                else
+                    result.innerHTML = '';
+            }
+
+            function onSelectionChanged() {
+                const parsed = parser.parse(source.value);
+                const renderer = new Renderer(parsed);
+                const ruleNames = renderer.ruleNames();
+
+                if (ruleNames.length)
+                    result.innerHTML = renderer.render(rules.value, replace.checked);
+                else
+                    result.innerHTML = '';
             }
 
             document.addEventListener('DOMContentLoaded', () => {
                 initialize();
-                update();
+                onSourceChanged();
             });
         </script>
 
@@ -73,13 +102,15 @@
             }
 
             #source {
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
                 box-sizing: border-box;
                 width: 100%;
-                min-height: 25vh;
+                min-height: 45vh;
                 font: 20px monospace;
                 padding: .5em;
+            }
+
+            #replace:hover, [for="replace"]:hover {
+                cursor: pointer;
             }
         </style>
 
@@ -89,19 +120,32 @@
             <picture id="result"></picture>
         </section>
 
-        <h2>Edit the source below to update the diagram above</h2>
+        <h2>Edit the source to update the diagram</h2>
 
         <section>
+            <label for="rules">Render this rule:</label>
+            <select id="rules" />
+
+            <input type="checkbox" id="replace" checked />
+            <label for="replace">Replace known identifiers</label>
+
             <textarea id="source">
 Right Hand Side = Terminal
   | Identifier
-  | ( "(" , Right Hand Side , ")" ) (* Group *)
-  | ( "{" , Right Hand Side , "}" ) (* Repetition *)
-  | ( "[" , Right Hand Side , "]" ) (* Optional *)
-  | ( "?" , Right Hand Side , "?" ) (* Special *)
-  | ( Right Hand Side , "|" , Right Hand Side ) (* Choice *)
-  | ( Right Hand Side , "," , Right Hand Side ) (* Sequence *)
+  | Group
+  | Repetition
+  | Optional
+  | Special
+  | Choice
+  | Sequence
   ;
+
+Group = "(" , Right Hand Side , ")";
+Repetition = "{" , Right Hand Side , "}";
+Optional = "[" , Right Hand Side , "]";
+Special = "?" , Right Hand Side , "?";
+Choice = Right Hand Side , "|" , Right Hand Side;
+Sequence = Right Hand Side , "," , Right Hand Side;
             </textarea>
         </section>
 

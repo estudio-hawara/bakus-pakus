@@ -18,6 +18,8 @@ abstract class Node
 abstract class Diagramable extends Node
 {
     abstract toDiagram(): Railroad.FakeSVG;
+
+    abstract replace(replacements: Rule[]): Diagramable;
 }
 
 export class Grammar extends Node
@@ -36,9 +38,19 @@ export class Grammar extends Node
         return this.#rules;
     }
 
-    rule(identifier: string): Rule | undefined
+    rule(identifier: string, replace: boolean = false): Rule | undefined
     {
-        return this.#rules.find(r => (r.identifier as Identifier).value === identifier);
+        const rule = this.#rules.find(r => (r.identifier as Identifier).value === identifier);
+
+        if (! replace)
+            return rule;
+        
+        return (rule?.replace(this.replacements(identifier)) as Rule);
+    }
+
+    replacements(identifier: string): Rule[]
+    {
+        return this.#rules.filter(r => (r.identifier as Identifier).value !== identifier);
     }
 
     toDictionary(): object
@@ -91,6 +103,13 @@ export class Rule extends Diagramable
             )
         ]);
     }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const value = this.value.replace(replacements);
+
+        return new Rule((this.identifier as Identifier), (value as Rhs));
+    }
 }
 
 export class Group extends Diagramable
@@ -120,6 +139,13 @@ export class Group extends Diagramable
     toDiagram(): Railroad.FakeSVG
     {
         return this.value.toDiagram();
+    }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const value = this.value.replace(replacements);
+
+        return new Group((value as Rhs));
     }
 }
 
@@ -151,6 +177,13 @@ export class Repetition extends Diagramable
     {
         return new Railroad.OneOrMore(this.value.toDiagram());
     }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const value = this.value.replace(replacements);
+
+        return new Repetition((value as Rhs));
+    }
 }
 
 export class Optional extends Diagramable
@@ -180,6 +213,13 @@ export class Optional extends Diagramable
     toDiagram(): Railroad.FakeSVG
     {
         return new Railroad.ZeroOrMore(this.value.toDiagram());
+    }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const value = this.value.replace(replacements);
+
+        return new Optional((value as Rhs));
     }
 }
 
@@ -222,6 +262,14 @@ export class Choice extends Diagramable
             this.right.toDiagram(),
         ]);
     }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const left = this.left.replace(replacements);
+        const right = this.right.replace(replacements);
+
+        return new Choice((left as Rhs), (right as Rhs));
+    }
 }
 
 export class Sequence extends Diagramable
@@ -263,6 +311,14 @@ export class Sequence extends Diagramable
             this.right.toDiagram(),
         ]);
     }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const left = this.left.replace(replacements);
+        const right = this.right.replace(replacements);
+
+        return new Sequence((left as Rhs), (right as Rhs));
+    }
 }
 
 export class Identifier extends Diagramable
@@ -292,6 +348,16 @@ export class Identifier extends Diagramable
     toDiagram(): Railroad.FakeSVG
     {
         return new Railroad.NonTerminal(this.value);
+    }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        const replacement = replacements.find(r => (r.identifier as Identifier).value === this.value);
+
+        if (replacement)
+            return replacement.value;
+        
+        return this;
     }
 }
 
@@ -323,6 +389,11 @@ export class Terminal extends Diagramable
     {
         return new Railroad.Terminal(this.value);
     }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        return this;
+    }
 }
 
 export class Special extends Diagramable
@@ -352,6 +423,11 @@ export class Special extends Diagramable
     toDiagram(): Railroad.FakeSVG
     {
         return new Railroad.Terminal(this.value, {class: 'special'});
+    }
+
+    replace(replacements: Rule[]): Diagramable
+    {
+        return this;
     }
 }
 
