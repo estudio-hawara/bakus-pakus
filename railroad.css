@@ -42,6 +42,10 @@
     fill: none;
 }
 
+.railroad-diagram .borrowed .group-box {
+    stroke: lightgray;
+}
+
 .railroad-diagram .diagram-text {
     stroke-width: 3;
     stroke: black;

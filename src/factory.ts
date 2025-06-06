@@ -130,6 +130,11 @@ export class Group extends Diagramable
         return this.#value;
     }
 
+    get label(): string | null
+    {
+        return this.#label;
+    }
+
     toDictionary(): object
     {
         return {
@@ -140,12 +145,12 @@ export class Group extends Diagramable
 
     toDiagram(): Railroad.FakeSVG
     {
-        if (! this.#label)
+        if (! this.label)
             return this.value.toDiagram();
         else
             return new Railroad.Group(
                 this.value.toDiagram(),
-                this.#label
+                this.label
             );
     }
 
@@ -154,6 +159,30 @@ export class Group extends Diagramable
         const value = this.value.replace(replacements);
 
         return new Group((value as Rhs));
+    }
+}
+
+export class BorrowedGroup extends Group
+{
+    constructor(value: Rhs, label: string | null = null)
+    {
+        super(value, label);
+    }
+
+    toDiagram(): Railroad.FakeSVG
+    {
+        if (! this.label)
+            return this.value.toDiagram();
+        else {
+            const group = new Railroad.Group(
+                this.value.toDiagram(),
+                this.label
+            );
+
+            group.attributes.add('class', 'borrowed');
+
+            return group;
+        }
     }
 }
 
@@ -363,7 +392,7 @@ export class Identifier extends Diagramable
         const replacement = replacements.find(r => (r.identifier as Identifier).value === this.value);
 
         if (replacement)
-            return new Group(replacement.value, this.#value);
+            return new BorrowedGroup(replacement.value, this.#value);
         
         return this;
     }
