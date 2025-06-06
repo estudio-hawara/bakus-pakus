@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="194"
+    height="103"
+    viewBox="0 0 194 103"
+    class="railroad-diagram">
+<style>
+<![CDATA[
+.railroad-diagram {
+    background-color: #f9f9f9;
+}
+
+.railroad-diagram path {
+    stroke-width: 3;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+}
+
+.railroad-diagram text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+    white-space: pre;
+}
+
+.railroad-diagram rect {
+    stroke-width: 3;
+    stroke: black;
+    fill: hsl(61, 100%, 90%);
+}
+
+.railroad-diagram .diagram-text {
+    font-size: 12px;
+}
+
+.railroad-diagram .diagram-arrow {
+    font-size: 16px;
+}
+
+.railroad-diagram .label {
+    text-anchor: start;
+}
+
+.railroad-diagram .comment {
+    font: italic 12px monospace;
+}
+
+.railroad-diagram .group-box {
+    stroke: gray;
+    stroke-dasharray: 10 5;
+    fill: none;
+}
+
+.railroad-diagram .borrowed .group-box {
+    stroke: lightgray;
+}
+
+.railroad-diagram .diagram-text {
+    stroke-width: 3;
+    stroke: black;
+    fill: white;
+    cursor: help;
+}
+
+.railroad-diagram g.diagram-text:hover path.diagram-text {
+    fill: #eee;
+}
+]]>
+</style>
+<g transform="translate(.5 .5)">
+    <g>
+        <path d="M 20 45 v 20 m 10 -20 v 20 m -10 -10 h 20"></path>
+    </g>
+    <path d="M 40 55 h 10"></path>
+    <g>
+        <path d="M 50 55 h 0"></path>
+        <path d="M 144 55 h 0"></path>
+        <rect x="50" y="36" width="94" height="47" rx="10" ry="10" class="group-box"></rect>
+        <g>
+            <path d="M 50 55 h 10"></path>
+            <path d="M 134 55 h 10"></path>
+            <path d="M 60 55 h 10"></path>
+            <g class="non-terminal">
+                <path d="M 70 55 h 0"></path>
+                <path d="M 124 55 h 0"></path>
+                <rect x="70" y="44" width="54" height="22"></rect>
+                <text x="97" y="59">Choo</text>
+            </g>
+            <path d="M 124 55 h 10"></path>
+            <path d="M 70 55 a 10 10 0 0 0 -10 10 v 0 a 10 10 0 0 0 10 10"></path>
+            <g>
+                <path d="M 70 75 h 54"></path>
+            </g>
+            <path d="M 124 75 a 10 10 0 0 0 10 -10 v 0 a 10 10 0 0 0 -10 -10"></path>
+        </g>
+
+        <g>
+            <path d="M 50 28 h 0"></path>
+            <path d="M 128 28 h 0"></path>
+            <text x="89" y="33" class="comment">Diagrams</text>
+        </g>
+    </g>
+    <path d="M 144 55 h 10"></path>
+    <path d=" M 154 55 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+</g>
+</svg>

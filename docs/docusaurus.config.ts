@@ -9,23 +9,15 @@ const config: Config = {
   tagline: 'Small JavaScript library for creating railroad diagrams from Bakus-Naur Form grammars.',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  url: 'https://choo-choo.hawara.es',
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'estudio-hawara',
+  projectName: 'choo-choo',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -37,9 +29,6 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           routeBasePath: '/'
         },
         theme: {
@@ -53,10 +42,10 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Choo Choo',
+      title: 'Choo-Choo',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Choo-Choo Diagrams Logo',
+        src: 'img/choo-choo.svg',
       },
       items: [
         {
@@ -66,7 +55,7 @@ const config: Config = {
           label: 'Tutorial',
         },
         {
-          href: 'https://github.com/estudio-hawara/bakus-pakus',
+          href: 'https://github.com/estudio-hawara/choo-choo',
           label: 'GitHub',
           position: 'right',
         },
