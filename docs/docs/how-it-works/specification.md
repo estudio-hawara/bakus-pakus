@@ -25,15 +25,11 @@ const rule = new Rule(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');
 
 Checks if the input string matches the rule's regex pattern.
 
-#### Signature
-
 ```typescript
+// Signature
 match(input: string): boolean;
-```
 
-#### Example
-
-```typescript
+// Example
 rule.match('identifier'); // true
 rule.match('identifier with spaces'); // true
 rule.match('¡invalid identifier!'); // false
@@ -41,7 +37,7 @@ rule.match('¡invalid identifier!'); // false
 
 ## Specification
 
-The `Specification` class manages a collection of rules.
+The specification class manages a collection of rules.
 
 ```typescript
 import { Specification } from 'choo-choo';
@@ -57,22 +53,18 @@ const specification = new Specification();
 
 Adds a new rule to the specification.
 
-#### Signature
-
 ```typescript
+// Signature
 add(pattern: RegExp, type: string): void;
-```
 
-#### Example
-
-```typescript
+// Example
 specification.add(/^[a-zA-Z]+/, 'identifier');
 specification.add(/^\d+/, 'number');
 ```
 
 ## The EBNF specification
 
-A preconfigured specification is provided with the `ebnf` name. It contains the actual patterns that are going to be used by the tokenizer when an explicit specification isn't provided.
+A preconfigured specification is provided for the supported **EBNF** grammar. It contains the actual patterns that are going to be used by the [tokenizer](tokenizer.md) when an explicit specification isn't provided.
 
 ```typescript
 import { ebnf } from 'choo-choo';

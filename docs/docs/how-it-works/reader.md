@@ -27,15 +27,11 @@ reader.read('identifier = letter , { letter | digit | " " }, { letter | digit } 
 
 The step method moves the cursor to the next character.
 
-#### Signature
-
 ```typescript
+// Signature
 step(): void;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.step();
 ```
 
@@ -43,115 +39,87 @@ reader.step();
 
 The reset method moves the cursor back to the beginning of the source.
 
-#### Signature
-
 ```typescript
+// Signature
 reset(): void;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.source();
 ```
 
-### Skip spaces
+### Skipping Spaces
 
 The skip spaces method moves the cursor ignoring whitespaces until it finds a character that's not a whitespace.
 
-#### Signature
-
 ```typescript
+// Signature
 skipSpaces(): void;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.skipSpaces();
 ```
 
-### Skip characters
+### Skipping Characters
 
 The skip characters method advances the cursor a given number of steps.
 
-#### Signature
-
 ```typescript
+// Signature
 skipCharacters(count: number = 0): void;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.skipCharacters(2);
 ```
 
-### Read character
+### Reading a Character
 
 The read character method returns the value of the character under the current position of the cursor.
 
-#### Signature
-
 ```typescript
+// Signature
 readCharacter(): string;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.readCharacter(); // i
 ```
 
-### Read characters
+### Reading Characters
 
 The read characters method returns a given number of the characters starting at the current position of the cursor.
 
-#### Signature
-
 ```typescript
+// Signature
 readCharacters(count: number = 1): string;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.readCharacters(10); // identifier
 ```
 
-### Reading a slice
+### Reading a Slice
 
 The read slice method facilitates reading a slice of text, regardless of the current position of the cursor.
 
-#### Signature
-
 ```typescript
+// Signature
 readSlice(start: number, end: number): string;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.readSlice(22, 46); // { letter | digit | " " }
 ```
 
-### Is reading
+### Is Reading
 
 The is reading method returns true or false whether the reader is currently over a given string.
 
-#### Signature
-
 ```typescript
+// Signature
 isReading(reference: string): boolean;
-```
 
-#### Example
-
-```typescript
+// Example
 reader.isReading('{'); // ide
 ```
 
-### Current position
+### Current Position
 
 The current position of the cursor can be obtained with detail through the position, line, column and finished attributes.
 
