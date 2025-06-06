@@ -115,12 +115,14 @@ export class Rule extends Diagramable
 export class Group extends Diagramable
 {
     #value: Rhs;
+    #label: string | null;
 
-    constructor(value: Rhs)
+    constructor(value: Rhs, label: string | null = null)
     {
         super();
 
         this.#value = value;
+        this.#label = label;
     }
 
     get value(): Rhs
@@ -138,7 +140,13 @@ export class Group extends Diagramable
 
     toDiagram(): Railroad.FakeSVG
     {
-        return this.value.toDiagram();
+        if (! this.#label)
+            return this.value.toDiagram();
+        else
+            return new Railroad.Group(
+                this.value.toDiagram(),
+                this.#label
+            );
     }
 
     replace(replacements: Rule[]): Diagramable
@@ -355,7 +363,7 @@ export class Identifier extends Diagramable
         const replacement = replacements.find(r => (r.identifier as Identifier).value === this.value);
 
         if (replacement)
-            return replacement.value;
+            return new Group(replacement.value, this.#value);
         
         return this;
     }
