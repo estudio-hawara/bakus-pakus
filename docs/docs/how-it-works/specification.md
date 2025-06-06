@@ -11,7 +11,7 @@ Rules and specification provide flexible pattern matching utilities for tokeniza
 A rule represents a regex pattern with an associated type for pattern matching.
 
 ```typescript
-import { Rule } from 'bakus-pakus';
+import { Rule } from 'choo-choo';
 
 const rule = new Rule(/^[a-zA-Z]+([a-zA-Z0-9 ]+[a-zA-Z0-9])?/, 'identifier');
 ```
@@ -44,7 +44,7 @@ rule.match('¡invalid identifier!'); // false
 The `Specification` class manages a collection of rules.
 
 ```typescript
-import { Specification } from 'bakus-pakus';
+import { Specification } from 'choo-choo';
 
 const specification = new Specification();
 ```
@@ -75,5 +75,5 @@ specification.add(/^\d+/, 'number');
 A preconfigured specification is provided with the `ebnf` name. It contains the actual patterns that are going to be used by the tokenizer when an explicit specification isn't provided.
 
 ```typescript
-import { ebnf } from 'bakus-pakus';
+import { ebnf } from 'choo-choo';
 ```

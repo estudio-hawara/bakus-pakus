@@ -9,7 +9,7 @@ sidebar_position: 1
 The reader is a text parsing utility that provides fine-grained control over text traversal and inspection.
 
 ```typescript
-import { Reader } from 'bakus-pakus';
+import { Reader } from 'choo-choo';
 
 const reader = new Reader();
 reader.read('identifier = letter , { letter | digit | " " }, { letter | digit } ;');

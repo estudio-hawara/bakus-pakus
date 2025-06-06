@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Overview
 
-**Bakus-Pakus** is a lightweight JavaScript library designed for creating railroad diagrams from Extended Backus-Naur Form (EBNF) grammars. This library provides a simple and efficient way to visualize formal grammar specifications.
+**Choo-Choo** is a lightweight TypeScript library designed for creating railroad diagrams from Extended Backus-Naur Form (EBNF) grammars. This library provides a simple and efficient way to visualize formal grammar specifications.
 
 ## Key Features
 
@@ -21,46 +21,69 @@ You can install Bakus-Pakus using your preferred package manager:
 
 ```bash
 # Using npm
-npm install bakus-pakus
+npm install choo-choo
 
 # Using yarn
-yarn add bakus-pakus
+yarn add choo-choo
 
 # Using pnpm
-pnpm add bakus-pakus
+pnpm add choo-choo
 ```
 
 ## Basic Usage
 
-This is a library, so you are meant to use it from your own JavaScript code. Here's all you need to know.
+This is a library, so you are meant to use it from your own code. Here's all you need to know.
+
+### Import
 
 ```typescript
-import { Parser, Renderer } from 'bakus-pakus';
-
-// Define your grammar
-const grammar = `
-  letter = uppercase letter | lowercase letter ;
-
-  uppercase letter =
-      "A" | "B" | "C" | "D" | "E" | "F" | "G"
-    | "H" | "I" | "J" | "K" | "L" | "M" | "N"
-    | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
-    | "V" | "W" | "X" | "Y" | "Z";
-
-  lowercase letter =
-      "a" | "b" | "c" | "d" | "e" | "f" | "g"
-    | "h" | "i" | "j" | "k" | "l" | "m" | "n"
-    | "o" | "p" | "q" | "r" | "s" | "t" | "u"
-    | "v" | "w" | "x" | "y" | "z" ;
-`;
-
-// Parse the grammar
-const parser = new Parser();
-const parsed = parser.parse(grammar);
-
-// Render a diagram
-const renderer = new Renderer();
-const rendered = renderer.render(parsed);
+import { Parser, Renderer } from 'choo-choo';
 ```
 
-That's it. Now `rendered` contains an SVG diagram describing the grammar that you provided.
+### Define your Grammar
+
+```typescript
+const grammar = `
+rhs = terminal
+  | identifier
+  | group
+  | repetition
+  | optional
+  | special
+  | choice
+  | sequence
+  ;
+
+group = "(" , rhs , ")";
+repetition = "{" , rhs , "}";
+optional = "[" , rhs , "]";
+special = "?" , rhs , "?";
+choice = rhs , "|" , rhs;
+sequence = rhs , "," , rhs;
+`;
+```
+
+### Parse
+
+The parser receives an EBNF source and returns its Abstract Syntax Tree (AST).
+
+```typescript
+const parser = new Parser();
+const parsed = parser.parse(grammar);
+```
+
+### Render
+
+Finally, with the renderer receives the parsed tree and lets you choose:
+
+* which definition to represent,
+* whether to replace its known identifiers with their definitions.
+
+```typescript
+const renderer = new Renderer(parsed);
+const rendered = renderer.render('rhs', true);
+```
+
+That's it! You have your diagram!
+
+![rhs](./rhs.png)

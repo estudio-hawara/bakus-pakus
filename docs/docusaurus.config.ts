@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Bakus Pakus',
+  title: 'Choo Choo',
   tagline: 'Small JavaScript library for creating railroad diagrams from Bakus-Naur Form grammars.',
   favicon: 'img/favicon.ico',
 
@@ -53,7 +53,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Bakus Pakus',
+      title: 'Choo Choo',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',

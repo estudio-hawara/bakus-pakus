@@ -36,7 +36,7 @@ constructor(
 #### Example
 
 ```typescript
-import { Tokenizer } from 'bakus-pakus';
+import { Tokenizer } from 'choo-choo';
 
 const tokenizer = new Tokenizer;
 ```

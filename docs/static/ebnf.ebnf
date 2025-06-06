@@ -9,33 +9,24 @@
 *)
 
 grammar = { rule } ;
-
 rule = lhs , "=" , rhs , ";" ;
-
 lhs = identifier ;
 
-rhs = terminal
-  | identifier
-  | ( "(" , rhs , ")" ) (* group *)
-  | ( "{" , rhs , "}" ) (* repetition *)
-  | ( "[" , rhs , "]" ) (* optional *)
-  | ( "?" , rhs , "?" ) (* special *)
-  | ( rhs , "|" , rhs ) (* choice *)
-  | ( rhs , "," , rhs ) (* sequence *)
-  ;
+rhs = terminal | identifier | group | repetition | optional | special | choice | sequence;
+
+group = "(" , rhs , ")";
+repetition = "{" , rhs , "}";
+optional = "[" , rhs , "]";
+special = "?" , rhs , "?";
+choice = rhs , "|" , rhs;
+sequence = rhs , "," , rhs;
 
 identifier = letter , { letter | digit | " " }, { letter | digit } ;
-
 terminal = terminal with single quote | terminal with double quote ;
-
 terminal with single quote = `"` , character with single quote , { character with single quote } , `"` ;
-
 terminal with double quote = "`" , character with double quote , { character with double quote } , "`" ;
-
 character with single quote = letter | digit | symbol with single quote | " " ;
-
 character with double quote = letter | digit | symbol with double quote | " " ;
-
 letter = uppercase letter | lowercase letter ;
 
 uppercase letter =
@@ -51,9 +42,6 @@ lowercase letter =
   | "v" | "w" | "x" | "y" | "z" ;
 
 digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
-
 symbol with single quote = symbol | "`" ;
-
 symbol with double quote = symbol | `"` ;
-
 symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">" | "=" | "|" | "." | "," | ";" ;
