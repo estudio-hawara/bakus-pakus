@@ -40,50 +40,38 @@
             function initialize() {
                 document
                     .getElementById('source')
-                    .addEventListener('input', onSourceChanged);
+                    .addEventListener('input', render);
                 
                 document
                     .getElementById('rules')
-                    .addEventListener('change', onSelectionChanged);
+                    .addEventListener('change', render);
                 
                 document
                     .getElementById('replace')
-                    .addEventListener('change', onSelectionChanged);
+                    .addEventListener('change', render);
             }
 
-            function onSourceChanged() {
+            function render() {
                 const parsed = parser.parse(source.value);
                 const renderer = new Renderer(parsed);
                 const ruleNames = renderer.ruleNames();
 
-                while (rules.options.length) {
+                while (rules.options.length)
                     rules.options[0].remove();
-                }
 
-                ruleNames.forEach(r => {
-                    rules.options.add(new Option(r, r));
-                });
+                ruleNames.forEach(r => rules.options.add(new Option(r, r)));
 
                 if (ruleNames.length)
                     result.innerHTML = renderer.render(rules.value, replace.checked);
                 else
                     result.innerHTML = '';
-            }
-
-            function onSelectionChanged() {
-                const parsed = parser.parse(source.value);
-                const renderer = new Renderer(parsed);
-                const ruleNames = renderer.ruleNames();
-
-                if (ruleNames.length)
-                    result.innerHTML = renderer.render(rules.value, replace.checked);
-                else
-                    result.innerHTML = '';
+                
+                return ruleNames;
             }
 
             document.addEventListener('DOMContentLoaded', () => {
                 initialize();
-                onSourceChanged();
+                render();
             });
         </script>
 
