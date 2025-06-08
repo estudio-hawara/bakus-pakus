@@ -14,7 +14,7 @@ export class HorizontalChoice extends DiagramContainer
         if (items.length < 2)
             throw new RangeError('A horizontal choice must have at least two children');
 
-        super('g', {}, items, options);
+        super('g', {class: 'horizontal-choice'}, items, options);
 
         const allButLast = this.items.slice(0, -1);
         const middles = this.items.slice(1, -1);

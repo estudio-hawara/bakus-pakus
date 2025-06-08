@@ -14,6 +14,8 @@ export class ZeroOrMore extends Optional
 
         this.height = item.height;
 
+        this.attributes.add('class', 'zero-or-more');
+
         if (this.options.debug) {
             this.attributes.add('data-updown', `${this.up} ${this.height} ${this.down}`);
             this.attributes.add('data-type', 'zero-or-more');

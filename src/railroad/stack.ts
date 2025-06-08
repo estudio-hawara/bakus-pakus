@@ -11,7 +11,7 @@ export class Stack extends DiagramContainer
         if (! items.length)
             throw new RangeError('A stack needs at least one item');
 
-        super('g', {}, items, options);
+        super('g', {class: 'stack'}, items, options);
 
         this.width = Math.max(...this.items.map(e => e.width + (e.needsSpace ? 20 : 0)));
 

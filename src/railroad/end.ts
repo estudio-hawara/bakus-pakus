@@ -11,7 +11,7 @@ export class End extends FakeSVG
         type: EndType = 'simple',
         options: Options = new Options,
     ) {
-        super('path', undefined, undefined, undefined, options);
+        super('path', {class: 'end'}, undefined, undefined, options);
 
         this.#type = type;
 

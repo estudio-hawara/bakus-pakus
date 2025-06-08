@@ -16,7 +16,7 @@ export class Choice extends DiagramContainer
         if (normal < 0 || normal > items.length - 1)
             throw new RangeError('The normal of an choice must be the index of one of its items');
 
-        super('g', {}, items, options);
+        super('g', {class: 'choice'}, items, options);
 
         this.#normal = normal;
 

@@ -15,7 +15,7 @@ export class Start extends FakeSVG
         label: string = '',
         options: Options = new Options,
     ) {
-        super('g', undefined, undefined, undefined, options);
+        super('g', {class: 'start'}, undefined, undefined, options);
 
         this.#type = type;
         this.#label = label;

@@ -85,6 +85,8 @@ export class Diagram extends DiagramContainer
         const viewWidth = this.width + padding.left! + padding.right!;
         const viewHeight = this.up + this.height + this.down + padding.top! + padding.bottom!;
 
+        this.attributes.add('width', viewWidth.toString());
+        this.attributes.add('height', viewHeight.toString());
         this.attributes.add('viewBox', `0 0 ${viewWidth} ${viewHeight}`);
 
         g.addTo(this);

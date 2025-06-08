@@ -16,7 +16,7 @@ export class Group extends FakeSVG
         label: string | null = null,
         options: Options = new Options
     ) {
-        super('g', {}, undefined, undefined, options);
+        super('g', {class: 'group'}, undefined, undefined, options);
 
         this.#item = item;
         this.#label = label ? new Comment(label, null, null, options) : null;

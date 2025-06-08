@@ -8,7 +8,7 @@ export class Sequence extends DiagramContainer
 {
     constructor(items: FakeSVG[], options: Options = new Options)
     {
-        super('g', {}, items, options);
+        super('g', {class: 'sequence'}, items, options);
 
         this.needsSpace = true;
 

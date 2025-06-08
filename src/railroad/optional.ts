@@ -11,6 +11,8 @@ export class Optional extends Choice
 
         super([new Skip, item], normal, options);
 
+        this.attributes.add('class', 'optional');
+
         if (this.options.debug) {
             this.attributes.add('data-updown', `${this.up} ${this.height} ${this.down}`);
             this.attributes.add('data-type', 'optional');

@@ -14,7 +14,7 @@ export class MultipleChoice extends DiagramContainer
 
     constructor(items: FakeSVG[], normal: number = 0, type: MultipleChoiceType = 'any', options: Options = new Options)
     {
-        super('g', undefined, items, options);
+        super('g', {class: 'multiple-choice'}, items, options);
 
         if (normal !== Math.floor(normal))
             throw new TypeError('The normal of an choice constructor must be an integer');

@@ -14,7 +14,7 @@ export class OneOrMore extends FakeSVG
         separator: FakeSVG = new Skip,
         options: Options = new Options,
     ) {
-        super('g', {}, undefined, undefined, options);
+        super('g', {class: 'one-or-more'}, undefined, undefined, options);
 
         this.#item = item;
         this.#separator = separator;

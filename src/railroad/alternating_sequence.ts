@@ -11,7 +11,7 @@ export class AlternatingSequence extends DiagramContainer
         if (items.length !== 2)
             throw new RangeError('An alternating sequence must have two children');
 
-        super('g', {}, items, options);
+        super('g', {class: 'alternating-sequence'}, items, options);
 
         this.needsSpace = false;
 

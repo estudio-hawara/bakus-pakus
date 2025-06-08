@@ -15,7 +15,7 @@ export class Comment extends FakeSVG
         title: string|null = null,
         options: Options = new Options,
     ) {
-        super('g', {}, undefined, undefined, options);
+        super('g', {class: 'comment'}, undefined, undefined, options);
 
         this.#text = text;
         this.#href = href;
@@ -53,7 +53,6 @@ export class Comment extends FakeSVG
         const comment = text(this.#text, {
             x: x + this.width / 2,
             y: y + 5,
-            class: 'comment',
         });
 
         if (this.#href)

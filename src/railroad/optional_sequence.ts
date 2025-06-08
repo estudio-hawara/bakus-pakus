@@ -11,7 +11,7 @@ export class OptionalSequence extends DiagramContainer
         if (items.length <= 1)
             throw new RangeError('An optional sequence requires at least two items');
 
-        super('g', {}, items, options);
+        super('g', {class: 'optional-sequence'}, items, options);
 
         this.height = this.items.map(e => e.height)
             .reduce((previous, current) => previous + current, 0);

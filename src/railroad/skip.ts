@@ -6,7 +6,7 @@ export class Skip extends FakeSVG
 {
     constructor(options: Options = new Options)
     {
-        super('g', {}, undefined, undefined, options);
+        super('g', {class: 'skip'}, undefined, undefined, options);
 
 		if(this.options.debug)
 			this.attributes.add('data-type', 'skip');
