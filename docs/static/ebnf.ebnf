@@ -12,14 +12,14 @@ grammar = { rule } ;
 rule = lhs , "=" , rhs , ";" ;
 lhs = identifier ;
 
-rhs = terminal | identifier | group | repetition | optional | special | choice | sequence;
+rhs = terminal | identifier | group | repetition | optional | special | choice | sequence ;
 
-group = "(" , rhs , ")";
-repetition = "{" , rhs , "}";
-optional = "[" , rhs , "]";
-special = "?" , rhs , "?";
-choice = rhs , "|" , rhs;
-sequence = rhs , "," , rhs;
+group = "(" , rhs , ")" ;
+repetition = "{" , rhs , "}" ;
+optional = "[" , rhs , "]" ;
+special = "?" , rhs , "?" ;
+choice = rhs , "|" , rhs ;
+sequence = rhs , "," , rhs ;
 
 identifier = letter , { letter | digit | " " }, { letter | digit } ;
 terminal = terminal with single quote | terminal with double quote ;
@@ -33,7 +33,7 @@ uppercase letter =
     "A" | "B" | "C" | "D" | "E" | "F" | "G"
   | "H" | "I" | "J" | "K" | "L" | "M" | "N"
   | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
-  | "V" | "W" | "X" | "Y" | "Z";
+  | "V" | "W" | "X" | "Y" | "Z" ;
 
 lowercase letter =
     "a" | "b" | "c" | "d" | "e" | "f" | "g"
