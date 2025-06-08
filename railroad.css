@@ -37,13 +37,22 @@
 }
 
 .railroad-diagram .group-box {
-    stroke: gray;
+    stroke: #777;
+    stroke-width: 1.5;
     stroke-dasharray: 10 5;
     fill: none;
 }
 
+.railroad-diagram .comment text {
+    fill: #777;
+}
+
 .railroad-diagram .borrowed .group-box {
-    stroke: lightgray;
+    stroke: #aaa;
+}
+
+.railroad-diagram .borrowed .comment text {
+    fill: #aaa;
 }
 
 .railroad-diagram .diagram-text {
