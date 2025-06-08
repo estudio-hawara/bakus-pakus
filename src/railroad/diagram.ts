@@ -71,7 +71,8 @@ export class Diagram extends DiagramContainer
                 x += 10;
             }
 
-            item.format(x, y, item.width).addTo(g);
+            const itemX = x;
+            const itemY = y;
 
             x += item.width;
             y += item.height;
@@ -80,6 +81,8 @@ export class Diagram extends DiagramContainer
                 new Path(x, y).h(10).addTo(g);
                 x += 10;
             }
+
+            item.format(itemX, itemY, item.width).addTo(g);
         }
 
         const viewWidth = this.width + padding.left! + padding.right!;
