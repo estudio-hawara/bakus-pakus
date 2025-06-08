@@ -38,7 +38,7 @@
 
 .railroad-diagram .group-box {
     stroke: #777;
-    stroke-width: 1.5;
+    stroke-width: 2;
     stroke-dasharray: 10 5;
     fill: none;
 }

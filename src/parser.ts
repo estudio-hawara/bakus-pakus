@@ -39,10 +39,10 @@ export class Parser
         const token = this.#lookahead;
 
         if (token == null)
-            throw new SyntaxError(`Unexpected end of input when a ${type} was expected`);
+            throw new SyntaxError(`Unexpected end of input when a ${type} was expected at line: ${this.#tokenizer.line} and column: ${this.#tokenizer.column}.`);
 
         if (token.type !== type)
-            throw new SyntaxError(`Unexpected ${token.type} when a ${type} was expected`);
+            throw new SyntaxError(`Unexpected ${token.type} when a ${type} was expected at line: ${this.#tokenizer.line} and column: ${this.#tokenizer.column}.`);
 
         this.#lookahead = this.#tokenizer.getNextToken()
 
