@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Choo Choo',
-  tagline: 'Small JavaScript library for creating railroad diagrams from Bakus-Naur Form grammars.',
+  tagline: 'Small library for creating railroad diagrams from Bakus-Naur Form grammars.',
   favicon: 'img/favicon.ico',
 
   url: 'https://choo-choo.hawara.es',
@@ -45,7 +45,7 @@ const config: Config = {
       title: 'Choo-Choo',
       logo: {
         alt: 'Choo-Choo Diagrams Logo',
-        src: 'img/choo-choo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -91,7 +91,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/estudio-hawara/bakus-pakus',
+              href: 'https://github.com/estudio-hawara/choo-choo',
             },
           ],
         },

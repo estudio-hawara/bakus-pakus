@@ -18,7 +18,7 @@ sidebar_position: 1
 
 ## Installation
 
-You can install Bakus-Pakus using your preferred package manager:
+You can install Choo-Choo using your preferred package manager:
 
 ```bash
 # Using npm
@@ -45,22 +45,22 @@ import { Parser, Renderer } from 'choo-choo';
 
 ```typescript
 const grammar = `
-rhs = terminal
-  | identifier
-  | group
-  | repetition
-  | optional
-  | special
-  | choice
-  | sequence
+Right Hand Side = Terminal
+  | Identifier
+  | Group
+  | Repetition
+  | Optional
+  | Special
+  | Choice
+  | Sequence
   ;
 
-group = "(" , rhs , ")";
-repetition = "{" , rhs , "}";
-optional = "[" , rhs , "]";
-special = "?" , rhs , "?";
-choice = rhs , "|" , rhs;
-sequence = rhs , "," , rhs;
+Group = "(" , Right Hand Side , ")";
+Repetition = "{" , Right Hand Side , "}";
+Optional = "[" , Right Hand Side , "]";
+Special = "?" , Right Hand Side , "?";
+Choice = Right Hand Side , "|" , Right Hand Side;
+Sequence = Right Hand Side , "," , Right Hand Side;
 `;
 ```
 
