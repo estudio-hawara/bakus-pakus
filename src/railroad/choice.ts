@@ -106,13 +106,13 @@ export class Choice extends DiagramContainer
         path(x, y)
             .right(this.options.arcRadius * 2)
             .addTo(this);
-        
-        this.items[this.#normal]
-            .format(x + this.options.arcRadius * 2, y, innerWidth)
-            .addTo(this);
-        
+               
         path(x + this.options.arcRadius * 2 + innerWidth, y + this.height)
             .right(this.options.arcRadius * 2)
+            .addTo(this);
+
+        this.items[this.#normal]
+            .format(x + this.options.arcRadius * 2, y, innerWidth)
             .addTo(this);
         
         distanceFromY = 0;
@@ -128,15 +128,15 @@ export class Choice extends DiagramContainer
                 .arc('West', 'South')
                 .addTo(this);
             
-			item.format(x + this.options.arcRadius * 2, y + distanceFromY, innerWidth)
-                .addTo(this);
-            
 			path(x + this.options.arcRadius * 2 + innerWidth, y + distanceFromY + item.height)
 				.arc('South', 'East')
 				.vUp(distanceFromY - this.options.arcRadius * 2 + item.height - this.height)
 				.arc('West', 'North')
                 .addTo(this);
-            
+
+			item.format(x + this.options.arcRadius * 2, y + distanceFromY, innerWidth)
+                .addTo(this);
+
 			distanceFromY += Math.max(this.options.arcRadius, item.height + item.down + this.options.verticalSeparation + (i == last ? 0 : this.items[i + 1].up));
         }
         

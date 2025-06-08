@@ -60,6 +60,9 @@ export class Group extends FakeSVG
             .addTo(this);
         
         x += gaps.left;
+   
+        this.#item.format(x, y, this.width)
+            .addTo(this);
 
         rect({
             x: x,
@@ -70,10 +73,7 @@ export class Group extends FakeSVG
             ry: this.options.arcRadius,
             class: 'group-box',
         }).addTo(this);
-    
-        this.#item.format(x, y, this.width)
-            .addTo(this);
-        
+
         if (this.#label)
             this.#label.format(
                 x,
